@@ -1,0 +1,258 @@
+
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fbf6ee">
+<title>Cemre Bitki Rehberi – V11 Test</title>
+<style>
+:root{
+  --green:#0f6438; --green2:#195f3a; --deep:#163a28; --wine:#991b47;
+  --paper:#fffdf9; --bg:#f5efe4; --soft:#eef1e8; --line:#e7ddcf; --muted:#6d675f;
+  --shadow:0 10px 24px rgba(65,48,28,.06); --shadow2:0 14px 34px rgba(65,48,28,.08)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#ede4d7;color:var(--deep);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+img{display:block;max-width:100%}
+.page{max-width:430px;margin:auto;min-height:100vh;background:linear-gradient(#fffdf9,#f7f1e7)}
+.header{position:sticky;top:0;z-index:20;background:rgba(255,253,249,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.04)}
+.header-in{height:72px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.brand{font:800 26px/.9 Georgia,serif;color:var(--green)}
+.brand small{display:block;margin-top:6px;font:800 8px/1 system-ui;letter-spacing:2.6px}
+.head-right{display:flex;align-items:center;gap:14px;color:var(--green);font-size:11px;font-weight:900}
+.pin{display:flex;align-items:center;gap:5px;white-space:nowrap}.pin svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+.menu{border:0;background:none;color:var(--green);font-size:25px;line-height:1;padding:0}
+.wrap{padding:14px 14px 28px}
+
+/* HERO + FILTER */
+.hero-card{background:#fffaf3;border:1px solid #eadfce;border-radius:26px;box-shadow:var(--shadow2);overflow:hidden}
+.hero-media{position:relative;min-height:328px;background:#efe5d7}
+.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.16) contrast(1.05) brightness(1.02)}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,250,243,.96) 0%,rgba(255,250,243,.94) 27%,rgba(255,250,243,.70) 46%,rgba(255,250,243,.18) 68%,rgba(255,250,243,0) 100%)}
+.hero-copy{position:relative;z-index:2;width:54%;padding:22px 18px 18px}
+.kicker{font-size:8px;letter-spacing:3.3px;font-weight:900;color:var(--green)}
+.hero-copy h1{margin:8px 0 10px;font:800 34px/.92 Georgia,serif;color:var(--green2)}
+.hero-copy p{margin:0;color:#504c47;font-size:11.6px;line-height:1.36}
+.cta{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:linear-gradient(135deg,#0e6d3c,#0f5d36);color:#fff;border-radius:999px;padding:11px 18px;font-size:12px;font-weight:900;box-shadow:0 8px 18px rgba(14,109,60,.18)}
+.cta svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+.filter-shell{padding:0 12px 12px;margin-top:-18px;position:relative;z-index:3}
+.filter-panel{background:rgba(255,252,247,.98);border:1px solid #ded5c6;border-radius:20px;box-shadow:0 8px 18px rgba(58,42,23,.06);padding:12px}
+.search{height:48px;border:1px solid #d9d0c2;border-radius:15px;overflow:hidden;display:grid;grid-template-columns:1fr 92px;background:#fff}
+.search input{border:0;outline:0;padding:0 16px;font-size:14px;background:transparent}
+.search button{border:0;background:var(--green);color:#fff;font-size:13px;font-weight:900}
+.alphabet{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.alphabet button{border:0;background:#eff2e9;color:var(--green);font-weight:900;border-radius:12px;height:38px;min-width:38px;padding:0 12px;font-size:11px}
+.alphabet button.active{background:var(--green);color:#fff}
+.alphabet button.all{min-width:64px}
+.popular{margin-top:12px}
+.popular-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}
+.popular-label,.popular-link{font-size:11px;font-weight:900;color:#234a33}
+.popular-chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.chip{border:1px solid #dad1c5;background:#fff;border-radius:999px;height:34px;display:flex;align-items:center;justify-content:center;padding:0 6px;font-size:9.9px;font-weight:900;color:#2f6444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Features */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.feature{background:linear-gradient(145deg,#fff,#fffaf4);border:1px solid #e9dfd2;border-radius:18px;padding:14px 12px;min-height:112px;box-shadow:var(--shadow)}
+.feature-head{display:flex;gap:10px;align-items:flex-start}
+.icon{width:28px;height:28px;color:var(--green);flex:0 0 auto}
+.icon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feature b{display:block;font-size:13px;line-height:1.12;color:var(--green2)}
+.feature span{display:block;font-size:11.1px;line-height:1.34;color:var(--muted);margin-top:10px}
+
+.section{position:relative;margin-top:20px}
+.section::after{content:"";position:absolute;right:-8px;top:-9px;width:66px;height:66px;background:url('assets/leaf.svg') center/contain no-repeat;opacity:.055;pointer-events:none}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:0 1px 10px}
+.section-head h2{margin:0;font:800 31px/.94 Georgia,serif;color:var(--green2)}
+.section-head span{font-size:12px;font-weight:900;color:#2d6644}
+
+.products{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{display:block;background:#fff;border:1px solid #eadfd2;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);position:relative}
+.card-photo{position:relative;aspect-ratio:1.08/0.88;background:#f2eadf;overflow:hidden}
+.card-photo img{width:100%;height:100%;object-fit:cover}
+.leaf-badge{position:absolute;right:10px;bottom:10px;width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #dbe0d6;display:flex;align-items:center;justify-content:center;color:var(--green);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+.leaf-badge svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7}
+.card-body{padding:12px}
+.name{font-size:16px;font-weight:900;color:var(--wine);line-height:1.05}
+.latin{margin-top:4px;font:italic 11px/1.25 Georgia,serif;color:#7c756d;min-height:28px}
+.details{margin-top:10px;height:38px;border:1px solid #d8ddd2;border-radius:999px;background:#f8faf5;color:#315b40;display:flex;align-items:center;justify-content:center;font-size:11.2px;font-weight:900}
+
+.panel{margin-top:14px;background:linear-gradient(145deg,#fff,#fffaf4);border:1px solid #e8dfd3;border-radius:20px;padding:14px;box-shadow:var(--shadow)}
+.panel h3{margin:0;font:800 18px/1.04 Georgia,serif;color:var(--green2)}
+.panel p{margin:6px 0 0;color:var(--muted);font-size:11.2px;line-height:1.34}
+.market-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.market{height:44px;border-radius:13px;color:#fff;font-size:12.2px;font-weight:900;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 6px}
+.trendyol{background:linear-gradient(135deg,#ff8124,#ff5423)}
+.getir{background:linear-gradient(135deg,#5a31d6,#7b49ea)}
+.yemek{background:linear-gradient(135deg,#f01957,#ff0064)}
+
+.insta-panel{display:grid;grid-template-columns:1fr;gap:12px;align-items:center}
+.insta-visual{height:72px;border-radius:16px;background:
+  radial-gradient(circle at 15% 25%,rgba(233,116,164,.20),transparent 18%),
+  radial-gradient(circle at 82% 25%,rgba(255,176,94,.25),transparent 18%),
+  radial-gradient(circle at 78% 78%,rgba(142,109,255,.16),transparent 18%),
+  linear-gradient(135deg,#fff7f8,#fffdf8 58%,#f7f0ea);
+  border:1px solid #efe0df;display:flex;align-items:center;justify-content:center;color:#9a1846;font:800 12px/1.1 Georgia,serif}
+.insta-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:#fff;border-radius:999px;padding:11px 16px;font-size:12px;font-weight:900;margin-top:11px}
+.version{text-align:center;font-size:9px;color:#958e84;margin-top:10px}
+.hidden{display:none !important}
+
+@media (max-width:390px){
+  .header-in{padding:10px 13px;height:68px}
+  .brand{font-size:24px}
+  .hero-media{min-height:312px}
+  .hero-copy{width:56%;padding:20px 15px 16px}
+  .hero-copy h1{font-size:31px}
+  .hero-copy p,.panel p,.feature span{font-size:10.6px}
+  .search{grid-template-columns:1fr 82px;height:46px}
+  .popular-chips{gap:5px}
+  .chip{font-size:9.2px;height:33px;padding:0 4px}
+  .feature{min-height:104px;padding:13px 11px}
+  .feature b{font-size:12px}
+  .name{font-size:15px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="header-in">
+      <div class="brand">Cemre<small>BİTKİSEL ÜRÜNLER</small></div>
+      <div class="head-right">
+        <span class="pin"><svg viewBox="0 0 24 24"><path d="M12 22s7-6 7-13a7 7 0 1 0-14 0c0 7 7 13 7 13Zm0-10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>Maltepe / İstanbul</span>
+        <button class="menu" aria-label="Menü">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero-card">
+      <div class="hero-media">
+        <img src="assets/hero-v9.jpg" alt="Bitki Rehberi">
+        <div class="hero-copy">
+          <div class="kicker">DOĞANIN ZENGİNLİĞİ</div>
+          <h1>Bitki Rehberi</h1>
+          <p>Bitkileri tanıyın; hazırlama, kullanım ve dikkat notlarına hızla ulaşın.</p>
+          <a href="#bitkiler" class="cta">Hemen Keşfet <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="filter-shell">
+        <div class="filter-panel">
+          <div class="search">
+            <input id="search" placeholder="Ürün adı ara..." aria-label="Ürün ara">
+            <button id="searchBtn">Ara</button>
+          </div>
+
+          <div class="alphabet" id="alphabet">
+            <button class="all active" data-letter="*">Tümü</button>
+            <button data-letter="A">A</button><button data-letter="B">B</button><button data-letter="C">C</button><button data-letter="Ç">Ç</button>
+            <button data-letter="D">D</button><button data-letter="E">E</button><button data-letter="F">F</button><button data-letter="G">G</button>
+            <button data-letter="H">H</button><button data-letter="I">I</button><button data-letter="İ">İ</button><button data-letter="K">K</button>
+            <button data-letter="L">L</button><button data-letter="M">M</button><button data-letter="N">N</button><button data-letter="O">O</button>
+            <button data-letter="Ö">Ö</button><button data-letter="P">P</button><button data-letter="R">R</button><button data-letter="S">S</button>
+            <button data-letter="Ş">Ş</button><button data-letter="T">T</button><button data-letter="U">U</button><button data-letter="Ü">Ü</button>
+            <button data-letter="Y">Y</button><button data-letter="Z">Z</button>
+          </div>
+
+          <div class="popular">
+            <div class="popular-top">
+              <span class="popular-label">Popüler Aramalar</span>
+              <span class="popular-link">Tümünü Gör →</span>
+            </div>
+            <div class="popular-chips">
+              <button class="chip">Adaçayı</button>
+              <button class="chip">Papatya</button>
+              <button class="chip">Ihlamur</button>
+              <button class="chip">Kuşburnu</button>
+              <button class="chip">Rezene</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature"><div class="feature-head"><span class="icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v18H7.5A3.5 3.5 0 0 0 4 23V5.5Zm16 0A3.5 3.5 0 0 0 16.5 2H13v18h3.5A3.5 3.5 0 0 1 20 23V5.5Z"/></svg></span><b>Bitkiler Hakkında Bilgi</b></div><span>Ürünü tanıyın, temel bilgilerine hızlıca ulaşın.</span></div>
+      <div class="feature"><div class="feature-head"><span class="icon"><svg viewBox="0 0 24 24"><path d="M4 8h12v5a6 6 0 0 1-6 6 6 6 0 0 1-6-6V8Zm12 2h2a3 3 0 0 1 0 6h-3M7 3c0 1 1 1.5 1 2.5S7 7 7 8M11 3c0 1 1 1.5 1 2.5S11 7 11 8"/></svg></span><b>Hazırlama Önerileri</b></div><span>Demleme ve kullanım ipuçlarını görün.</span></div>
+      <div class="feature"><div class="feature-head"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 2 4.5 5v6c0 5 3.2 9 7.5 11 4.3-2 7.5-6 7.5-11V5L12 2Zm-3 10 2 2 4-5"/></svg></span><b>Dikkat Notları</b></div><span>Güvenli kullanım için önemli noktaları kısa ve net görün.</span></div>
+      <div class="feature"><div class="feature-head"><span class="icon"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span><b>Güvenilir Rehber</b></div><span>Sade, düzenli ve anlaşılır ürün bilgileriyle ilerleyin.</span></div>
+    </section>
+
+    <section class="section" id="bitkiler">
+      <div class="section-head"><h2>Tüm Bitkiler</h2><span>66 ürün →</span></div>
+      <div class="products" id="products">
+        <a class="card" data-name="hibisküs"><div class="card-photo"><img src="assets/hibiskus.jpg" alt="Hibisküs"><span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span></div><div class="card-body"><div class="name">Hibisküs</div><div class="latin">Hibiscus sabdariffa</div><div class="details">Detayları Gör →</div></div></a>
+        <a class="card" data-name="papatya"><div class="card-photo"><img src="assets/papatya.jpg" alt="Papatya"><span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span></div><div class="card-body"><div class="name">Papatya</div><div class="latin">Matricaria chamomilla</div><div class="details">Detayları Gör →</div></div></a>
+        <a class="card" data-name="adaçayı"><div class="card-photo"><img src="assets/adacayi.jpg" alt="Adaçayı"><span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span></div><div class="card-body"><div class="name">Adaçayı</div><div class="latin">Salvia officinalis</div><div class="details">Detayları Gör →</div></div></a>
+        <a class="card" data-name="kuşburnu"><div class="card-photo"><img src="assets/kusburnu.jpg" alt="Kuşburnu"><span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span></div><div class="card-body"><div class="name">Kuşburnu</div><div class="latin">Rosa canina</div><div class="details">Detayları Gör →</div></div></a>
+      </div>
+    </section>
+
+    <section class="panel online-panel">
+      <h3>Cemre Bitkisel Ürünler Şimdi Online’da!</h3>
+      <p>Sevdiğiniz ürünlere mağazamızın online satış kanallarından ulaşın.</p>
+      <div class="market-row">
+        <div class="market trendyol">Trendyol</div>
+        <div class="market getir">Getir</div>
+        <div class="market yemek">Yemeksepeti</div>
+      </div>
+    </section>
+
+    <section class="panel insta-panel">
+      <div>
+        <h3>Bizi Instagram’da Takip Edin!</h3>
+        <p>Yeni ürünler, kullanım fikirleri ve bitki içerikleri için bizi takip edin.</p>
+        <a class="insta-btn" href="https://www.instagram.com/dogalyasam_awecemre?stkn=MWlpOWRnbHlmYXprZw==" target="_blank">@dogalyasam_awecemre →</a>
+      </div>
+      <div class="insta-visual">Instagram içerikleri ve yeni ürün paylaşımları</div>
+    </section>
+
+    <div class="version">V11 – Karar listesine göre hazırlanmış test dosyası</div>
+  </main>
+</div>
+
+<script>
+const cards=[...document.querySelectorAll('.card')];
+const search=document.getElementById('search');
+const alphaButtons=[...document.querySelectorAll('#alphabet button')];
+
+function normalize(s){return (s||'').toLocaleLowerCase('tr-TR').trim()}
+function showAll(){cards.forEach(c=>c.classList.remove('hidden'))}
+
+function filterByText(){
+  const q=normalize(search.value);
+  alphaButtons.forEach(b=>b.classList.remove('active'));
+  document.querySelector('#alphabet .all').classList.add('active');
+  cards.forEach(c=>{
+    c.classList.toggle('hidden', q && !normalize(c.dataset.name).includes(q));
+  });
+  document.getElementById('bitkiler').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.getElementById('searchBtn').addEventListener('click', filterByText);
+search.addEventListener('keydown', e=>{ if(e.key==='Enter') filterByText(); });
+
+document.querySelectorAll('.chip').forEach(chip=>chip.addEventListener('click', ()=>{
+  search.value=chip.textContent.trim();
+  filterByText();
+}));
+
+alphaButtons.forEach(btn=>btn.addEventListener('click', ()=>{
+  alphaButtons.forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const letter=btn.dataset.letter;
+  search.value='';
+  cards.forEach(c=>{
+    const visible = letter==='*' || c.dataset.name.toLocaleUpperCase('tr-TR').startsWith(letter);
+    c.classList.toggle('hidden', !visible);
+  });
+  document.getElementById('bitkiler').scrollIntoView({behavior:'smooth',block:'start'});
+}));
+</script>
+</body>
+</html>
