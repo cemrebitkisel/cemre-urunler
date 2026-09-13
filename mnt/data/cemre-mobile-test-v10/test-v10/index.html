@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f1e6">
+<title>Cemre Bitki Rehberi – V10 Test</title>
+<style>
+:root{
+  --green:#0f6438;
+  --green-2:#177746;
+  --deep:#173824;
+  --wine:#9b1840;
+  --paper:#fffdf9;
+  --cream:#f7f1e6;
+  --line:#e7ddcf;
+  --soft:#eef2e8;
+  --muted:#6d675f;
+  --shadow:0 10px 26px rgba(69,50,29,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:#e9e1d4;
+  color:var(--deep);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+img{display:block;max-width:100%}
+svg{display:block}
+.page{
+  max-width:430px;
+  margin:0 auto;
+  min-height:100vh;
+  background:linear-gradient(#fffdf9,#f6f0e5);
+  overflow:hidden;
+}
+.header{
+  position:sticky;top:0;z-index:30;
+  background:rgba(255,253,249,.96);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(0,0,0,.04);
+}
+.header-in{
+  height:64px;
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.brand{font:800 28px/.88 Georgia,serif;color:var(--green)}
+.brand small{display:block;margin-top:6px;font:800 8px/1 system-ui;letter-spacing:3px}
+.head-right{display:flex;align-items:center;gap:12px;color:var(--green);font-size:11px;font-weight:900}
+.loc{display:flex;align-items:center;gap:4px;white-space:nowrap}
+.loc svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.menu{background:none;border:0;color:var(--green);padding:0;font-size:25px;line-height:1}
+.wrap{padding:10px 12px 28px}
+
+/* HERO */
+.hero{
+  position:relative;
+  border:1px solid #ebdfcf;
+  border-radius:26px;
+  background:#fffaf3;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.hero-media{
+  position:relative;
+  min-height:372px;
+  background:#f4eadb;
+}
+.hero-media img{
+  position:absolute;right:0;top:0;width:66%;height:62%;
+  object-fit:cover;object-position:center;
+  filter:saturate(1.08) contrast(1.04);
+}
+.hero-media::before{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(255,252,247,.98) 0%,rgba(255,252,247,.95) 35%,rgba(255,252,247,.58) 57%,rgba(255,252,247,.10) 76%,transparent 100%),
+    linear-gradient(180deg,transparent 66%, rgba(255,250,243,.88) 81%, rgba(255,250,243,.98) 100%);
+  z-index:1;
+}
+.hero-copy{
+  position:relative;z-index:2;
+  width:58%;padding:22px 18px 0;
+}
+.kicker{font-size:8.6px;font-weight:900;letter-spacing:3px;color:var(--green)}
+.hero h1{margin:8px 0 10px;font:800 46px/.9 Georgia,serif;color:#123d2a}
+.hero p{margin:0;color:#4d4a44;font-size:12.1px;line-height:1.36;max-width:225px}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:linear-gradient(135deg,#0f6b3d,#0c5c34);color:#fff;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:900;box-shadow:0 8px 18px rgba(12,92,51,.16)}
+.hero-cta svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+
+.hero-tools{
+  position:absolute;left:16px;right:16px;bottom:14px;z-index:3;
+  background:rgba(255,252,246,.93);
+  border:1px solid #e4d9ca;
+  border-radius:22px;
+  padding:12px;
+  box-shadow:0 10px 24px rgba(68,49,30,.08);
+}
+.search-bar{
+  display:flex;height:48px;border:1px solid #ddd4c7;border-radius:15px;background:#fff;overflow:hidden;
+}
+.search-bar input{
+  flex:1;min-width:0;border:0;outline:0;background:#fff;padding:0 14px;font-size:14px;color:#1f3527;
+}
+.search-bar button{
+  width:96px;border:0;background:var(--green);color:#fff;font-size:15px;font-weight:900;
+}
+.alphabet{
+  display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin-top:10px;
+}
+.alphabet button{
+  border:0;background:#edf0e7;color:var(--green);height:38px;border-radius:11px;
+  font-size:12px;font-weight:900;padding:0;
+}
+.alphabet button.active{background:var(--green);color:#fff}
+.alphabet .all{grid-column:span 1;min-width:0}
+.popular{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;margin-top:11px;
+}
+.popular b,.popular .more{font-size:11px;font-weight:900;color:#255238;white-space:nowrap}
+.popular .more{justify-self:end}
+.chips{display:flex;gap:7px;overflow:auto;scrollbar-width:none;min-width:0}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;height:34px;padding:0 16px;border-radius:999px;border:1px solid #ddd5c9;background:#fff;
+  color:#2f6544;font-size:11px;font-weight:850;white-space:nowrap;
+}
+
+/* FEATURES */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.feature{
+  min-height:100px;background:linear-gradient(145deg,#fff,#fffaf3);border:1px solid #ece3d7;border-radius:18px;padding:14px 13px;box-shadow:0 6px 16px rgba(63,46,30,.04)
+}
+.feature-top{display:flex;gap:10px;align-items:flex-start}
+.ico{width:29px;height:29px;color:var(--green);flex:0 0 auto}
+.ico svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.feature b{display:block;font-size:12.8px;line-height:1.08;margin-top:2px}
+.feature span{display:block;color:var(--muted);font-size:9.7px;line-height:1.28;margin-top:8px}
+
+/* PRODUCTS */
+.section{position:relative;margin-top:16px}
+.section::after{content:"";position:absolute;right:-12px;top:-10px;width:66px;height:66px;background:url('assets/leaf.svg') center/contain no-repeat;opacity:.06}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin:0 2px 9px;position:relative;z-index:1}
+.section-head h2{margin:0;font:800 28px/.95 Georgia,serif;color:#15472f}
+.section-head span{font-size:11px;font-weight:900;color:#2e6543}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1}
+.card{
+  background:#fff;border:1px solid #ece3d8;border-radius:19px;overflow:hidden;box-shadow:0 6px 18px rgba(62,45,30,.05);position:relative;
+}
+.card-media{position:relative;height:128px;overflow:hidden;background:#eae2d2}
+.card-media img{width:100%;height:100%;object-fit:cover}
+.leaf-badge{
+  position:absolute;right:10px;bottom:-15px;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid #d8dfd0;display:flex;align-items:center;justify-content:center;color:var(--green);box-shadow:0 3px 10px rgba(0,0,0,.06)
+}
+.leaf-badge svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card-body{padding:14px 12px 12px}
+.name{font-size:15px;font-weight:900;color:var(--wine)}
+.latin{font:italic 10px Georgia,serif;color:#7b7268;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.details{
+  margin-top:12px;display:flex;align-items:center;justify-content:center;height:40px;border-radius:999px;border:1px solid #dfe4d8;background:#f7f8f1;color:#315b40;font-size:11px;font-weight:900
+}
+
+/* ONLINE */
+.online{
+  margin-top:14px;background:linear-gradient(145deg,#fff,#fbfdf7);border:1px solid #e7dfd4;border-radius:18px;padding:12px 12px 13px;box-shadow:0 6px 16px rgba(63,46,30,.04)
+}
+.online h3{margin:0;font:800 16px/1.05 Georgia,serif;color:#174a31}
+.online p{margin:6px 0 12px;color:var(--muted);font-size:9.7px}
+.market-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.market{height:48px;border-radius:13px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}
+.trendyol{background:linear-gradient(135deg,#ff7b22,#ff4f25)}
+.getir{background:linear-gradient(135deg,#5d33d4,#7e46ec)}
+.yemek{background:linear-gradient(135deg,#ef1a55,#ff0065)}
+
+/* INSTAGRAM */
+.insta{
+  margin-top:10px;border:1px solid #ece2d6;border-radius:18px;background:#fff;box-shadow:0 6px 16px rgba(63,46,30,.04);overflow:hidden;display:grid;grid-template-columns:1.04fr .96fr;min-height:138px
+}
+.insta-copy{padding:14px 12px}
+.insta strong{display:block;font:800 16px/1.03 Georgia,serif;color:#164a31}
+.insta p{margin:7px 0 11px;color:var(--muted);font-size:9.6px;line-height:1.3}
+.insta .btn{display:inline-block;background:var(--green);color:#fff;border-radius:999px;padding:9px 13px;font-size:10px;font-weight:900}
+.insta-photo{position:relative;background:#f5efe4;overflow:hidden}
+.insta-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.insta-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.14) 25%,transparent 100%)}
+.version{text-align:center;font-size:9px;color:#9a9288;margin-top:9px}
+
+@media (max-width:390px){
+  .hero-media{min-height:360px}
+  .hero h1{font-size:42px}
+  .hero-copy{width:60%}
+  .alphabet{grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+  .market{font-size:11px;height:46px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="header-in">
+      <div class="brand">Cemre<small>BİTKİSEL ÜRÜNLER</small></div>
+      <div class="head-right">
+        <span class="loc">
+          <svg viewBox="0 0 24 24"><path d="M12 22s7-6 7-13a7 7 0 1 0-14 0c0 7 7 13 7 13Zm0-10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
+          Maltepe / İstanbul
+        </span>
+        <button class="menu" aria-label="Menü">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-media">
+        <img src="assets/hero-v8.jpg" alt="Bitki rehberi görseli">
+        <div class="hero-copy">
+          <div class="kicker">DOĞANIN ZENGİNLİĞİ</div>
+          <h1>Bitki<br>Rehberi</h1>
+          <p>Rafınızdaki bitkiler hakkında kısa bilgi, geleneksel kullanım, hazırlama yöntemleri ve dikkat notlarına ulaşın.</p>
+          <a class="hero-cta" href="#bitkiler">Hemen Keşfet
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <div class="hero-tools">
+          <div class="search-bar">
+            <input id="search" type="text" placeholder="Ürün adı ara...">
+            <button id="searchBtn">Ara</button>
+          </div>
+
+          <div class="alphabet" id="alphabet">
+            <button class="active all" data-letter="*">Tümü</button>
+            <button data-letter="A">A</button>
+            <button data-letter="B">B</button>
+            <button data-letter="C">C</button>
+            <button data-letter="Ç">Ç</button>
+            <button data-letter="D">D</button>
+            <button data-letter="E">E</button>
+            <button data-letter="F">F</button>
+            <button data-letter="G">G</button>
+            <button data-letter="H">H</button>
+            <button data-letter="I">I</button>
+            <button data-letter="İ">İ</button>
+            <button data-letter="K">K</button>
+            <button data-letter="L">L</button>
+            <button data-letter="M">M</button>
+          </div>
+
+          <div class="popular">
+            <b>Popüler Aramalar:</b>
+            <div class="chips">
+              <button class="chip">Adaçayı</button>
+              <button class="chip">Papatya</button>
+              <button class="chip">Ihlamur</button>
+              <button class="chip">Kuşburnu</button>
+              <button class="chip">Rezene</button>
+            </div>
+            <span class="more">Tümünü Gör →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <div class="feature-top">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v18H7.5A3.5 3.5 0 0 0 4 23V5.5Zm16 0A3.5 3.5 0 0 0 16.5 2H13v18h3.5A3.5 3.5 0 0 1 20 23V5.5Z"/></svg></div>
+          <b>Bitkiler Hakkında Bilgi</b>
+        </div>
+        <span>Ürünü tanıyın, temel bilgilerine hızlıca ulaşın.</span>
+      </div>
+
+      <div class="feature">
+        <div class="feature-top">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 8h12v5a6 6 0 0 1-6 6 6 6 0 0 1-6-6V8Zm12 2h2a3 3 0 0 1 0 6h-3M7 3c0 1 1 1.5 1 2.5S7 7 7 8M11 3c0 1 1 1.5 1 2.5S11 7 11 8"/></svg></div>
+          <b>Hazırlama Önerileri</b>
+        </div>
+        <span>Demleme ve kullanım ipuçlarını görün.</span>
+      </div>
+
+      <div class="feature">
+        <div class="feature-top">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2 4.5 5v6c0 5 3.2 9 7.5 11 4.3-2 7.5-6 7.5-11V5L12 2Zm-3 10 2 2 4-5"/></svg></div>
+          <b>Dikkat Notları</b>
+        </div>
+        <span>Güvenli kullanım için önemli noktalar.</span>
+      </div>
+
+      <div class="feature">
+        <div class="feature-top">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></div>
+          <b>Güvenilir Rehber</b>
+        </div>
+        <span>Sade, düzenli ve anlaşılır ürün bilgileri.</span>
+      </div>
+    </section>
+
+    <section class="section" id="bitkiler">
+      <div class="section-head">
+        <h2>Tüm Bitkiler</h2>
+        <span>66 ürün →</span>
+      </div>
+
+      <div class="products" id="productGrid">
+        <a class="card" data-name="hibisküs">
+          <div class="card-media">
+            <img src="assets/hibiskus.jpg" alt="Hibisküs">
+            <span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span>
+          </div>
+          <div class="card-body">
+            <div class="name">Hibisküs</div>
+            <div class="latin">Hibiscus sabdariffa</div>
+            <div class="details">Detayları Gör →</div>
+          </div>
+        </a>
+
+        <a class="card" data-name="papatya">
+          <div class="card-media">
+            <img src="assets/papatya.jpg" alt="Papatya">
+            <span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span>
+          </div>
+          <div class="card-body">
+            <div class="name">Papatya</div>
+            <div class="latin">Matricaria chamomilla</div>
+            <div class="details">Detayları Gör →</div>
+          </div>
+        </a>
+
+        <a class="card" data-name="adaçayı">
+          <div class="card-media">
+            <img src="assets/adacayi.jpg" alt="Adaçayı">
+            <span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span>
+          </div>
+          <div class="card-body">
+            <div class="name">Adaçayı</div>
+            <div class="latin">Salvia officinalis</div>
+            <div class="details">Detayları Gör →</div>
+          </div>
+        </a>
+
+        <a class="card" data-name="kuşburnu">
+          <div class="card-media">
+            <img src="assets/kusburnu.jpg" alt="Kuşburnu">
+            <span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span>
+          </div>
+          <div class="card-body">
+            <div class="name">Kuşburnu</div>
+            <div class="latin">Rosa canina</div>
+            <div class="details">Detayları Gör →</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="online">
+      <h3>Cemre Bitkisel Ürünler Şimdi Online’da!</h3>
+      <p>Dilediğiniz platformdan mağazamıza ulaşın.</p>
+      <div class="market-row">
+        <a class="market trendyol" href="#">Trendyol</a>
+        <a class="market getir" href="#">Getir</a>
+        <a class="market yemek" href="#">Yemeksepeti</a>
+      </div>
+    </section>
+
+    <section class="insta">
+      <div class="insta-copy">
+        <strong>Instagram’da da Bizimle Olun</strong>
+        <p>Yeni ürünler, kullanım fikirleri ve bitki içerikleri için bizi takip edin.</p>
+        <a class="btn" href="https://www.instagram.com/dogalyasam_awecemre?stkn=MWlpOWRnbHlmYXprZw==" target="_blank">@dogalyasam_awecemre →</a>
+      </div>
+      <div class="insta-photo"><img src="assets/instagram-v8.jpg" alt="Instagram tanıtım"></div>
+    </section>
+
+    <div class="version">V10 – mockup odaklı test</div>
+  </main>
+</div>
+
+<script>
+const cards = [...document.querySelectorAll('.card')];
+const searchInput = document.getElementById('search');
+const searchBtn = document.getElementById('searchBtn');
+const alphabetButtons = [...document.querySelectorAll('#alphabet button')];
+const chipButtons = [...document.querySelectorAll('.chip')];
+
+function normalizeTR(str){
+  return str.toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim();
+}
+
+function applyFilter(){
+  const q = normalizeTR(searchInput.value);
+  cards.forEach(card => {
+    const name = normalizeTR(card.dataset.name || '');
+    card.style.display = (!q || name.includes(q)) ? '' : 'none';
+  });
+}
+
+searchBtn.addEventListener('click', applyFilter);
+searchInput.addEventListener('keydown', e => {
+  if(e.key === 'Enter') applyFilter();
+});
+
+chipButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    searchInput.value = btn.textContent.trim();
+    applyFilter();
+    alphabetButtons.forEach(x => x.classList.remove('active'));
+    alphabetButtons[0].classList.add('active');
+  });
+});
+
+alphabetButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    alphabetButtons.forEach(x => x.classList.remove('active'));
+    btn.classList.add('active');
+    const letter = btn.dataset.letter;
+    if(letter === '*'){
+      cards.forEach(card => card.style.display = '');
+      return;
+    }
+    cards.forEach(card => {
+      const name = (card.dataset.name || '').toLocaleUpperCase('tr-TR');
+      card.style.display = name.startsWith(letter) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
