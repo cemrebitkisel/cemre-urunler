@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fffaf4">
+<title>Cemre Bitki Rehberi – V10 Yerleşim Düzeltme</title>
+<style>
+:root{
+  --g:#0f6438; --g2:#1a7847; --deep:#143f2b; --wine:#9c173d;
+  --paper:#fffdf8; --bg:#f6f0e6; --line:#e8dfd2; --soft:#eef2e8; --muted:#6d685f;
+  --shadow:0 10px 24px rgba(69,50,29,.07)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#eee4d8;color:var(--deep);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+.ico svg,.navico svg,.arrowicon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.page{max-width:430px;margin:auto;min-height:100vh;background:
+  radial-gradient(circle at 100% 17%,rgba(49,116,72,.065),transparent 24%),
+  linear-gradient(#fffdf9,#f6f0e5)}
+
+.header{position:sticky;top:0;z-index:30;background:rgba(255,253,249,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.035)}
+.header-in{height:60px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between}
+.brand{font:800 25px/.9 Georgia,serif;color:var(--g)}
+.brand small{display:block;margin-top:5px;font:800 7.7px/1 system-ui;letter-spacing:2.3px}
+.head-right{display:flex;align-items:center;gap:10px;color:var(--g);font-size:10.5px;font-weight:900}
+.pin-mini{display:flex;align-items:center;gap:4px}
+.pin-mini .navico{width:15px;height:15px}
+.menu{border:0;background:none;color:var(--g);font-size:21px;line-height:1;padding:0 2px}
+.wrap{padding:9px 10px 26px}
+
+/* HERO */
+.hero-card{border:1px solid #eadfce;border-radius:23px;overflow:hidden;background:#fffaf2;box-shadow:var(--shadow)}
+.hero-stage{position:relative;height:244px;overflow:hidden;background:#efe5d5}
+.hero-stage img{position:absolute;right:0;top:0;width:70%;height:100%;object-fit:cover;object-position:center}
+.hero-stage::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(255,252,246,.99) 0%,rgba(255,252,246,.96) 37%,rgba(255,252,246,.62) 57%,rgba(255,252,246,.08) 81%,transparent 100%)}
+.hero-copy{position:relative;z-index:2;width:62%;padding:18px 16px}
+.kicker{font-size:8.2px;letter-spacing:2.7px;font-weight:900;color:var(--g)}
+.hero-copy h1{margin:7px 0 7px;font:800 34px/.92 Georgia,serif;color:#123f2b}
+.hero-copy p{margin:0;font-size:11.4px;line-height:1.32;color:#55514c}
+.cta{display:inline-flex;align-items:center;gap:7px;margin-top:11px;background:linear-gradient(135deg,#0e6b3b,#0c5c35);color:white;border-radius:999px;padding:8px 14px;font-size:11.5px;font-weight:900;box-shadow:0 6px 14px rgba(12,92,51,.15)}
+.arrowicon{width:13px;height:13px}
+
+/* INTEGRATED FILTER PANEL */
+.filter-panel{
+  margin:-26px 12px 12px;
+  position:relative;
+  z-index:5;
+  background:rgba(255,253,249,.97);
+  border:1px solid #e0d6c7;
+  border-radius:18px;
+  padding:11px;
+  box-shadow:0 12px 24px rgba(67,48,29,.07);
+  overflow:hidden;
+}
+.search{
+  height:44px;
+  border:1px solid #ddd4c7;
+  background:#fff;
+  border-radius:14px;
+  display:flex;
+  overflow:hidden;
+  width:100%;
+}
+.search input{flex:1;min-width:0;border:0;outline:0;padding:0 12px;background:#fff;font-size:13.5px}
+.search button{
+  flex:0 0 64px;
+  border:0;
+  background:var(--g);
+  color:#fff;
+  font-weight:900;
+  font-size:12.5px;
+}
+
+.alphabet{
+  display:flex;
+  gap:5px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:9px 1px 2px;
+  scrollbar-width:none;
+  max-width:100%;
+}
+.alphabet::-webkit-scrollbar{display:none}
+.alphabet button{flex:0 0 auto;border:0;background:#edf0e7;color:var(--g);font-weight:900;border-radius:8px;
+  height:30px;min-width:28px;padding:0 7px;font-size:10.5px}
+.alphabet button:first-child{min-width:50px}
+.alphabet button.active{background:var(--g);color:#fff}
+
+.pop-row{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  align-items:center;
+  gap:7px;
+  margin-top:9px;
+  min-width:0;
+}
+.pop-label{font-size:10px;font-weight:900;white-space:nowrap;color:#234e35}
+.chips{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:4px;
+  min-width:0;
+  width:100%;
+}
+.chip{min-width:0;border:1px solid #ddd5c9;background:#fff;color:#2f6544;border-radius:999px;
+  height:29px;padding:0 3px;font-size:8.7px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:clip}
+
+/* 2x2 INFO CARDS */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.feature{background:linear-gradient(145deg,#fff,#fffaf3);border:1px solid #ece2d6;border-radius:15px;
+  padding:10px 11px;min-height:78px;box-shadow:0 5px 15px rgba(63,46,30,.04)}
+.feature-top{display:flex;gap:8px;align-items:flex-start}
+.ico{width:25px;height:25px;color:var(--g);flex:0 0 auto}
+.feature b{display:block;font-size:11.2px;line-height:1.08;margin-top:1px}
+.feature span{display:block;color:var(--muted);font-size:8.7px;line-height:1.22;margin-top:6px}
+
+/* PRODUCTS - more compact, mockup-like */
+.section{
+  position:relative;
+  margin-top:20px;
+  padding-top:2px;
+  isolation:isolate;
+}
+.section::after{
+  content:"";
+  position:absolute;
+  right:-6px;
+  top:-4px;
+  width:54px;
+  height:54px;
+  background:url('assets/leaf.svg') center/contain no-repeat;
+  opacity:.045;
+  z-index:0;
+  pointer-events:none;
+}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:12px;
+  margin:0 2px 14px;
+  position:relative;
+  z-index:2;
+  min-height:31px;
+}
+.section-head h2{margin:0;font:800 28px/.96 Georgia,serif;color:#15472f}
+.section-head span{
+  font-size:10px;
+  font-weight:900;
+  color:#2e6543;
+  white-space:nowrap;
+  line-height:1.1;
+  padding-bottom:2px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  position:relative;
+  z-index:2;
+  align-items:stretch;
+}
+.card{
+  display:grid;
+  grid-template-columns:44% minmax(0,56%);
+  min-height:118px;
+  background:#fff;
+  border:1px solid #ece3d8;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 6px 16px rgba(62,45,30,.05);
+  position:relative;
+  isolation:isolate;
+}
+.card img{
+  width:100%;
+  height:100%;
+  min-height:118px;
+  object-fit:cover;
+  display:block;
+}
+.card-body{
+  min-width:0;
+  padding:11px 9px 9px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  z-index:2;
+}
+.name{font-size:13.5px;font-weight:900;color:#173f2a}
+.latin{font:italic 9.8px Georgia,serif;color:#77716a;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.details{
+  margin-top:9px;
+  border:1px solid #d7ddd0;
+  border-radius:999px;
+  background:#fff;
+  color:#315b40;
+  text-align:center;
+  padding:6px 5px;
+  font-size:8.9px;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.leaf-badge{
+  position:absolute;
+  left:calc(44% - 13px);
+  top:8px;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:#fff;
+  border:1px solid #d8dfd0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--g);
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  z-index:3;
+}
+.leaf-badge svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7}
+
+/* ONLINE - slimmer */
+.online{
+  margin-top:13px;
+  background:linear-gradient(145deg,#fff,#f6faef);
+  border:1px solid #e7e0d4;
+  border-radius:16px;
+  padding:10px 11px 11px;
+  box-shadow:0 6px 16px rgba(63,46,30,.04);
+}
+.online-title{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:7px}
+.online h3{margin:0;font:800 16px/1.02 Georgia,serif;color:#174a31}
+.online p{margin:0;color:var(--muted);font-size:8.9px}
+.market-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.market{height:36px;border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9.8px;font-weight:900}
+.trendyol{background:linear-gradient(135deg,#ff7b22,#ff4f25)}
+.getir{background:linear-gradient(135deg,#5d33d4,#7e46ec)}
+.yemek{background:linear-gradient(135deg,#ef1a55,#ff0065)}
+
+/* INSTAGRAM - no crop glitch */
+.insta{
+  margin-top:9px;
+  border:1px solid #ece2d6;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 6px 16px rgba(63,46,30,.04);
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  min-height:108px;
+}
+.insta-copy{padding:11px 10px}
+.insta strong{display:block;font:800 15px/1.02 Georgia,serif;color:#164a31}
+.insta p{margin:5px 0 7px;color:var(--muted);font-size:8.9px;line-height:1.25}
+.insta .btn{display:inline-block;background:var(--g);color:#fff;border-radius:999px;padding:6px 9px;font-size:8.9px;font-weight:900}
+.insta-photo{position:relative;overflow:hidden;background:#f5efe4}
+.insta-photo img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  transform:scale(1.01);
+}
+.insta-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.12) 24%,transparent 100%)}
+
+.version{text-align:center;font-size:8.4px;color:#948d83;margin-top:8px}
+
+@media(max-width:390px){
+  .brand{font-size:23px}
+  .head-right{font-size:10px}
+  .hero-stage{height:232px}
+  .hero-copy h1{font-size:32px}
+  .chips{gap:3px}
+  .chip{font-size:8px}
+  .card{min-height:112px}
+  .card img{min-height:112px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="header">
+  <div class="header-in">
+    <div class="brand">Cemre<small>BİTKİSEL ÜRÜNLER</small></div>
+    <div class="head-right">
+      <span class="pin-mini"><span class="navico"><svg viewBox="0 0 24 24"><path d="M12 22s7-6 7-13a7 7 0 1 0-14 0c0 7 7 13 7 13Zm0-10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg></span>Maltepe / İstanbul</span>
+      <button class="menu" aria-label="Menü">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero-card">
+    <div class="hero-stage">
+      <img src="assets/hero-v9.jpg" alt="Bitki Rehberi">
+      <div class="hero-copy">
+        <div class="kicker">DOĞANIN ZENGİNLİĞİ</div>
+        <h1>Bitki Rehberi</h1>
+        <p>Rafınızdaki bitkiler hakkında kısa bilgi, kullanım, hazırlama ve dikkat notlarına ulaşın.</p>
+        <a class="cta" href="#bitkiler">Hemen Keşfet <span class="arrowicon"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+      </div>
+    </div>
+
+    <div class="filter-panel">
+      <div class="search">
+        <input id="search" placeholder="Ürün adı ara...">
+        <button id="searchBtn">Ara</button>
+      </div>
+
+      <div class="alphabet" id="alphabet">
+        <button class="active" data-letter="*">Tümü</button>
+        <button>A</button><button>B</button><button>C</button><button>Ç</button><button>D</button><button>E</button><button>F</button>
+        <button>G</button><button>H</button><button>I</button><button>İ</button><button>K</button><button>L</button><button>M</button>
+        <button>N</button><button>O</button><button>Ö</button><button>P</button><button>R</button><button>S</button><button>Ş</button>
+        <button>T</button><button>U</button><button>Ü</button><button>Y</button><button>Z</button>
+      </div>
+
+      <div class="pop-row">
+        <span class="pop-label">Popüler Aramalar:</span>
+        <div class="chips">
+          <button class="chip">Adaçayı</button>
+          <button class="chip">Papatya</button>
+          <button class="chip">Ihlamur</button>
+          <button class="chip">Kuşburnu</button>
+          <button class="chip">Rezene</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><div class="feature-top"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v18H7.5A3.5 3.5 0 0 0 4 23V5.5Zm16 0A3.5 3.5 0 0 0 16.5 2H13v18h3.5A3.5 3.5 0 0 1 20 23V5.5Z"/></svg></div><b>Bitkiler Hakkında Bilgi</b></div><span>Ürünü tanıyın, temel bilgilerine hızlıca ulaşın.</span></div>
+    <div class="feature"><div class="feature-top"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 8h12v5a6 6 0 0 1-6 6 6 6 0 0 1-6-6V8Zm12 2h2a3 3 0 0 1 0 6h-3M7 3c0 1 1 1.5 1 2.5S7 7 7 8M11 3c0 1 1 1.5 1 2.5S11 7 11 8"/></svg></div><b>Hazırlama Önerileri</b></div><span>Demleme ve kullanım ipuçlarını görün.</span></div>
+    <div class="feature"><div class="feature-top"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2 4.5 5v6c0 5 3.2 9 7.5 11 4.3-2 7.5-6 7.5-11V5L12 2Zm-3 10 2 2 4-5"/></svg></div><b>Dikkat Notları</b></div><span>Güvenli kullanım için önemli noktalar.</span></div>
+    <div class="feature"><div class="feature-top"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></div><b>Güvenilir Rehber</b></div><span>Sade, düzenli ve anlaşılır ürün bilgileri.</span></div>
+  </section>
+
+  <section class="section" id="bitkiler">
+    <div class="section-head"><h2>Tüm Bitkiler</h2><span>66 ürün →</span></div>
+    <div class="products">
+      <a class="card" data-name="hibisküs"><img src="assets/hibiskus.jpg" alt="Hibisküs"><span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span><div class="card-body"><div class="name">Hibisküs</div><div class="latin">Hibiscus sabdariffa</div><div class="details">Detayları Gör →</div></div></a>
+      <a class="card" data-name="papatya"><img src="assets/papatya.jpg" alt="Papatya"><span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span><div class="card-body"><div class="name">Papatya</div><div class="latin">Matricaria chamomilla</div><div class="details">Detayları Gör →</div></div></a>
+      <a class="card" data-name="adaçayı"><img src="assets/adacayi.jpg" alt="Adaçayı"><span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span><div class="card-body"><div class="name">Adaçayı</div><div class="latin">Salvia officinalis</div><div class="details">Detayları Gör →</div></div></a>
+      <a class="card" data-name="kuşburnu"><img src="assets/kusburnu.jpg" alt="Kuşburnu"><span class="leaf-badge"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span><div class="card-body"><div class="name">Kuşburnu</div><div class="latin">Rosa canina</div><div class="details">Detayları Gör →</div></div></a>
+    </div>
+  </section>
+
+  <section class="online">
+    <div class="online-title">
+      <div>
+        <h3>Cemre Bitkisel Ürünler Şimdi Online’da!</h3>
+        <p>Dilediğiniz platformdan mağazamıza ulaşın.</p>
+      </div>
+    </div>
+    <div class="market-row">
+      <div class="market trendyol">Trendyol</div>
+      <div class="market getir">Getir</div>
+      <div class="market yemek">Yemeksepeti</div>
+    </div>
+  </section>
+
+  <section class="insta">
+    <div class="insta-copy">
+      <strong>Bizi Instagram’da Takip Edin!</strong>
+      <p>Yeni ürünler ve bitki içerikleri için bizi takip edin.</p>
+      <a class="btn" href="https://www.instagram.com/dogalyasam_awecemre?stkn=MWlpOWRnbHlmYXprZw==" target="_blank">@dogalyasam_awecemre →</a>
+    </div>
+    <div class="insta-photo"><img src="assets/instagram-v9.jpg" alt=""></div>
+  </section>
+
+  <div class="version">V10 – V9 tabanlı yerleşim düzeltme</div>
+</main>
+</div>
+
+<script>
+const cards=[...document.querySelectorAll('.card')];
+const search=document.getElementById('search');
+
+function filterText(){
+  const q=search.value.toLocaleLowerCase('tr-TR').trim();
+  cards.forEach(c=>c.style.display=(!q || c.dataset.name.includes(q))?'grid':'none');
+  document.getElementById('bitkiler').scrollIntoView({behavior:'smooth'});
+}
+
+document.getElementById('searchBtn').onclick=filterText;
+
+document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{
+  search.value=b.textContent.trim();
+  filterText();
+});
+
+document.querySelectorAll('#alphabet button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#alphabet button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const l=b.dataset.letter || b.textContent.trim();
+  cards.forEach(c=>{
+    c.style.display=(l==='*' || c.dataset.name.toLocaleUpperCase('tr-TR').startsWith(l))?'grid':'none';
+  });
+});
+</script>
+</body>
+</html>
