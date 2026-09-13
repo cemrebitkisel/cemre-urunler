@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fffaf1">
+<title>Cemre Bitki Rehberi – Mobil Test</title>
+<style>
+:root{
+  --green:#0b5a2f; --deep:#103c27; --cream:#f7f2e8; --paper:#fffdf8;
+  --wine:#9a1838; --line:#e6dfd4; --muted:#6d6962; --shadow:0 12px 30px rgba(62,44,24,.08);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--deep);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+a{text-decoration:none;color:inherit} button,input{font:inherit}
+.page{max-width:430px;margin:auto;min-height:100vh;background:linear-gradient(#fffdf8,#f7f1e5)}
+.header{position:sticky;top:0;z-index:20;background:rgba(255,253,248,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.04)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:9px 14px}
+.brand{font:800 20px Georgia,serif;line-height:.95;color:var(--green)}
+.brand small{display:block;font:800 9px/1.1 system-ui;letter-spacing:1.8px;margin-top:4px}
+.head-actions{display:flex;align-items:center;gap:10px;color:var(--green);font-weight:800}
+.location{font-size:11px}
+.icon-btn{border:0;background:transparent;font-size:20px;padding:3px}
+.wrap{padding:9px 10px 18px}
+.hero{position:relative;overflow:hidden;border-radius:22px;min-height:232px;background:#eee;box-shadow:var(--shadow)}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.02)}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,251,243,.96) 0%,rgba(255,251,243,.88) 46%,rgba(255,251,243,.25) 72%,rgba(255,251,243,.03) 100%)}
+.hero-copy{position:relative;z-index:2;width:69%;padding:18px 18px}
+.kicker{font-size:9px;letter-spacing:2.5px;font-weight:900;color:var(--green)}
+.hero h1{font:800 34px/.98 Georgia,serif;margin:7px 0;color:#113f2a}
+.hero p{font-size:13px;line-height:1.38;color:#55534f;margin:0 0 11px}
+.hero-cta{display:inline-flex;align-items:center;gap:14px;background:linear-gradient(135deg,#0b6a35,#0a542d);color:white;font-weight:900;border-radius:999px;padding:9px 17px}
+.search{display:flex;margin-top:10px;background:white;border:1px solid #dcd5ca;border-radius:15px;overflow:hidden;box-shadow:0 8px 18px rgba(67,55,37,.05)}
+.search input{width:100%;border:0;outline:0;padding:12px 14px;font-size:15px;background:white}
+.search button{border:0;background:var(--green);color:white;padding:0 17px;font-weight:900}
+.alphabet{display:flex;gap:6px;overflow:auto;padding:8px 0 1px;scrollbar-width:none}
+.alphabet::-webkit-scrollbar{display:none}
+.alphabet button{flex:0 0 auto;border:0;background:#edf0e7;color:var(--green);font-weight:900;border-radius:10px;padding:8px 11px;font-size:13px}
+.alphabet button.active{background:var(--green);color:white}
+.pop-row{display:flex;align-items:center;justify-content:space-between;margin:11px 2px 6px;font-size:13px;font-weight:900}
+.pop-row a{color:var(--green)}
+.chips{display:flex;gap:6px;overflow:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;background:white;border:1px solid #ddd7ce;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800;color:#2f6544}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}
+.feature{background:rgba(255,255,255,.92);border:1px solid #eee7dc;border-radius:16px;padding:10px 9px;box-shadow:0 8px 18px rgba(70,55,35,.045);text-align:center}
+.feature .ico{font-size:21px}.feature b{display:block;font-size:13px;margin:3px 0}.feature span{font-size:10.5px;color:var(--muted);line-height:1.4}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin:20px 2px 9px}
+.section-head h2{font:800 26px Georgia,serif;margin:0;color:#124b31}
+.section-head span{font-size:11px;font-weight:800;color:#2e6344}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.card{background:white;border-radius:15px;overflow:hidden;border:1px solid #eee6db;box-shadow:0 9px 22px rgba(63,46,30,.06)}
+.card img{width:100%;height:104px;object-fit:cover;display:block}
+.card-body{padding:9px 10px}
+.card .name{font-weight:900;color:var(--wine);font-size:15px}
+.card .latin{font:italic 11px Georgia,serif;color:#716c65;margin-top:3px}
+.details{margin-top:7px;background:#f0f1e8;border-radius:999px;padding:7px 8px;text-align:center;font-size:11px;font-weight:800;color:#31583e}
+.online{margin-top:18px;background:white;border-radius:17px;padding:13px;border:1px solid #ece4d8;box-shadow:var(--shadow)}
+.online h3{font:800 20px Georgia,serif;margin:0 0 4px;color:#124b31}
+.online p{font-size:11px;color:var(--muted);margin:0 0 9px}
+.market-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.market{border-radius:11px;padding:11px 4px;color:#fff;text-align:center;font-weight:900;font-size:13px}
+.trendyol{background:linear-gradient(135deg,#ff7b22,#ff4f25)}
+.getir{background:linear-gradient(135deg,#5d33d4,#7842e9)}
+.yemek{background:linear-gradient(135deg,#ef1a55,#ff0065)}
+.instagram{display:flex;align-items:center;gap:12px;margin-top:11px;padding:12px;background:linear-gradient(105deg,#fff,#fff6f5);border-radius:17px;border:1px solid #efe5dc}
+.instagram .logo{font-size:38px}.instagram strong{display:block;font-size:15px}.instagram p{font-size:10.5px;color:var(--muted);margin:3px 0}
+.instagram a{display:inline-block;background:var(--green);color:white;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:900}
+.bottom-space{height:66px}
+.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(430px,100%);z-index:30;background:rgba(255,253,248,.97);backdrop-filter:blur(12px);border-top:1px solid #e9e2d7;display:grid;grid-template-columns:repeat(5,1fr);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.bottom-nav a{text-align:center;font-size:9px;color:#666}.bottom-nav .ico{display:block;font-size:18px;margin-bottom:2px}.bottom-nav a.active{color:var(--green);font-weight:900}
+.note{margin-top:10px;text-align:center;font-size:11px;color:#817b72}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">Cemre<small>BİTKİSEL ÜRÜNLER</small></div>
+    <div class="head-actions">
+      <span class="location">⌖ Maltepe / İstanbul</span>
+      <button class="icon-btn" aria-label="Menü">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <img src="assets/hero.jpg" alt="">
+    <div class="hero-copy">
+      <div class="kicker">DOĞANIN ZENGİNLİĞİ</div>
+      <h1>Bitki Rehberi</h1>
+      <p>Bitkisel ürünler hakkında kullanım önerileri, hazırlama ve dikkat notlarını keşfedin.</p>
+      <a class="hero-cta" href="#bitkiler">Hemen Keşfet →</a>
+    </div>
+  </section>
+
+  <div class="search">
+    <input id="search" placeholder="🔎 Ürün adı ara...">
+    <button id="searchBtn">Ara</button>
+  </div>
+
+  <div class="alphabet" id="alphabet">
+    <button class="active" data-letter="*">Tümü</button>
+    <button>A</button><button>B</button><button>C</button><button>Ç</button><button>D</button><button>E</button><button>F</button><button>G</button><button>H</button><button>I</button><button>İ</button><button>K</button><button>L</button><button>M</button><button>N</button><button>O</button><button>Ö</button><button>P</button><button>R</button><button>S</button><button>Ş</button><button>T</button><button>U</button><button>Ü</button><button>Y</button><button>Z</button>
+  </div>
+
+  <div class="pop-row"><span>Popüler Aramalar</span><a href="#bitkiler">Tümünü Gör →</a></div>
+  <div class="chips">
+    <button class="chip">🌿 Adaçayı</button>
+    <button class="chip">🌿 Papatya</button>
+    <button class="chip">🌿 Ihlamur</button>
+    <button class="chip">🌿 Kuşburnu</button>
+    <button class="chip">🌿 Rezene</button>
+  </div>
+
+  <section class="features">
+    <div class="feature"><div class="ico">🌿</div><b>Bitkiler Hakkında Bilgi</b><span>Ürünleri ve kullanım alanlarını tanıyın.</span></div>
+    <div class="feature"><div class="ico">☕</div><b>Hazırlama Önerileri</b><span>Demleme ve kullanım ipuçları.</span></div>
+    <div class="feature"><div class="ico">🛡️</div><b>Dikkat Edilmesi Gerekenler</b><span>Güvenli kullanım için bilgiler.</span></div>
+    <div class="feature"><div class="ico">📖</div><b>Güvenilir Rehber</b><span>Sade ve anlaşılır ürün bilgileri.</span></div>
+  </section>
+
+  <section id="bitkiler">
+    <div class="section-head"><h2>Tüm Bitkiler</h2><span>66 ürün listeleniyor →</span></div>
+    <div class="products">
+      <a class="card" data-name="hibisküs"><img src="assets/hibiskus.jpg"><div class="card-body"><div class="name">Hibisküs</div><div class="latin">Hibiscus sabdariffa</div><div class="details">Detayları Gör →</div></div></a>
+      <a class="card" data-name="papatya"><img src="assets/papatya.jpg"><div class="card-body"><div class="name">Papatya</div><div class="latin">Matricaria chamomilla</div><div class="details">Detayları Gör →</div></div></a>
+      <a class="card" data-name="adaçayı"><img src="assets/adacayi.jpg"><div class="card-body"><div class="name">Adaçayı</div><div class="latin">Salvia officinalis</div><div class="details">Detayları Gör →</div></div></a>
+      <a class="card" data-name="kuşburnu"><img src="assets/kusburnu.jpg"><div class="card-body"><div class="name">Kuşburnu</div><div class="latin">Rosa canina</div><div class="details">Detayları Gör →</div></div></a>
+    </div>
+  </section>
+
+  <section class="online">
+    <h3>Cemre Bitkisel Ürünler Şimdi Online’da!</h3>
+    <p>Sevdiğiniz ürünlere dilediğiniz platformdan ulaşın.</p>
+    <div class="market-row">
+      <div class="market trendyol">trendyol</div>
+      <div class="market getir">getir</div>
+      <div class="market yemek">Yemeksepeti</div>
+    </div>
+  </section>
+
+  <section class="instagram">
+    <div class="logo">📸</div>
+    <div>
+      <strong>Instagram’da da Bizimle Olun</strong>
+      <p>Yeni ürünler, kullanım fikirleri ve bitki içerikleri için bizi takip edin.</p>
+      <a href="https://www.instagram.com/dogalyasam_awecemre?stkn=MWlpOWRnbHlmYXprZw==" target="_blank">@dogalyasam_awecemre →</a>
+    </div>
+  </section>
+
+  <div class="note">Mobil tasarım testi · mevcut ana siteyi değiştirmez</div>
+  <div class="bottom-space"></div>
+</main>
+
+<nav class="bottom-nav">
+  <a class="active" href="#"><span class="ico">⌂</span>Ana Sayfa</a>
+  <a href="#bitkiler"><span class="ico">🌿</span>Bitkiler</a>
+  <a href="#"><span class="ico">☕</span>Blog</a>
+  <a href="#"><span class="ico">⌖</span>Mağazamız</a>
+  <a href="#"><span class="ico">ⓘ</span>Hakkımızda</a>
+</nav>
+</div>
+
+<script>
+const search=document.getElementById('search');
+const cards=[...document.querySelectorAll('.card')];
+function runSearch(){
+  const q=search.value.toLocaleLowerCase('tr-TR').trim();
+  cards.forEach(c=>c.style.display=(!q||c.dataset.name.includes(q))?'block':'none');
+  document.getElementById('bitkiler').scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('searchBtn').onclick=runSearch;
+document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{search.value=b.textContent.replace('🌿','').trim();runSearch();});
+document.querySelectorAll('#alphabet button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#alphabet button').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+  const l=b.dataset.letter||b.textContent.trim();
+  cards.forEach(c=>c.style.display=(l==='*'||c.dataset.name.toLocaleUpperCase('tr-TR').startsWith(l))?'block':'none');
+});
+</script>
+</body></html>
