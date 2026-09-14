@@ -1,0 +1,17 @@
+CEMRE BİTKİ REHBERİ - TAMAMLANMIŞ PAKET
+
+Bu klasörün İÇİNDEKİ dosya ve klasörleri GitHub reposunun köküne yükleyin.
+
+index.html            -> mevcut ana sayfa (tasarımı değiştirilmedi, sadece linkler eklendi)
+tum-bitkiler/         -> 66 ürünlük katalog
+urunler/              -> 66 ayrı ürün detay sayfası
+assets/               -> ana sayfa görselleri + ortak CSS + 4 onaylı premium ürün görseli
+
+Örnek:
+https://cemrebitkisel.github.io/cemre-urunler/
+https://cemrebitkisel.github.io/cemre-urunler/tum-bitkiler/
+https://cemrebitkisel.github.io/cemre-urunler/urunler/hibiskus/
+https://cemrebitkisel.github.io/cemre-urunler/urunler/papatya/
+
+Not: Hibisküs, Papatya, Adaçayı ve Kuşburnu için onaylanan yerel premium görseller kullanılır.
+Diğer ürünlerde ürün adına/Latince adına göre fotoğraf servisi kullanılır.
