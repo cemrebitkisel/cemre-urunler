@@ -93,20 +93,15 @@ img{display:block;width:100%}
   min-height:252px;
   border:1px solid var(--line);
   border-radius:20px;
-  background:
-    linear-gradient(90deg,
-      rgba(255,253,249,.985) 0%,
-      rgba(255,253,249,.94) 27%,
-      rgba(255,253,249,.48) 40%,
-      rgba(255,253,249,.10) 52%,
-      rgba(255,253,249,0) 62%),
-    #efe7db;
+  background:#f2eadf;
   box-shadow:var(--shadow);
 }
 .hero-copy{
-  width:49%;
+  position:relative;
+  z-index:3;
+  width:46%;
   min-width:0;
-  padding:15px 0 0 14px;
+  padding:15px 6px 74px 14px;
 }
 .pill{
   display:inline-flex;
@@ -143,13 +138,16 @@ img{display:block;width:100%}
   position:absolute;
   left:13px;
   bottom:12px;
-  width:47%;
+  width:72%;
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   overflow:hidden;
-  border:1px solid #e6ddd2;
+  border:1px solid rgba(255,255,255,.58);
   border-radius:14px;
-  background:rgba(255,253,249,.94);
+  background:rgba(255,253,249,.72);
+  backdrop-filter:blur(10px) saturate(115%);
+  -webkit-backdrop-filter:blur(10px) saturate(115%);
+  box-shadow:0 5px 16px rgba(47,34,24,.08);
 }
 .trust{
   min-width:0;
@@ -179,15 +177,34 @@ img{display:block;width:100%}
 .hero::before{
   content:"";
   position:absolute;
-  inset:0 0 0 auto;
-  width:64%;
+  top:0;
+  right:0;
+  bottom:0;
+  width:60%;
   background-image:var(--hero-photo);
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
   z-index:0;
 }
-.hero-copy,.trust-row{position:relative;z-index:2}
+
+/* Fotoğraf ile metin arasında sert çizgi yerine yumuşak, fotoğraf rengini taşıyan geçiş */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,
+      rgba(247,241,231,.98) 0%,
+      rgba(247,241,231,.98) 39%,
+      rgba(247,241,231,.88) 43%,
+      rgba(247,241,231,.56) 48%,
+      rgba(247,241,231,.20) 53%,
+      rgba(247,241,231,0) 60%);
+}
+.hero-copy,.trust-row{position:relative;z-index:3}
 
 /* MAIN CARDS */
 .info-grid{
@@ -437,11 +454,12 @@ img{display:block;width:100%}
   .header-actions{gap:10px;font-size:9.7px}
   .page{padding:9px 10px 22px}
   .hero{min-height:240px}
-  .hero-copy{width:50%;padding:14px 0 0 12px}
+  .hero::before{width:59%}
+  .hero-copy{width:47%;padding:14px 5px 72px 12px}
   .hero h1{font-size:31px}
   .hero-latin{font-size:13.6px}
-  .hero-desc{font-size:9px}
-  .trust-row{left:11px;bottom:10px;width:48%}
+  .hero-desc{font-size:9px;line-height:1.28}
+  .trust-row{left:11px;bottom:10px;width:74%}
   .trust{font-size:7.2px;padding:6px 4px}
   .trust i{width:25px;height:25px}
   .info-grid{gap:8px}
