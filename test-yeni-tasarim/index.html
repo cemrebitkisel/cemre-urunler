@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fffdf8">
+<title>Cemre Bitki Rehberi</title>
+<style>
+:root{
+  --green:#075f38;
+  --green-2:#0c6e42;
+  --deep:#154b33;
+  --cream:#f7f1e6;
+  --paper:#fffdf9;
+  --line:#e1d8ca;
+  --soft:#f0f2eb;
+  --text:#5d5a55;
+  --shadow:0 8px 20px rgba(60,43,22,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:#ece3d6;
+  color:var(--deep);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+img{display:block;max-width:100%}
+.page{
+  width:100%;
+  max-width:430px;
+  min-height:100vh;
+  margin:0 auto;
+  background:
+    radial-gradient(circle at 8% 18%,rgba(81,131,74,.05),transparent 24%),
+    linear-gradient(#fffdf9,#f6f0e6);
+  overflow-x:hidden;
+}
+
+/* HEADER */
+.header{
+  position:sticky;top:0;z-index:30;
+  background:rgba(255,253,249,.98);
+  border-bottom:1px solid rgba(0,0,0,.04);
+  backdrop-filter:blur(10px);
+}
+.header-inner{
+  height:72px;
+  padding:8px 16px 7px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.logo{position:relative;padding-top:7px;color:var(--green)}
+.logo-leaf{position:absolute;left:42px;top:-3px;width:34px;height:22px}
+.logo-leaf svg{width:100%;height:100%;fill:var(--green);stroke:none}
+.logo-main{font:800 28px/.9 Georgia,serif;letter-spacing:-.4px}
+.logo-sub{margin-top:6px;font-size:7.5px;font-weight:900;letter-spacing:3px;white-space:nowrap}
+.header-actions{display:flex;align-items:center;gap:14px;color:var(--green);font-weight:900}
+.location{display:flex;align-items:center;gap:5px;font-size:11px;white-space:nowrap}
+.location svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.menu{border:0;background:transparent;color:var(--green);font-size:26px;line-height:1;padding:0}
+
+main{padding:0 12px 26px}
+
+/* HERO */
+.hero-wrap{
+  margin:0 -12px;
+  position:relative;
+}
+.hero{
+  position:relative;
+  height:340px;
+  overflow:hidden;
+  background:#e9dfd0;
+}
+.hero img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  filter:saturate(1.13) contrast(1.04) brightness(1.02);
+}
+.hero::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(255,252,246,.96) 0%,rgba(255,252,246,.93) 27%,rgba(255,252,246,.67) 46%,rgba(255,252,246,.12) 72%,transparent 100%);
+}
+.hero-copy{
+  position:relative;z-index:2;
+  width:53%;
+  padding:25px 0 0 24px;
+}
+.eyebrow{font-size:8.5px;font-weight:900;letter-spacing:3.1px;color:var(--green)}
+.hero h1{margin:8px 0 9px;font:800 40px/.92 Georgia,serif;color:#0d5134}
+.hero p{margin:0;font-size:11.8px;line-height:1.34;color:#4d4a46;font-weight:600}
+.hero-cta{
+  margin-top:15px;
+  display:inline-flex;align-items:center;gap:12px;
+  padding:11px 20px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#0d7745,#08603a);
+  color:#fff;font-size:12px;font-weight:900;
+  box-shadow:0 7px 16px rgba(13,119,69,.18);
+}
+.hero-cta svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* SEARCH PANEL - independent clean layout */
+.search-panel{
+  position:relative;
+  z-index:5;
+  margin:-32px 10px 0;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,253,249,.985);
+  box-shadow:0 10px 24px rgba(58,42,23,.08);
+}
+.searchbar{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 72px;
+  width:100%;
+  height:46px;
+  overflow:hidden;
+  border:1px solid #d9d0c3;
+  border-radius:14px;
+  background:#fff;
+}
+.searchbar input{
+  min-width:0;
+  border:0;outline:0;
+  padding:0 14px;
+  background:transparent;
+  font-size:13.5px;
+  color:#233e2e;
+}
+.searchbar button{border:0;background:var(--green);color:#fff;font-size:12.5px;font-weight:900}
+.alpha-wrap{margin-top:10px;display:grid;gap:6px}
+.alpha-row{display:grid;gap:5px;min-width:0}
+.alpha-row.row1{grid-template-columns:1.65fr repeat(11,minmax(0,1fr))}
+.alpha-row.row2{grid-template-columns:repeat(17,minmax(0,1fr))}
+.alpha{
+  min-width:0;
+  height:30px;
+  padding:0;
+  border:0;
+  border-radius:9px;
+  background:#eef1e9;
+  color:#21603f;
+  font-size:9.5px;
+  font-weight:900;
+}
+.alpha.active{background:var(--green);color:#fff}
+.popular{
+  margin-top:10px;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  align-items:center;
+  gap:8px;
+}
+.popular-label{font-size:10.3px;font-weight:900;color:#28543b;white-space:nowrap}
+.popular-chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;min-width:0}
+.chip{
+  min-width:0;height:30px;padding:0 3px;
+  border:1px solid #dcd4c8;
+  border-radius:999px;
+  background:#fff;
+  color:#315f43;
+  font-size:8.8px;font-weight:900;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* INFO */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.feature{
+  min-width:0;
+  min-height:83px;
+  padding:10px 10px;
+  border:1px solid #e4dbcf;
+  border-radius:15px;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+.feature-head{display:flex;align-items:flex-start;gap:8px}
+.feature-icon{width:25px;height:25px;flex:0 0 auto;color:var(--green)}
+.feature-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.feature b{font-size:10.6px;line-height:1.1;color:#174f34}
+.feature p{margin:5px 0 0 33px;font-size:8.7px;line-height:1.18;color:#706a62}
+
+/* PRODUCTS */
+.products-section{margin-top:13px}
+.products-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:0 2px 8px}
+.products-head h2{margin:0;font:800 27px/.95 Georgia,serif;color:#185238}
+.products-head a{font-size:10.5px;font-weight:900;color:#226343;white-space:nowrap}
+.products-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.product-card{
+  min-width:0;
+  display:grid;
+  grid-template-columns:46% minmax(0,54%);
+  min-height:100px;
+  overflow:hidden;
+  border:1px solid #e5dccf;
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 5px 14px rgba(58,42,23,.04);
+}
+.product-image{position:relative;min-width:0;overflow:hidden;background:#eee5d8}
+.product-image img{width:100%;height:100%;min-height:100px;object-fit:cover}
+.product-badge{
+  position:absolute;right:5px;top:5px;
+  width:24px;height:24px;border-radius:50%;
+  display:grid;place-items:center;
+  background:#fff;border:1px solid #d6ddd3;color:var(--green);
+}
+.product-badge svg{width:13px;height:13px;fill:currentColor}
+.product-body{min-width:0;padding:9px 7px 8px;display:flex;flex-direction:column;justify-content:center}
+.product-name{font-size:12.5px;font-weight:900;line-height:1.05;color:#195038;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.product-latin{margin-top:3px;font:italic 9.2px/1.1 Georgia,serif;color:#7d756d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.product-btn{
+  margin-top:9px;
+  min-width:0;
+  height:28px;
+  padding:0 6px;
+  border:1px solid #d6ddd2;
+  border-radius:999px;
+  display:flex;align-items:center;justify-content:center;
+  background:#fbfcf9;
+  color:#2d6645;
+  font-size:8.8px;font-weight:900;
+  white-space:nowrap;
+}
+
+/* ONLINE */
+.online{
+  margin-top:9px;
+  padding:11px 11px 10px;
+  display:grid;
+  grid-template-columns:minmax(0,1.18fr) minmax(0,1.82fr);
+  align-items:center;
+  gap:10px;
+  border:1px solid #e4dbcf;
+  border-radius:16px;
+  background:linear-gradient(135deg,#fff,#fbfdf7);
+  box-shadow:var(--shadow);
+}
+.online h3{margin:0;font:800 15px/1.03 Georgia,serif;color:#185238}
+.online p{margin:5px 0 0;font-size:8.6px;line-height:1.16;color:#6f6a62}
+.marketplaces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.market{
+  min-width:0;
+  height:42px;
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;
+  font-size:9px;font-weight:900;
+  text-align:center;
+  box-shadow:0 4px 9px rgba(0,0,0,.08);
+}
+.trendyol{background:linear-gradient(135deg,#ff7d24,#ff5a19)}
+.getir{background:linear-gradient(135deg,#6741d9,#7c50ec);color:#ffdc21}
+.yemek{background:linear-gradient(135deg,#f31d5c,#fa0060)}
+
+/* INSTAGRAM */
+.instagram{
+  margin-top:8px;
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  min-height:104px;
+  overflow:hidden;
+  border:1px solid #e4dbcf;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+.insta-copy{padding:11px 10px}
+.insta-copy h3{margin:0;font:800 14px/1.02 Georgia,serif;color:#185238}
+.insta-copy p{margin:5px 0 7px;font-size:8.6px;line-height:1.18;color:#6f6a62}
+.insta-btn{display:inline-flex;align-items:center;justify-content:center;max-width:100%;padding:7px 10px;border-radius:999px;background:var(--green);color:#fff;font-size:8.5px;font-weight:900;white-space:nowrap}
+.insta-image{position:relative;min-width:0;background:#efe7dc;overflow:hidden}
+.insta-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.footer{text-align:center;padding:12px 0 2px;font-size:8px;color:#978f86}
+.hidden{display:none!important}
+
+@media(max-width:390px){
+  .header-inner{height:68px;padding-left:13px;padding-right:13px}
+  .logo-main{font-size:25px}.logo-sub{font-size:7px}.location{font-size:10px}.header-actions{gap:10px}
+  .hero{height:326px}.hero-copy{width:55%;padding-left:20px}.hero h1{font-size:37px}.hero p{font-size:11.1px}
+  .search-panel{margin-left:8px;margin-right:8px;padding:10px}
+  .alpha-row{gap:4px}.alpha{font-size:8.8px;height:29px}.popular{gap:6px}.popular-label{font-size:9.6px}.chip{font-size:8.2px}
+  .feature{padding:9px;min-height:80px}.feature b{font-size:10px}.feature p{font-size:8.2px;margin-left:31px}
+  .product-card{min-height:96px}.product-image img{min-height:96px}.product-name{font-size:11.8px}.product-latin{font-size:8.8px}.product-btn{font-size:8.2px}
+  .online h3{font-size:14px}.market{font-size:8.4px;height:40px}.insta-copy h3{font-size:13.5px}.insta-btn{font-size:8px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo" aria-label="Cemre Bitkisel Ürünler">
+        <span class="logo-leaf"><svg viewBox="0 0 60 40"><path d="M31 23C33 9 45 2 58 2 56 15 46 25 31 26Z"/><path d="M28 23C25 12 16 6 6 7 8 18 16 25 28 26Z"/></svg></span>
+        <div class="logo-main">Cemre</div>
+        <div class="logo-sub">BİTKİSEL ÜRÜNLER</div>
+      </div>
+      <div class="header-actions">
+        <div class="location"><svg viewBox="0 0 24 24"><path d="M12 21s6-5.5 6-12a6 6 0 1 0-12 0c0 6.5 6 12 6 12Z"/><circle cx="12" cy="9" r="2"/></svg>Maltepe / İstanbul</div>
+        <button class="menu" aria-label="Menü">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-wrap">
+      <div class="hero">
+        <img src="assets/hero.jpg" alt="Bitki ve kurutulmuş çiçekler">
+        <div class="hero-copy">
+          <div class="eyebrow">DOĞANIN ZENGİNLİĞİ</div>
+          <h1>Bitki<br>Rehberi</h1>
+          <p>Rafımızdaki bitkiler hakkında kısa bilgi, kullanım, hazırlama ve dikkat notlarına ulaşın.</p>
+          <a class="hero-cta" href="#bitkiler">Hemen Keşfet <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="search-panel">
+        <div class="searchbar">
+          <input id="search" type="text" placeholder="Ürün adı ara..." aria-label="Ürün ara">
+          <button id="searchBtn">Ara</button>
+        </div>
+
+        <div class="alpha-wrap" id="alphabet">
+          <div class="alpha-row row1">
+            <button class="alpha active" data-letter="*">Tümü</button>
+            <button class="alpha" data-letter="A">A</button><button class="alpha" data-letter="B">B</button><button class="alpha" data-letter="C">C</button><button class="alpha" data-letter="Ç">Ç</button><button class="alpha" data-letter="D">D</button><button class="alpha" data-letter="E">E</button><button class="alpha" data-letter="F">F</button><button class="alpha" data-letter="G">G</button><button class="alpha" data-letter="H">H</button><button class="alpha" data-letter="I">I</button><button class="alpha" data-letter="İ">İ</button>
+          </div>
+          <div class="alpha-row row2">
+            <button class="alpha" data-letter="J">J</button><button class="alpha" data-letter="K">K</button><button class="alpha" data-letter="L">L</button><button class="alpha" data-letter="M">M</button><button class="alpha" data-letter="N">N</button><button class="alpha" data-letter="O">O</button><button class="alpha" data-letter="Ö">Ö</button><button class="alpha" data-letter="P">P</button><button class="alpha" data-letter="R">R</button><button class="alpha" data-letter="S">S</button><button class="alpha" data-letter="Ş">Ş</button><button class="alpha" data-letter="T">T</button><button class="alpha" data-letter="U">U</button><button class="alpha" data-letter="Ü">Ü</button><button class="alpha" data-letter="V">V</button><button class="alpha" data-letter="Y">Y</button><button class="alpha" data-letter="Z">Z</button>
+          </div>
+        </div>
+
+        <div class="popular">
+          <div class="popular-label">Popüler Aramalar:</div>
+          <div class="popular-chips">
+            <button class="chip">Adaçayı</button>
+            <button class="chip">Papatya</button>
+            <button class="chip">Ihlamur</button>
+            <button class="chip">Kuşburnu</button>
+            <button class="chip">Rezene</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="feature">
+        <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v18H7.5A3.5 3.5 0 0 0 4 23V5.5Zm16 0A3.5 3.5 0 0 0 16.5 2H13v18h3.5A3.5 3.5 0 0 1 20 23V5.5Z"/></svg></span><b>Bitkiler Hakkında Bilgi</b></div>
+        <p>Ürünü tanıyın, temel bilgilerine hızlıca ulaşın.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 8h12v5a6 6 0 0 1-6 6 6 6 0 0 1-6-6V8Zm12 2h2a3 3 0 0 1 0 6h-3M7 3c0 1 1 1.5 1 2.5S7 7 7 8M11 3c0 1 1 1.5 1 2.5S11 7 11 8"/></svg></span><b>Hazırlama Önerileri</b></div>
+        <p>Demleme ve kullanım ipuçlarını görün.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2 4.5 5v6c0 5 3.2 9 7.5 11 4.3-2 7.5-6 7.5-11V5L12 2Zm-3 10 2 2 4-5"/></svg></span><b>Dikkat Notları</b></div>
+        <p>Güvenli kullanım için önemli noktalar.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-head"><span class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 20C5 10 11 4 21 3c-1 10-7 16-17 17Zm2-2c4-4 8-8 13-12M9 13c0-3-1-5-3-7M12 10c3 0 5 1 7 3"/></svg></span><b>Güvenilir Rehber</b></div>
+        <p>Sade, düzenli ve anlaşılır ürün bilgileri.</p>
+      </article>
+    </section>
+
+    <section class="products-section" id="bitkiler">
+      <div class="products-head"><h2>Tüm Bitkiler</h2><a href="#">66 ürün →</a></div>
+      <div class="products-grid">
+        <article class="product-card" data-name="hibisküs">
+          <div class="product-image"><img src="assets/hibiskus.jpg" alt="Hibisküs"><span class="product-badge"><svg viewBox="0 0 24 24"><path d="M12 21C7 18 5 14 6 9c4 0 7 2 9 5 0-5 2-8 6-10 1 7-2 12-9 17Z"/></svg></span></div>
+          <div class="product-body"><div class="product-name">Hibisküs</div><div class="product-latin">Hibiscus sabdariffa</div><div class="product-btn">Detayları Gör →</div></div>
+        </article>
+        <article class="product-card" data-name="papatya">
+          <div class="product-image"><img src="assets/papatya.jpg" alt="Papatya"><span class="product-badge"><svg viewBox="0 0 24 24"><path d="M12 21C7 18 5 14 6 9c4 0 7 2 9 5 0-5 2-8 6-10 1 7-2 12-9 17Z"/></svg></span></div>
+          <div class="product-body"><div class="product-name">Papatya</div><div class="product-latin">Matricaria chamomilla</div><div class="product-btn">Detayları Gör →</div></div>
+        </article>
+        <article class="product-card" data-name="adaçayı">
+          <div class="product-image"><img src="assets/adacayi.jpg" alt="Adaçayı"><span class="product-badge"><svg viewBox="0 0 24 24"><path d="M12 21C7 18 5 14 6 9c4 0 7 2 9 5 0-5 2-8 6-10 1 7-2 12-9 17Z"/></svg></span></div>
+          <div class="product-body"><div class="product-name">Adaçayı</div><div class="product-latin">Salvia officinalis</div><div class="product-btn">Detayları Gör →</div></div>
+        </article>
+        <article class="product-card" data-name="kuşburnu">
+          <div class="product-image"><img src="assets/kusburnu.jpg" alt="Kuşburnu"><span class="product-badge"><svg viewBox="0 0 24 24"><path d="M12 21C7 18 5 14 6 9c4 0 7 2 9 5 0-5 2-8 6-10 1 7-2 12-9 17Z"/></svg></span></div>
+          <div class="product-body"><div class="product-name">Kuşburnu</div><div class="product-latin">Rosa canina</div><div class="product-btn">Detayları Gör →</div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="online">
+      <div><h3>Cemre Bitkisel Ürünler<br>Şimdi Online’da!</h3><p>Online ürünlerimize güvenle ulaşın, bulunduğunuz yerden sipariş verin.</p></div>
+      <div class="marketplaces">
+        <div class="market trendyol">trendyol</div>
+        <div class="market getir">getir</div>
+        <div class="market yemek">Yemeksepeti</div>
+      </div>
+    </section>
+
+    <section class="instagram">
+      <div class="insta-copy"><h3>Bizi Instagram’da<br>Takip Edin!</h3><p>Doğal yaşam, bitki önerileri ve daha fazlası için aramıza katılın.</p><a class="insta-btn" href="https://www.instagram.com/dogalyasam_awecemre?stkn=MWlpOWRnbHlmYXprZw==" target="_blank">@dogalyasam_awecemre →</a></div>
+      <div class="insta-image"><img src="assets/instagram.jpg" alt="Cemre Instagram"></div>
+    </section>
+
+    <div class="footer">Cemre Bitkisel Ürünler · Bitki Rehberi test sürümü</div>
+  </main>
+</div>
+
+<script>
+const cards=[...document.querySelectorAll('.product-card')];
+const search=document.getElementById('search');
+const alpha=[...document.querySelectorAll('.alpha')];
+function norm(v){return (v||'').toLocaleLowerCase('tr-TR').trim()}
+function filterText(){
+  const q=norm(search.value);
+  alpha.forEach(b=>b.classList.toggle('active',b.dataset.letter==='*'));
+  cards.forEach(c=>c.classList.toggle('hidden',q && !norm(c.dataset.name).includes(q)));
+  document.getElementById('bitkiler').scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.getElementById('searchBtn').addEventListener('click',filterText);
+search.addEventListener('keydown',e=>{if(e.key==='Enter')filterText()});
+document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{search.value=b.textContent.trim();filterText()}));
+alpha.forEach(b=>b.addEventListener('click',()=>{
+  alpha.forEach(x=>x.classList.remove('active'));b.classList.add('active');search.value='';
+  const l=b.dataset.letter;
+  cards.forEach(c=>c.classList.toggle('hidden',l!=='*'&&!c.dataset.name.toLocaleUpperCase('tr-TR').startsWith(l)));
+}));
+</script>
+</body>
+</html>
