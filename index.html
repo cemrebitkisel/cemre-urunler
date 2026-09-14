@@ -774,44 +774,40 @@ img{display:block;width:100%}
 </div>
 
 <script>
-const cards=[...document.querySelectorAll('.product-card')];
-const search=document.getElementById('search');
-const letters=[...document.querySelectorAll('.letter')];
+const search = document.getElementById('search');
+const letters = [...document.querySelectorAll('.letter')];
 
-function normalizeTR(s){
-  return (s||'').toLocaleLowerCase('tr-TR').trim();
+function goCatalog(params = {}) {
+  const qs = new URLSearchParams(params);
+  const url = 'tum-bitkiler/' + (qs.toString() ? '?' + qs.toString() : '');
+  window.location.href = url;
 }
-function setAllActive(){
-  letters.forEach(x=>x.classList.remove('active'));
-  document.querySelector('.letter.all').classList.add('active');
-}
-function filterText(){
-  const q=normalizeTR(search.value);
-  setAllActive();
-  cards.forEach(card=>{
-    card.classList.toggle('hidden', q && !normalizeTR(card.dataset.name).includes(q));
-  });
-  document.getElementById('bitkiler').scrollIntoView({behavior:'smooth',block:'start'});
-}
-document.getElementById('searchBtn').addEventListener('click',filterText);
-search.addEventListener('keydown',e=>{if(e.key==='Enter')filterText();});
-document.querySelectorAll('.chip').forEach(chip=>{
-  chip.addEventListener('click',()=>{
-    search.value=chip.textContent.trim();
-    filterText();
+
+document.getElementById('searchBtn').addEventListener('click', () => {
+  const q = search.value.trim();
+  if (q) goCatalog({q});
+  else goCatalog();
+});
+
+search.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const q = search.value.trim();
+    if (q) goCatalog({q});
+    else goCatalog();
+  }
+});
+
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    goCatalog({q: chip.textContent.trim()});
   });
 });
-letters.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    letters.forEach(x=>x.classList.remove('active'));
-    btn.classList.add('active');
-    search.value='';
-    const letter=btn.dataset.letter;
-    cards.forEach(card=>{
-      const name=card.dataset.name.toLocaleUpperCase('tr-TR');
-      card.classList.toggle('hidden',!(letter==='*'||name.startsWith(letter)));
-    });
-    document.getElementById('bitkiler').scrollIntoView({behavior:'smooth',block:'start'});
+
+letters.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const harf = btn.dataset.letter;
+    if (harf === '*') goCatalog();
+    else goCatalog({harf});
   });
 });
 </script>

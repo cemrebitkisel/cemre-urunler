@@ -100,7 +100,6 @@ img{display:block;width:100%}
       rgba(255,253,249,.48) 40%,
       rgba(255,253,249,.10) 52%,
       rgba(255,253,249,0) 62%),
-    var(--hero-image) right center / 64% 100% no-repeat,
     #efe7db;
   box-shadow:var(--shadow);
 }
@@ -175,6 +174,20 @@ img{display:block;width:100%}
   font-style:normal
 }
 .trust svg{width:15px;height:15px;fill:none;stroke:var(--g);stroke-width:1.8}
+
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0 0 0 auto;
+  width:64%;
+  background-image:var(--hero-photo);
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  z-index:0;
+}
+.hero-copy,.trust-row{position:relative;z-index:2}
 
 /* MAIN CARDS */
 .info-grid{

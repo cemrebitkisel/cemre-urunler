@@ -269,8 +269,55 @@
       <div class="body"><div class="name">Zeytin Yaprağı</div><div class="latin">Olea europaea</div><div class="go">→</div></div>
     </a></div><div class="footer">© Cemre Bitkisel Ürünler</div></main></div>
 <script>
-const cards=[...document.querySelectorAll('.card')],q=document.getElementById('q'),count=document.getElementById('count'),btns=[...document.querySelectorAll('.letters button')];let letter='*';
-function norm(s){return (s||'').toLocaleLowerCase('tr-TR')}
-function filter(){let t=norm(q.value.trim()),n=0;cards.forEach(c=>{let ok=(!t||norm(c.dataset.name).includes(t))&&(letter==='*'||c.dataset.letter===letter);c.classList.toggle('hidden',!ok);if(ok)n++});count.textContent=n+' ürün'}
-q.addEventListener('input',filter);btns.forEach(b=>b.onclick=()=>{btns.forEach(x=>x.classList.remove('active'));b.classList.add('active');letter=b.dataset.l;filter()})
+const cards=[...document.querySelectorAll('.card')];
+const q=document.getElementById('q');
+const count=document.getElementById('count');
+const btns=[...document.querySelectorAll('.letters button')];
+let letter='*';
+
+function norm(s){return (s||'').toLocaleLowerCase('tr-TR').trim()}
+
+function filter(){
+  const t=norm(q.value);
+  let n=0;
+  cards.forEach(c=>{
+    const okText=!t || norm(c.dataset.name).includes(t);
+    const okLetter=letter==='*' || c.dataset.letter===letter;
+    const ok=okText && okLetter;
+    c.classList.toggle('hidden',!ok);
+    if(ok)n++;
+  });
+  count.textContent=n+' ürün';
+}
+
+function activateLetter(value){
+  letter=value || '*';
+  btns.forEach(b=>b.classList.toggle('active', b.dataset.l===letter));
+}
+
+q.addEventListener('input', filter);
+
+btns.forEach(b=>{
+  b.addEventListener('click',()=>{
+    activateLetter(b.dataset.l);
+    filter();
+    const params=new URLSearchParams(location.search);
+    if(letter==='*') params.delete('harf'); else params.set('harf',letter);
+    if(q.value.trim()) params.set('q',q.value.trim()); else params.delete('q');
+    history.replaceState(null,'',location.pathname+(params.toString()?'?'+params.toString():''));
+  });
+});
+
+// Ana sayfadan gelen harf/arama parametrelerini uygula
+const params=new URLSearchParams(location.search);
+const incomingQ=params.get('q');
+const incomingLetter=params.get('harf');
+
+if(incomingQ) q.value=incomingQ;
+if(incomingLetter && btns.some(b=>b.dataset.l===incomingLetter)){
+  activateLetter(incomingLetter);
+}else{
+  activateLetter('*');
+}
+filter();
 </script></body></html>
