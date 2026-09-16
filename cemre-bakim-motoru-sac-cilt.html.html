@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#18392d">
+<title>Cemre Bakım Danışmanı</title>
+<meta name="description" content="Saç ve cilt bakım tercihlerinizi değerlendirerek gerekçeli, kişisel kozmetik bakım önerileri sunan Cemre Bakım Danışmanı demosu.">
+<style>
+:root{
+  --ink:#203229; --forest:#18392d; --forest-2:#285441;
+  --ivory:#f7f3ea; --paper:#fffdf8; --muted:#6f786f;
+  --line:#d8ddd4; --sage:#e8eee7; --sage-2:#dce7df;
+  --gold:#b39a67; --gold-soft:#eee4d1; --rose:#8f6f72;
+  --shadow:0 22px 58px rgba(29,49,39,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#e9eee9;color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+body{min-height:100dvh}
+button{font:inherit}
+.app{width:min(100%,520px);min-height:100dvh;margin:auto;background:
+radial-gradient(circle at 80% 0%, rgba(216,229,220,.55), transparent 34%),
+var(--ivory);box-shadow:0 0 80px rgba(27,48,37,.15);overflow:hidden}
+.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;
+background:rgba(247,243,234,.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(24,57,45,.08);
+position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:10px;color:var(--forest)}
+.brandmark{width:34px;height:34px;border:1px solid rgba(24,57,45,.2);border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.6)}
+.brandmark svg{width:20px;height:20px;stroke:var(--forest);fill:none;stroke-width:1.45}
+.brandname{font-family:Georgia,"Times New Roman",serif;font-size:28px;letter-spacing:.01em}
+.savedBtn{border:0;background:transparent;color:var(--forest);font-weight:800;font-size:12px;padding:9px 0}
+.screen{display:none;min-height:calc(100dvh - 76px);padding:28px 22px 44px}
+.screen.active{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:900}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--forest);font-weight:500;line-height:1.05}
+h1{font-size:44px;margin:12px 0 14px}
+h2{font-size:33px;margin:10px 0 12px}
+h3{font-size:25px;margin:8px 0 10px}
+p{color:var(--muted);font-size:15px;line-height:1.58;margin:0 0 16px}
+.hero{margin:24px 0 22px;border-radius:30px;overflow:hidden;box-shadow:var(--shadow);height:320px;position:relative;
+background:
+radial-gradient(circle at 70% 25%, rgba(255,255,255,.72), transparent 28%),
+linear-gradient(145deg,#dbe5dc 0%,#eef0e5 46%,#eadfd5 100%)}
+.hero .arch{position:absolute;right:-35px;top:-42px;width:230px;height:230px;border:32px solid rgba(255,255,255,.35);border-radius:50%}
+.hero .panel{position:absolute;left:24px;right:24px;bottom:22px;background:rgba(255,253,248,.82);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:16px 17px;z-index:5}
+.hero .panel b{font-family:Georgia,serif;font-size:21px;color:var(--forest);font-weight:500}
+.hero .panel span{display:block;color:#68746c;font-size:12px;margin-top:5px;line-height:1.45}
+.vanity{position:absolute;left:34px;right:34px;top:37px;height:175px}
+.dropper{position:absolute;left:68px;bottom:0;width:65px;height:110px;border-radius:15px 15px 23px 23px;background:linear-gradient(180deg,#819b7c,#486650);box-shadow:0 20px 25px rgba(33,55,42,.18)}
+.dropper:before{content:"";position:absolute;width:24px;height:34px;left:21px;top:-34px;background:#c3ae82;border-radius:6px 6px 2px 2px}
+.jar{position:absolute;right:65px;bottom:3px;width:107px;height:71px;border-radius:19px;background:linear-gradient(180deg,#f6f1e6,#d5c9b4);box-shadow:0 20px 25px rgba(33,55,42,.12)}
+.jar:before{content:"";position:absolute;left:-4px;right:-4px;top:-12px;height:19px;border-radius:7px;background:#c2ad81}
+.botanical{position:absolute;left:188px;top:8px;width:120px;height:135px}
+.botanical svg{width:100%;height:100%;stroke:#6c8a73;fill:none;stroke-width:1.2}
+.trustRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0 24px}
+.trust{background:rgba(255,255,255,.64);border:1px solid rgba(24,57,45,.1);border-radius:16px;padding:13px}
+.trust b{display:block;color:var(--forest);font-size:12px;margin-bottom:4px}.trust span{color:var(--muted);font-size:10px;line-height:1.45}
+.primary{width:100%;border:0;border-radius:17px;padding:17px 18px;background:linear-gradient(135deg,var(--forest),#315c48);color:#fff;font-weight:850;font-size:16px;box-shadow:0 14px 28px rgba(24,57,45,.18);cursor:pointer}
+.secondary{width:100%;border:1px solid var(--line);border-radius:17px;padding:15px 18px;background:#fff;color:var(--forest);font-weight:800;font-size:14px}
+.back{border:0;background:transparent;padding:0 0 20px;color:var(--forest-2);font-weight:850;font-size:14px;cursor:pointer}
+.progresswrap{display:flex;align-items:center;gap:12px;margin-bottom:26px}.progress{height:6px;background:#e0e5df;overflow:hidden;border-radius:99px;flex:1}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#7f987f);transition:.3s}.step{font-size:12px;color:var(--forest);font-weight:900}
+.introNote{background:#f0ede4;border:1px solid #e5dfd0;border-radius:18px;padding:14px 15px;margin:17px 0 22px}
+.introNote b{display:block;color:var(--forest);font-size:12px;margin-bottom:5px}.introNote span{display:block;color:#6c736c;font-size:11px;line-height:1.5}
+.choiceList{display:grid;gap:11px;margin:20px 0 28px}
+.choice{width:100%;border:1.5px solid var(--line);border-radius:20px;background:rgba(255,255,255,.82);padding:16px 17px;display:flex;gap:14px;align-items:flex-start;text-align:left;cursor:pointer;transition:.18s}
+.choice:hover{transform:translateY(-1px)}
+.choice.selected{border-color:#79907c;background:#edf3ec;box-shadow:inset 0 0 0 1px rgba(121,144,124,.2)}
+.choice .radio{width:22px;height:22px;border-radius:50%;border:1.7px solid #9caaa0;flex:0 0 auto;margin-top:1px;position:relative}
+.choice.selected .radio{border-color:var(--forest)}
+.choice.selected .radio:after{content:"";position:absolute;inset:4px;background:var(--forest);border-radius:50%}
+.choice b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+.choice small{display:block;color:var(--muted);font-size:11px;line-height:1.45}
+.modegrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 26px}
+.modecard{border:1.5px solid var(--line);border-radius:22px;background:#fff;padding:0;overflow:hidden;text-align:left;cursor:pointer}
+.modecard:last-child{grid-column:1/-1}
+.modevisual{height:118px;background:linear-gradient(145deg,#e9efe8,#f4eee4);display:grid;place-items:center;position:relative}
+.modevisual svg{width:54px;height:54px;stroke:#6d8b72;fill:none;stroke-width:1.4}
+.modebody{padding:14px}.modebody b{display:block;color:var(--forest);font-size:15px}.modebody small{display:block;color:var(--muted);font-size:11px;margin-top:4px;line-height:1.4}
+.modecard.selected{border-color:#78907b;box-shadow:0 10px 22px rgba(24,57,45,.08)}
+.modecard.selected .modevisual:after{content:"Seçildi";position:absolute;right:10px;top:10px;background:#fff;border:1px solid #d6dfd5;border-radius:99px;padding:5px 8px;color:var(--forest);font-size:9px;font-weight:900}
+.analysis{display:none;margin-top:18px}.analysis.show{display:block}
+.summary{background:#eef2ec;border:1px solid #dce4da;border-radius:19px;padding:15px;margin:18px 0 20px}
+.summaryrow{display:flex;justify-content:space-between;gap:15px;padding:7px 0;border-bottom:1px solid rgba(24,57,45,.08);font-size:11px}
+.summaryrow:last-child{border:0}.summaryrow span{color:var(--muted)}.summaryrow b{text-align:right;color:var(--forest)}
+.loading{text-align:center;padding-top:15vh}.seal{width:82px;height:82px;margin:0 auto;border:1px solid #9aaa9e;border-radius:50%;display:grid;place-items:center;position:relative}.seal:after{content:"";position:absolute;inset:7px;border:1px solid #c7d1c8;border-radius:50%}.seal svg{width:40px;height:40px;stroke:var(--forest);fill:none;stroke-width:1.3}.loadbar{height:6px;background:#e2e6df;border-radius:99px;overflow:hidden;margin:25px 0 14px}.loadbar i{display:block;height:100%;width:8%;background:linear-gradient(90deg,var(--gold),#748d77);animation:load 2.4s forwards ease}@keyframes load{to{width:100%}}
+.craft{font-size:12px;color:var(--forest-2);font-weight:800;min-height:22px}
+.resultTop{padding-bottom:8px;border-bottom:1px solid rgba(24,57,45,.1);margin-bottom:20px}
+.resultTop h1{font-size:39px;margin-bottom:9px}.resultTop .lead{font-size:15px;color:#667269}
+.profileStrip{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0 20px}.tag{padding:7px 10px;border-radius:99px;background:#edf2ec;border:1px solid #d9e2d8;color:#3d5b49;font-size:10px;font-weight:850}
+.sectionCard{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;margin:14px 0 18px;box-shadow:0 9px 22px rgba(24,57,45,.035)}
+.sectionCard h3{font-size:23px;margin-top:0}.sectionCard p{font-size:13px;margin-bottom:10px}
+.insight{padding:12px 0;border-bottom:1px solid #edf0ec}.insight:last-child{border:0}.insight b{display:block;color:var(--forest);font-size:13px;margin-bottom:4px}.insight span{display:block;color:var(--muted);font-size:11px;line-height:1.48}
+.product{display:grid;grid-template-columns:68px 1fr;gap:13px;align-items:center;padding:13px 0;border-bottom:1px solid #edf0ec}.product:last-child{border:0}
+.productVisual{width:68px;height:78px;border-radius:16px;background:linear-gradient(145deg,#dde8dd,#efe6d8);display:grid;place-items:center}
+.productVisual:before{content:"";width:26px;height:45px;border-radius:7px 7px 11px 11px;background:linear-gradient(#819b7c,#516c58);box-shadow:0 8px 14px rgba(24,57,45,.12)}
+.product b{display:block;color:var(--forest);font-size:13px}.product small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:4px}
+.reason{background:#f1ede3;border:1px solid #e3dccb;border-radius:17px;padding:14px 15px;margin-top:13px}.reason b{display:block;color:#5d5139;font-size:11px;margin-bottom:5px}.reason span{display:block;color:#756b58;font-size:10px;line-height:1.5}
+.caution{background:#f7f0ec;border:1px solid #e8d8d2;border-radius:17px;padding:14px 15px;margin-top:13px}.caution b{display:block;color:#785e5b;font-size:11px;margin-bottom:5px}.caution span{display:block;color:#7b6c69;font-size:10px;line-height:1.5}
+.actions{display:grid;gap:10px;margin-top:20px}.action{width:100%;border:1px solid var(--line);border-radius:17px;background:#fff;padding:15px 16px;text-align:left;display:flex;align-items:center;justify-content:space-between;color:var(--forest);font-weight:850}
+.action.primaryAction{background:var(--forest);border-color:var(--forest);color:#fff}.action small{display:block;font-weight:500;opacity:.72;margin-top:3px;font-size:10px}
+.disclaimer{font-size:10px;color:#899089;line-height:1.5;text-align:center;margin-top:24px}
+.modal{position:fixed;inset:0;background:rgba(14,30,21,.58);display:none;align-items:flex-end;justify-content:center;z-index:60}.modal.open{display:flex}.sheet{width:min(100%,520px);max-height:84vh;overflow:auto;background:var(--paper);border-radius:28px 28px 0 0;padding:24px}.close{float:right;width:36px;height:36px;border:0;border-radius:50%;background:#eef1ec}.savedItem{border:1px solid var(--line);border-radius:15px;padding:13px;margin:9px 0}.savedItem b{display:block;color:var(--forest)}
+@media(min-width:760px){body{padding:28px 0}.app{min-height:calc(100dvh - 56px);border-radius:32px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="brandmark"><svg viewBox="0 0 32 32"><path d="M7 23c8-2 14-8 18-19 5 11 2 20-5 24-6 1-10-1-13-5Z"/><path d="M11 25c5-7 10-12 16-16"/></svg></div><div class="brandname">Cemre</div></div>
+  <button class="savedBtn" onclick="openSaved()">Bakım notlarım</button>
+</header>
+
+<section class="screen active" id="home">
+  <div class="eyebrow">Kişisel bakım değerlendirmesi</div>
+  <h1>Bakım Danışmanı</h1>
+  <p>Bir ürün listesi sunmak yerine önce saç ve cilt bakım alışkanlıklarını anlamaya çalışır. Sonuçta yalnızca neyi önerdiğini değil, <b>neden önerdiğini</b> de açıklar.</p>
+  <div class="hero">
+    <div class="arch"></div>
+    <div class="vanity">
+      <div class="dropper"></div><div class="jar"></div>
+      <div class="botanical"><svg viewBox="0 0 120 135"><path d="M58 127C59 91 67 55 94 14"/><path d="M66 88c-19 1-31-8-37-24 18-2 31 6 37 24ZM76 61c14-1 24-9 29-22-14-1-24 7-29 22ZM86 35c-12-2-20-9-22-20 12 0 20 7 22 20Z"/></svg></div>
+    </div>
+    <div class="panel"><b>Önce seni anlamaya çalışır.</b><span>Saç yapısı, işlem geçmişi, ürün toleransı, bakım sıklığı ve kullanım alışkanlığı gibi ayırt edici yanıtları birlikte değerlendirir.</span></div>
+  </div>
+  <div class="trustRow">
+    <div class="trust"><b>Gerekçeli öneri</b><span>Her ürünün neden seçildiğini açıklar.</span></div>
+    <div class="trust"><b>Sınırını bilir</b><span>Kozmetik bakım sınırını aşan durumda ürün önermeye zorlamaz.</span></div>
+  </div>
+  <button class="primary" onclick="go('scope')">Değerlendirmeyi Başlat →</button>
+  <div class="introNote"><b>Bu ne değildir?</b><span>Bir teşhis aracı değildir. Saç dökülmesi, yoğun kaşıntı, yara, ani cilt değişimi gibi durumlarda bakım ürünü önermek yerine profesyonel değerlendirme yönlendirmesi yapar.</span></div>
+</section>
+
+<section class="screen" id="scope">
+  <button class="back" onclick="go('home')">← Geri</button>
+  <div class="progresswrap"><div class="progress"><i style="width:10%"></i></div><div class="step">1/10</div></div>
+  <div class="eyebrow">Başlangıç</div><h2>Neyi birlikte değerlendirelim?</h2>
+  <p>Saç ve cilt birlikte seçildiğinde sonuçta iki ayrı bölüm hazırlanır; öneriler birbirine karıştırılmaz.</p>
+  <div class="modegrid" id="scopeChoices">
+    <button class="modecard" onclick="selectScope(this,'Saç')"><div class="modevisual"><svg viewBox="0 0 48 48"><path d="M14 39c4-8 4-17 2-27 8 3 14 10 17 19M23 40c6-9 8-18 6-28M31 39c4-6 6-12 6-19"/></svg></div><div class="modebody"><b>Saç Bakımı</b><small>Saç teli, uçlar, işlem geçmişi ve bakım alışkanlığı</small></div></button>
+    <button class="modecard" onclick="selectScope(this,'Cilt')"><div class="modevisual"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"/><path d="M18 22h.01M30 22h.01M19 31c3 2 7 2 10 0"/></svg></div><div class="modebody"><b>Cilt Bakımı</b><small>Kuruluk hissi, ürün toleransı, rutin ve kullanım hissi</small></div></button>
+    <button class="modecard" onclick="selectScope(this,'Saç + Cilt')"><div class="modevisual"><svg viewBox="0 0 48 48"><path d="M10 38c4-8 4-16 2-25 6 2 11 7 14 13"/><circle cx="32" cy="29" r="10"/></svg></div><div class="modebody"><b>Saç + Cilt</b><small>Tek görüşme, iki ayrı değerlendirme</small></div></button>
+  </div>
+  <button class="primary" onclick="beginQuestions()">Devam Et →</button>
+</section>
+
+<section class="screen" id="question">
+  <button class="back" onclick="prevQuestion()">← Geri</button>
+  <div class="progresswrap"><div class="progress"><i id="qProgress" style="width:20%"></i></div><div class="step" id="qStep">2/10</div></div>
+  <div class="eyebrow" id="qArea">Değerlendirme</div>
+  <h2 id="qTitle"></h2>
+  <p id="qHelp"></p>
+  <div class="choiceList" id="qChoices"></div>
+  <div class="introNote analysis" id="whyAsk"><b>Neden bunu soruyoruz?</b><span id="whyText"></span></div>
+  <button class="primary" onclick="nextQuestion()">Devam Et →</button>
+</section>
+
+<section class="screen" id="review">
+  <button class="back" onclick="goBackToQuestions()">← Geri</button>
+  <div class="progresswrap"><div class="progress"><i style="width:92%"></i></div><div class="step">Son kontrol</div></div>
+  <div class="eyebrow">Değerlendirme özeti</div><h2>Seni doğru anladık mı?</h2>
+  <p>Sonucu oluşturmadan önce verdiğin yanıtların kısa özetini gösteriyoruz.</p>
+  <div class="summary" id="reviewSummary"></div>
+  <button class="primary" onclick="buildAssessment()">Değerlendirmeyi Tamamla →</button>
+</section>
+
+<section class="screen" id="loading">
+  <div class="loading">
+    <div class="seal"><svg viewBox="0 0 48 48"><path d="M10 35c12-3 22-12 28-28 7 14 4 27-6 34-9 2-17 0-22-6Z"/><path d="M15 38c7-10 15-18 25-25"/></svg></div>
+    <h2>Yanıtların değerlendiriliyor</h2>
+    <p>Öneri yalnızca seçtiğin hedefe göre değil, ürün ağırlığı, kullanım alışkanlığı ve tolerans tercihlerin birlikte düşünülerek hazırlanıyor.</p>
+    <div class="loadbar"><i></i></div>
+    <div class="craft" id="craft">Bakım profili çıkarılıyor…</div>
+  </div>
+</section>
+
+<section class="screen" id="result">
+  <button class="back" onclick="go('home')">← Ana sayfa</button>
+  <div class="resultTop">
+    <div class="eyebrow">Cemre değerlendirme notu</div>
+    <h1 id="resultTitle">Bakım profilin</h1>
+    <div class="lead" id="resultLead"></div>
+    <div class="profileStrip" id="resultTags"></div>
+  </div>
+
+  <div class="sectionCard">
+    <div class="eyebrow">Önce değerlendirme</div>
+    <h3>Senden anladığımız</h3>
+    <div id="insights"></div>
+  </div>
+
+  <div class="sectionCard">
+    <div class="eyebrow">Öneri</div>
+    <h3 id="recommendTitle">Bakım yaklaşımı</h3>
+    <p id="recommendIntro"></p>
+    <div id="products"></div>
+    <div class="reason"><b>Neden bu seçim?</b><span id="reasonText"></span></div>
+  </div>
+
+  <div class="sectionCard">
+    <div class="eyebrow">Eleme mantığı</div>
+    <h3>Neyi özellikle geri planda tuttuk?</h3>
+    <div id="excluded"></div>
+  </div>
+
+  <div class="sectionCard">
+    <div class="eyebrow">Uygulama</div>
+    <h3>Nasıl başla?</h3>
+    <div id="routine"></div>
+    <div class="caution" id="cautionBox"><b>Bakım sınırı</b><span id="cautionText"></span></div>
+  </div>
+
+  <div class="actions">
+    <button class="action primaryAction" onclick="shareAssessment()"><span><b>Arkadaşıma Gönder</b><small>Karşı taraf kendi değerlendirmesini oluştursun.</small></span><span>→</span></button>
+    <button class="action" onclick="shareAdvisor()"><span><b>Bakım Danışmanını Paylaş</b><small>Doğrudan başlangıç sayfasını paylaş.</small></span><span>↗</span></button>
+    <button class="action" onclick="saveAssessment()"><span><b>Bakım notlarıma kaydet</b><small>Yalnızca bu cihazda saklanır.</small></span><span>＋</span></button>
+  </div>
+  <div class="disclaimer">Bu sonuç kozmetik bakım tercihlerine yönelik bilgilendirmedir. Tanı veya tedavi yerine geçmez. Süregelen, ani ya da belirgin şikâyetlerde dermatoloji değerlendirmesi uygundur.</div>
+</section>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target.id==='modal')closeModal()">
+  <div class="sheet"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div>
+</div>
+
+<script>
+const state={scope:"",answers:{},questions:[],index:0,result:null};
+
+const hairQuestions=[
+{key:"hairTexture",area:"Saç yapısı",title:"Saç telini nasıl tarif edersin?",help:"Ürünün ağırlığını belirleyen en önemli sorulardan biri.",why:"İnce telli saçta ağır yağlar kolayca sönük ve yağlı bir his bırakabilir; kalın telli saç daha zengin dokuları tolere edebilir.",options:[
+["İnce telli","Kolay sönüyor, ağır ürünler çabuk belli oluyor."],["Orta telli","Ne çok ince ne çok kalın."],["Kalın telli","Daha yoğun, dolgun ve güçlü hissediliyor."]]},
+{key:"hairZone",area:"Saç ihtiyacı",title:"Bakım ihtiyacı en çok nerede?",help:"Dip ve uç ihtiyacını birbirinden ayırıyoruz.",why:"Saç dibindeki yağlanma ile uçlardaki kuruluk aynı bakım problemi değildir. Ürünü nereye uygulayacağımızı bu cevap değiştirir.",options:[
+["Özellikle uçlarda","Uçlar kuru, sert veya kabarık hissediliyor."],["Dipte ve uçta","Genel olarak bakım ihtiyacı hissediyorum."],["Belirgin bir bölge yok","Genel koruyucu bakım istiyorum."]]},
+{key:"hairProcess",area:"İşlem geçmişi",title:"Saçında kimyasal veya ısıl işlem var mı?",help:"Boya, açıcı ve düzenli yüksek ısı kullanımını birlikte düşün.",why:"İşlem görmüş saç çoğu zaman daha yüksek bakım ihtiyacı gösterir; ama bu otomatik olarak en ağır ürünü seçmemiz gerektiği anlamına gelmez.",options:[
+["Yoğun işlem","Açıcı, sık boya veya düzenli yüksek ısı."],["Hafif işlem","Ara sıra boya veya ısı kullanımı."],["İşlemsiz / çok az","Belirgin işlem yok."]]},
+{key:"hairWeight",area:"Ürün toleransı",title:"Yağ bazlı ürünler saçında nasıl davranıyor?",help:"Geçmiş deneyimin, teorik saç tipinden daha değerli olabilir.",why:"Bir ürünün literatürde 'uygun' olması, senin kullanım alışkanlığında iyi sonuç vereceği anlamına gelmez. Kişisel tolerans burada belirleyicidir.",options:[
+["Çabuk ağırlaştırıyor","Çok az kullansam bile yağlı veya sönük his oluyor."],["Doğru miktarda iyi","Az miktarda sorun yaşamıyorum."],["Yoğun ürünleri seviyorum","Daha besleyici hissi tercih ediyorum."]]}
+];
+
+const skinQuestions=[
+{key:"skinAfterWash",area:"Cilt hissi",title:"Yüzünü yıkadıktan 10–15 dakika sonra nasıl hissediliyor?",help:"Ürün sürmeden önceki doğal hissi düşün.",why:"Yıkama sonrası his, günlük bakımın ne kadar hafif veya destekleyici olması gerektiği hakkında pratik bir ipucu verir.",options:[
+["Gergin / kuru","Nem ihtiyacı belirgin hissediliyor."],["Rahat / dengeli","Belirgin gerginlik ya da ağırlık yok."],["Parlak / ağır","Kısa sürede yağlı veya ağır hissediliyor."]]},
+{key:"skinTolerance",area:"Tolerans",title:"Yeni ürünlere karşı cildin nasıl davranır?",help:"Burada tıbbi tanı değil, kendi kullanım deneyimini soruyoruz.",why:"Kolay rahatsız olan ciltlerde çok bileşenli ve yoğun rutinler yerine daha sade bir başlangıç tercih etmek daha güvenlidir.",options:[
+["Kolay rahatsız olur","Yeni ürünleri dikkatli denemem gerekir."],["Genelde iyi tolere eder","Çoğu üründe sorun yaşamam."],["Emin değilim","Belirgin bir deneyimim yok."]]},
+{key:"skinGoal",area:"Hedef",title:"Cilt bakımında birinci önceliğin ne?",help:"Tek bir ana hedef seçmek sonucu daha tutarlı yapar.",why:"Her şeyi aynı anda hedefleyen öneriler genellikle yüzeysel olur. Önce ana hedefi seçip rutini onun etrafında kuruyoruz.",options:[
+["Konfor ve nem","Daha rahat, daha yumuşak his."],["Canlı görünüm","Daha bakımlı ve canlı bir görünüm."],["Sade bakım","Az ürün, düzenli kullanım."]]},
+{key:"skinWeight",area:"Doku tercihi",title:"Ciltte hangi ürün hissinden hoşlanırsın?",help:"Doğru ürün, kullanmak isteyeceğin üründür.",why:"Kullanıcı ağır dokudan hoşlanmıyorsa teorik olarak uygun bir ürün bile düzenli kullanılmaz. Bu yüzden kullanım hissi seçimde önemlidir.",options:[
+["Çok hafif","Hızlı emilsin, iz bırakmasın."],["Dengeli","Biraz bakım hissi olabilir."],["Zengin","Gece bakımında daha yoğun his sorun değil."]]}
+];
+
+const commonQuestions=[
+{key:"routineTime",area:"Kullanım alışkanlığı",title:"Bakım için gerçekçi olarak ne kadar zaman ayırırsın?",help:"İdeal rutini değil, gerçekten sürdürebileceğin rutini seç.",why:"Kullanılmayan üç ürün, düzenli kullanılan tek üründen daha iyi değildir. Sonucu uygulanabilir tutmak istiyoruz.",options:[
+["30 saniye","Tek ürün, çok basit kullanım."],["2–3 dakika","İki adım olabilir."],["Ritüel severim","Daha ayrıntılı bakım bana uygun."]]},
+{key:"priority",area:"Beklenti",title:"Bu danışmanlıktan en çok ne bekliyorsun?",help:"Sonuç ekranının tonunu ve önceliğini buna göre ayarlıyoruz.",why:"Bazı kullanıcılar yalnızca ürün adı ister, bazıları ise nedenini anlamak ister. Burada özellikle açıklama derinliğini kişiselleştiriyoruz.",options:[
+["En güvenli başlangıç","Az ürünle kontrollü başlamak istiyorum."],["En iyi kullanım dengesi","Etki ve pratiklik arasında denge istiyorum."],["Daha zengin bakım","Daha premium ve kapsamlı bakım istiyorum."]]}
+];
+
+function go(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function selectScope(el,val){
+  document.querySelectorAll("#scopeChoices .modecard").forEach(x=>x.classList.remove("selected"));
+  el.classList.add("selected");state.scope=val;
+}
+function beginQuestions(){
+  if(!state.scope){alert("Lütfen saç, cilt veya ikisini birlikte seç.");return;}
+  state.answers={};
+  state.questions=state.scope==="Saç"?[...hairQuestions,...commonQuestions]:
+                  state.scope==="Cilt"?[...skinQuestions,...commonQuestions]:
+                  [...hairQuestions,...skinQuestions,...commonQuestions];
+  state.index=0;renderQuestion();go("question");
+}
+function renderQuestion(){
+  const q=state.questions[state.index];
+  document.getElementById("qArea").textContent=q.area;
+  document.getElementById("qTitle").textContent=q.title;
+  document.getElementById("qHelp").textContent=q.help;
+  document.getElementById("whyText").textContent=q.why;
+  document.getElementById("whyAsk").classList.add("show");
+  const total=state.questions.length+2;
+  document.getElementById("qStep").textContent=`${state.index+2}/${total}`;
+  document.getElementById("qProgress").style.width=`${Math.round(((state.index+2)/total)*100)}%`;
+  document.getElementById("qChoices").innerHTML=q.options.map(o=>`
+    <button class="choice ${state.answers[q.key]===o[0]?'selected':''}" onclick="answer(this,'${q.key}','${o[0].replaceAll("'","\\'")}')">
+      <span class="radio"></span><span><b>${o[0]}</b><small>${o[1]}</small></span>
+    </button>`).join("");
+}
+function answer(el,key,val){
+  state.answers[key]=val;
+  document.querySelectorAll("#qChoices .choice").forEach(x=>x.classList.remove("selected"));
+  el.classList.add("selected");
+}
+function nextQuestion(){
+  const q=state.questions[state.index];
+  if(!state.answers[q.key]){alert("Lütfen sana en yakın seçeneği işaretle.");return;}
+  if(state.index<state.questions.length-1){state.index++;renderQuestion();window.scrollTo({top:0,behavior:"smooth"});}
+  else{renderReview();go("review");}
+}
+function prevQuestion(){
+  if(state.index>0){state.index--;renderQuestion();}
+  else go("scope");
+}
+function goBackToQuestions(){state.index=state.questions.length-1;renderQuestion();go("question");}
+function renderReview(){
+  document.getElementById("reviewSummary").innerHTML=
+    `<div class="summaryrow"><span>Değerlendirme</span><b>${state.scope}</b></div>`+
+    state.questions.map(q=>`<div class="summaryrow"><span>${q.area}</span><b>${state.answers[q.key]}</b></div>`).join("");
+}
+function buildAssessment(){
+  go("loading");const c=document.getElementById("craft");
+  setTimeout(()=>c.textContent="Ürün ağırlığı ve tolerans tercihleri karşılaştırılıyor…",650);
+  setTimeout(()=>c.textContent="Gereksiz veya ağır seçenekler eleniyor…",1300);
+  setTimeout(()=>c.textContent="Gerekçeli bakım notu hazırlanıyor…",1900);
+  setTimeout(()=>{state.result=makeAssessment();renderResult();go("result");},2500);
+}
+function makeAssessment(){
+  const a=state.answers, insights=[], products=[], excluded=[], routines=[];
+  let lead="Yanıtların tek bir ürün adına indirgenmedi; kullanım alışkanlığın ve ürün toleransın birlikte değerlendirildi.";
+  let reason="", caution="Yeni bir kozmetik ürünü ilk kez kullanırken küçük bir alanda ve düşük miktarla başlamak uygundur.";
+
+  if(state.scope!=="Cilt"){
+    insights.push(["Saç yapısı",`${a.hairTexture}; bakım ihtiyacını ${a.hairZone?.toLowerCase()} tarif ettin.`]);
+    insights.push(["İşlem ve tolerans",`${a.hairProcess}. Yağ bazlı ürünlerde deneyimin: ${a.hairWeight?.toLowerCase()}.`]);
+    if(a.hairWeight==="Çabuk ağırlaştırıyor" || a.hairTexture==="İnce telli"){
+      products.push(["Jojoba Yağı","Saç uçlarında çok düşük miktarla başlanabilecek daha hafif bir seçenek.","Saç"]);
+      excluded.push(["Hindistan cevizi gibi daha yoğun yağlar","Saç telin veya geçmiş ürün deneyimin, ağır dokuların sönük his bırakabileceğini düşündürüyor."]);
+      reason+="Saç tarafında ilk hedef, en yoğun ürünü seçmek değil; bakım hissi verirken saçın ağırlığını mümkün olduğunca korumak. ";
+    } else if(a.hairProcess==="Yoğun işlem" || a.hairWeight==="Yoğun ürünleri seviyorum"){
+      products.push(["Argan Yağı","Özellikle saç uçlarında daha zengin bakım hissi için.","Saç"]);
+      products.push(["Jojoba Yağı","Yoğunluğu dengelemek ve daha kontrollü kullanım için ikinci seçenek.","Saç"]);
+      excluded.push(["Yalnızca çok hafif yağlar","İşlem geçmişin ve bakım beklentin daha destekleyici bir dokuyu tolere edebileceğini gösteriyor."]);
+      reason+="Saç tarafında işlem geçmişi ve daha zengin ürün toleransın nedeniyle daha destekleyici bir yapı seçildi. ";
+    } else {
+      products.push(["Jojoba Yağı","Dengeli ve kontrollü başlangıç için.","Saç"]);
+      products.push(["Argan Yağı","Uçlarda daha fazla bakım gerektiğinde destekleyici seçenek.","Saç"]);
+      excluded.push(["Tek başına çok yoğun bakım","Şu anki yanıtların daha kontrollü ve kademeli bir başlangıcı destekliyor."]);
+      reason+="Saç tarafında kademeli bakım yaklaşımı öne çıktı. ";
+    }
+    routines.push(["Saç kullanımı", a.hairZone==="Özellikle uçlarda" ? "İlk uygulamada yalnızca uçlara çok az miktar kullan. Dip bölgesine otomatik olarak uygulama." : "Az miktarla başla; saçın verdiği hisse göre uygulama bölgesini daralt veya genişlet."]);
+  }
+
+  if(state.scope!=="Saç"){
+    insights.push(["Cilt hissi",`Yıkama sonrası: ${a.skinAfterWash?.toLowerCase()}. Yeni ürün toleransın: ${a.skinTolerance?.toLowerCase()}.`]);
+    insights.push(["Cilt beklentisi",`${a.skinGoal}; doku tercihin ${a.skinWeight?.toLowerCase()}.`]);
+    if(a.skinTolerance==="Kolay rahatsız olur"){
+      products.push(["Jojoba Yağı","Daha sade bir başlangıç için tek ürün yaklaşımı.","Cilt"]);
+      excluded.push(["Çok bileşenli bakım rutini","Yeni ürünlerde kolay rahatsız olduğunu belirttiğin için aynı anda çok fazla ürün eklemek sonucu yorumlamayı zorlaştırabilir."]);
+      reason+="Cilt tarafında tolerans yanıtın nedeniyle sadelik önceliklendirildi. ";
+      caution="Yeni ürünlere kolay tepki verdiğini belirttiğin için küçük alan denemesi özellikle önemlidir. Yanma, belirgin kızarıklık veya kalıcı rahatsızlık oluşursa kullanımı bırak.";
+    } else if(a.skinAfterWash==="Gergin / kuru" && a.skinWeight==="Zengin"){
+      products.push(["Kuşburnu Çekirdeği Yağı","Gece kullanımında daha zengin bakım hissi için.","Cilt"]);
+      products.push(["Jojoba Yağı","Gündüz veya daha hafif kullanım için alternatif.","Cilt"]);
+      excluded.push(["Yalnızca çok hafif ürün yaklaşımı","Kuruluk hissin ve zengin doku tercihin daha destekleyici bir gece seçeneğine alan bırakıyor."]);
+      reason+="Cilt tarafında kuruluk hissi ve zengin doku tercihi birlikte değerlendirildi. ";
+    } else if(a.skinAfterWash==="Parlak / ağır" || a.skinWeight==="Çok hafif"){
+      products.push(["Üzüm Çekirdeği Yağı","Daha hafif ürün hissi isteyen kullanım için.","Cilt"]);
+      excluded.push(["Çok yoğun yağlar","Kullanım hissi tercihin nedeniyle günlük rutinde gereğinden ağır kalabilir."]);
+      reason+="Cilt tarafında hafiflik ve düzenli kullanım önceliklendirildi. ";
+    } else {
+      products.push(["Jojoba Yağı","Dengeli, sade ve kontrollü bir başlangıç için.","Cilt"]);
+      if(a.skinGoal==="Canlı görünüm") products.push(["Kuşburnu Çekirdeği Yağı","Gece bakımında ikinci seçenek olarak değerlendirilebilir.","Cilt"]);
+      excluded.push(["Gereksiz çok adımlı rutin","Verdiğin cevaplar daha sade ve sürdürülebilir bir başlangıcı destekliyor."]);
+      reason+="Cilt tarafında sade ve sürdürülebilir bir rutin öne çıktı. ";
+    }
+    routines.push(["Cilt kullanımı","Temiz cilde çok az miktarla başla. Yeni ürünü bütün rutine aynı gün eklemek yerine tek başına gözlemlemek daha anlamlıdır."]);
+  }
+
+  if(a.routineTime==="30 saniye"){
+    routines.push(["Rutin süresi","Tek ana ürün seç. İkinci seçenek yalnızca ihtiyaç duyduğunda devreye girsin."]);
+    excluded.push(["Uzun bakım protokolü","Gerçekçi ayırabildiğin süre kısa olduğu için uygulanmayacak bir rutin önermiyoruz."]);
+  } else if(a.routineTime==="2–3 dakika"){
+    routines.push(["Rutin süresi","Ana ürün + gerektiğinde destekleyici ürün şeklinde iki aşamalı kullanım uygun."]);
+  } else {
+    routines.push(["Rutin süresi","Daha ayrıntılı bakım yapabilirsin; yine de ürün sayısını sırf ritüel uzun olsun diye artırmak gerekmiyor."]);
+  }
+
+  if(a.priority==="En güvenli başlangıç"){
+    reason+="Genel yaklaşımda düşük miktar ve az ürün prensibi öne alındı.";
+  } else if(a.priority==="Daha zengin bakım"){
+    reason+="Daha zengin bakım beklentin dikkate alındı; ancak ağır ürünler yalnızca toleransın uygunsa öne çıkarıldı.";
+  } else {
+    reason+="Pratiklik ile bakım hissi arasında denge kuruldu.";
+  }
+
+  const title=state.scope==="Saç"?"Saç bakım profilin":state.scope==="Cilt"?"Cilt bakım profilin":"Saç + cilt bakım profilin";
+  return {title,lead,insights,products,excluded,routines,reason,caution};
+}
+function renderResult(){
+  const r=state.result;
+  document.getElementById("resultTitle").textContent=r.title;
+  document.getElementById("resultLead").textContent=r.lead;
+  const tagKeys=["hairTexture","hairProcess","skinAfterWash","skinGoal","routineTime","priority"];
+  document.getElementById("resultTags").innerHTML=tagKeys.filter(k=>state.answers[k]).map(k=>`<span class="tag">${state.answers[k]}</span>`).join("");
+  document.getElementById("insights").innerHTML=r.insights.map(x=>`<div class="insight"><b>${x[0]}</b><span>${x[1]}</span></div>`).join("");
+  document.getElementById("recommendTitle").textContent=state.scope==="Saç + Cilt"?"İki ayrı bakım yaklaşımı":"Önerilen bakım yaklaşımı";
+  document.getElementById("recommendIntro").textContent="Buradaki amaç en fazla ürünü önermek değil; verdiğin cevaplarla çelişmeyen, kullanabileceğin kadar sade bir başlangıç oluşturmaktır.";
+  document.getElementById("products").innerHTML=r.products.map(x=>`<div class="product"><div class="productVisual"></div><div><b>${x[0]} <span style="font-size:9px;color:#8b948d;font-family:Inter;font-weight:700">· ${x[2]}</span></b><small>${x[1]}</small></div></div>`).join("");
+  document.getElementById("reasonText").textContent=r.reason;
+  document.getElementById("excluded").innerHTML=r.excluded.map(x=>`<div class="insight"><b>${x[0]}</b><span>${x[1]}</span></div>`).join("");
+  document.getElementById("routine").innerHTML=r.routines.map(x=>`<div class="insight"><b>${x[0]}</b><span>${x[1]}</span></div>`).join("");
+  document.getElementById("cautionText").textContent=r.caution;
+}
+function baseURL(){const u=new URL(location.href);u.search="";u.hash="";return u.toString();}
+async function shareAssessment(){
+ const msg=`Cemre Bakım Danışmanı'nı denedim. Bana yalnızca ürün değil, nedenini de açıklayan bir bakım değerlendirmesi hazırladı.\n\nSen de kendi bakım profilini oluşturmak ister misin?\n${baseURL()}`;
+ if(navigator.share){try{await navigator.share({title:"Cemre Bakım Danışmanı",text:msg,url:baseURL()});return}catch(e){}}
+ try{await navigator.clipboard.writeText(msg);alert("Paylaşım mesajı kopyalandı.")}catch(e){prompt("Mesajı kopyala:",msg)}
+}
+async function shareAdvisor(){
+ const msg=`Cemre Bakım Danışmanı: saç ve cilt bakım tercihlerini değerlendirip gerekçeli öneri hazırlıyor.\n${baseURL()}`;
+ if(navigator.share){try{await navigator.share({title:"Cemre Bakım Danışmanı",text:msg,url:baseURL()});return}catch(e){}}
+ try{await navigator.clipboard.writeText(msg);alert("Bağlantı kopyalandı.")}catch(e){prompt("Bağlantıyı kopyala:",baseURL())}
+}
+function saveAssessment(){
+ let arr=[];try{arr=JSON.parse(localStorage.getItem("cemreAdvisorNotes")||"[]")}catch(e){}
+ arr.unshift({date:new Date().toLocaleDateString("tr-TR"),scope:state.scope,answers:state.answers,title:state.result.title});
+ localStorage.setItem("cemreAdvisorNotes",JSON.stringify(arr.slice(0,12)));
+ alert("Bakım notu bu cihazda kaydedildi.");
+}
+function openSaved(){
+ let arr=[];try{arr=JSON.parse(localStorage.getItem("cemreAdvisorNotes")||"[]")}catch(e){}
+ document.getElementById("modalContent").innerHTML=`<div class="eyebrow">Bu cihazda saklananlar</div><h3>Bakım notlarım</h3>`+
+ (arr.length?arr.map(x=>`<div class="savedItem"><b>${x.title}</b><span style="font-size:11px;color:#6f786f">${x.scope} · ${x.date}</span></div>`).join(""):`<p>Henüz kaydedilmiş değerlendirme yok.</p>`);
+ document.getElementById("modal").classList.add("open");
+}
+function closeModal(){document.getElementById("modal").classList.remove("open");}
+</script>
+</body>
+</html>
