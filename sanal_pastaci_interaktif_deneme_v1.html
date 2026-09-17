@@ -1,6 +1,6 @@
 <!doctype html><html lang="tr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cemre Sanal Pastacı V15.4 — Seçimleri Koruyan Düzenleme</title>
+<title>Cemre Sanal Pastacı V15.5 — Mobil Final Düzeni</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,sans-serif;color:#241f1a;background:#f4efe8}
 button,input{font:inherit}button{cursor:pointer}.app{height:100dvh;display:grid;grid-template-columns:40% 60%;overflow:hidden}
@@ -199,5 +199,88 @@ next.onclick=()=>{if(busy)return;if(!state[cur]){badge.textContent='Bu aşamada 
 @media(max-width:760px){
  #final151.final151 .final151Card{width:min(92%,390px);max-height:92%;padding:8px}
  #final151.final151 #final152Hero img{max-height:72vh;object-fit:contain;background:#f8f4ec}
+}
+</style>
+<style id="v155-final-layout">
+/* V15.5 — sadece final ekranı. V15.4 seçim koruma mantığı aynen kalır. */
+#final151.final151 .final151Card{
+  width:min(92vw,410px)!important;
+  max-height:92vh!important;
+  padding:10px!important;
+  overflow:auto!important;
+  -webkit-overflow-scrolling:touch;
+}
+#final151.final151 #final152Hero{
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:655/650!important;
+  overflow:hidden!important;
+  border-radius:20px!important;
+  margin:0!important;
+  background:#efe8dc!important;
+}
+#final151.final151 #final152Hero img{
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:cover!important;
+  object-position:top center!important;
+  display:block!important;
+}
+/* V15.3'te gizlenen gerçek reçete alanlarını final için geri getiriyoruz. */
+#final151.final151 #final151Grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:7px!important;
+  margin:10px 0 7px!important;
+}
+#final151.final151 #final151Grid .final151Item{
+  min-width:0!important;
+  padding:6px 3px!important;
+  border-radius:12px!important;
+}
+#final151.final151 #final151Grid img{
+  width:46px!important;
+  height:46px!important;
+  object-fit:contain!important;
+}
+#final151.final151 #final151Grid b{
+  font-size:10px!important;
+  line-height:1.08!important;
+}
+#final151.final151 #final151Grid small{
+  font-size:8px!important;
+  line-height:1.05!important;
+}
+#final151.final151 #final151Name{
+  display:block!important;
+  margin:5px 0 8px!important;
+  padding:9px 10px!important;
+  min-height:0!important;
+  border-radius:13px!important;
+  font-size:20px!important;
+}
+#final151.final151 .final151Actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+  margin-top:5px!important;
+  position:sticky!important;
+  bottom:0!important;
+  padding-top:5px!important;
+  background:linear-gradient(to bottom,rgba(248,244,236,0),rgba(248,244,236,.98) 28%)!important;
+}
+#final151.final151 .final151Actions button{
+  min-width:0!important;
+  padding:12px 7px!important;
+  font-size:12px!important;
+  white-space:nowrap!important;
+}
+@media(max-width:430px){
+ #final151.final151 .final151Card{width:92vw!important;max-height:90vh!important;padding:8px!important}
+ #final151.final151 #final152Hero{aspect-ratio:655/650!important}
+ #final151.final151 #final151Grid{gap:5px!important}
+ #final151.final151 #final151Grid img{width:40px!important;height:40px!important}
+ #final151.final151 .final151Actions button{font-size:11px!important;padding:11px 5px!important}
 }
 </style>
