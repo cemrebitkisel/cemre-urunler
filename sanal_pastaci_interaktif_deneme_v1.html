@@ -1,6 +1,6 @@
 <!doctype html><html lang="tr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cemre Sanal Pastacı V15.3 — Temiz Final</title>
+<title>Cemre Sanal Pastacı V15.4 — Seçimleri Koruyan Düzenleme</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,sans-serif;color:#241f1a;background:#f4efe8}
 button,input{font:inherit}button{cursor:pointer}.app{height:100dvh;display:grid;grid-template-columns:40% 60%;overflow:hidden}
@@ -157,8 +157,8 @@ function renderRecipeVisual(){
 }
 
 function choose(n,o){if(busy)return;
-// V14 dependency reset: changing an earlier ingredient invalidates all later choices.
-for(let k=n+1;k<=7;k++) delete state[k];
+// V15.4: Düzenleme modu. Daha önce yapılmış sonraki seçimler korunur.
+// Örn. 6. adımdan 3. adıma dönüp Ara Dolgu değiştirilirse 4-7 silinmez.
 state[n]=o;empty.classList.add('hide');busy=true;processText.textContent=ACTION[n];if(n<7&&ASSETS[n]?.[o]){processThumb.src=ASSETS[n][o];processThumb.style.display='block'}else processThumb.style.display='none';process.classList.remove('on');void process.offsetWidth;process.classList.add('on');badge.textContent=ACTION[n]+'…';render();setTimeout(()=>{switchScene(sceneFor(n,o));renderRecipeVisual()},720);setTimeout(()=>{process.classList.remove('on');badge.textContent=o+' seçimi tamamlandı ✓';busy=false},1700)}
 function render(){renderRecipeVisual();recipe.textContent=Object.keys(state).sort((a,b)=>a-b).map(k=>STEPS[k-1][0]+': '+state[k]).join('  •  ');steps.innerHTML='';STEPS.forEach((x,k)=>{let n=k+1,d=document.createElement('section');d.className='step '+(n===cur?'active ':'')+(n<cur&&state[n]?'done':'');let h=document.createElement('div');h.className='head';h.innerHTML=`<div class=num>${n<cur&&state[n]?'✓':n}</div><div><b>${x[0]}</b><small>${x[1]}</small></div><div class=chev>${n===cur?'⌃':'›'}</div>`;h.onclick=()=>{cur=n;render()};d.appendChild(h);if(n===cur){if(n<7){let c=document.createElement('div');c.className='choices';OPT[n].forEach(o=>c.appendChild(card(n,o)));d.appendChild(c)}else{let w=document.createElement('div');w.className='writing';let inp=document.createElement('input');inp.placeholder='Örn: İyi ki doğdun…';inp.value=name;inp.oninput=e=>{name=e.target.value;renderRecipeVisual();badge.textContent=name?name+' pastaya yazılacak ✓':'Yazınızı girin'};w.appendChild(inp);let st=document.createElement('div');st.className='styles';OPT[7].forEach(o=>{let b=document.createElement('button');b.className='style '+(state[7]===o?'selected':'');b.textContent=o;b.onclick=()=>choose(7,o);st.appendChild(b)});w.appendChild(st);d.appendChild(w)}}steps.appendChild(d)});dots.innerHTML='';for(let i=1;i<=7;i++){let d=document.createElement('div');d.className='dot '+(i===cur?'on':i<cur&&state[i]?'done':'');d.textContent=i;dots.appendChild(d)}}
 const final151=$('#final151'),final151Grid=$('#final151Grid'),final151Name=$('#final151Name');
