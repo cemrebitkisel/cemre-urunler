@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sanal Pastacı — Deneme Motoru</title>
+<title>Sanal Pastacı — Canlı Üretim V2</title>
 <style>
 :root{--ink:#2c2521;--muted:#7c716a;--line:#e7ddd5;--red:#c93250;--cream:#fbf5ee;--dark:#28221f}
 *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#eee7df;color:var(--ink)}
@@ -36,6 +36,86 @@ button,input{font:inherit}.app{min-height:100vh;display:grid;grid-template-colum
 @keyframes bob{to{transform:translateY(4px) rotate(.5deg)}}@keyframes armwork{from{transform:rotate(-40deg)}to{transform:rotate(-72deg)}}@keyframes toolwork{from{transform:translate(185px,45px) rotate(15deg)}to{transform:translate(260px,54px) rotate(-8deg)}}
 .finalOverlay{display:none;position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#fff,#e8ddd2);z-index:20;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:30px}.finalOverlay.show{display:flex}.finalOverlay h2{font-size:38px;margin:8px 0}.finalOverlay p{color:var(--muted);max-width:520px}.finalCake{position:relative;width:360px;height:280px;transform:scale(1.2);margin:15px 0 28px}.finalBtns{display:flex;gap:9px}.finalBtns button{border:0;border-radius:13px;padding:12px 16px;font-weight:900}.wa{background:#25D366;color:#fff}.again{background:#28221f;color:#fff}
 @media(max-width:900px){.app{grid-template-columns:1fr}.control{min-height:570px}.stage{min-height:720px}.chef{left:4%;transform:scale(.85)}.work{left:43%;transform:scale(.85);transform-origin:left bottom}}
+
+/* ===== V2: aynı ekranda seçim + canlı imalat ===== */
+.waitLine{display:flex;align-items:center;gap:2px}
+.makeProgress{height:4px;background:#eadfd7;border-radius:99px;overflow:hidden;margin-top:9px}
+.makeProgress i{display:block;width:0;height:100%;background:var(--red);border-radius:99px}
+.wait.show .makeProgress i{animation:makebar 2.85s linear forwards}
+@keyframes makebar{to{width:100%}}
+
+.stage.busy.step-0 .chef{animation:chefLean .8s ease-in-out infinite alternate}
+.stage.busy.step-0 .arm.right{animation:placeBase .72s ease-in-out infinite alternate}
+.stage.busy.step-1 .chef{animation:chefLean .72s ease-in-out infinite alternate}
+.stage.busy.step-1 .arm.right{animation:spreadCream .46s ease-in-out infinite alternate}
+.stage.busy.step-2 .arm.right{animation:sprinkle .38s ease-in-out infinite alternate}
+.stage.busy.step-2 .hand{animation:handTap .38s ease-in-out infinite alternate}
+.stage.busy.step-3 .chef{animation:chefLean .8s ease-in-out infinite alternate}
+.stage.busy.step-3 .arm.right{animation:coatSweep .62s ease-in-out infinite alternate}
+.stage.busy.step-4 .arm.right{animation:dripPour .58s ease-in-out infinite alternate}
+.stage.busy.step-5 .arm.right{animation:placeDecor .9s ease-in-out infinite alternate}
+.stage.busy.step-6 .arm.right{animation:nameFinish .7s ease-in-out infinite alternate}
+@keyframes chefLean{to{transform:translate(8px,4px) rotate(1.2deg)}}
+@keyframes placeBase{from{transform:rotate(-28deg)}to{transform:rotate(-66deg)}}
+@keyframes spreadCream{from{transform:rotate(-35deg) translateX(-3px)}to{transform:rotate(-73deg) translateX(8px)}}
+@keyframes sprinkle{from{transform:rotate(-30deg) translateY(-2px)}to{transform:rotate(-54deg) translateY(7px)}}
+@keyframes handTap{to{transform:translateY(4px) rotate(7deg)}}
+@keyframes coatSweep{from{transform:rotate(-42deg)}to{transform:rotate(-77deg)}}
+@keyframes dripPour{from{transform:rotate(-36deg)}to{transform:rotate(-62deg) translateY(7px)}}
+@keyframes placeDecor{0%{transform:rotate(-25deg)}100%{transform:rotate(-72deg) translateY(9px)}}
+@keyframes nameFinish{from{transform:rotate(-40deg)}to{transform:rotate(-65deg) translateX(6px)}}
+
+/* Daha hacimli pasta */
+.cake{filter:drop-shadow(0 16px 13px rgba(45,28,20,.18))}
+.tier,.coat{box-shadow:inset -28px -3px rgba(0,0,0,.10),inset 18px 0 rgba(255,255,255,.10),0 14px 18px rgba(0,0,0,.18)}
+.tier:before,.coat:before{box-shadow:inset 0 7px 12px rgba(255,255,255,.18),inset -15px -7px rgba(0,0,0,.05)}
+.topcoat{box-shadow:inset 0 5px 8px rgba(255,255,255,.22),0 5px 8px rgba(0,0,0,.12)}
+.figure{filter:drop-shadow(0 11px 7px rgba(0,0,0,.28))}
+
+/* Final: pasta başrolde */
+.finalOverlay{background:
+ radial-gradient(circle at 50% 43%,rgba(255,255,255,.98) 0 28%,rgba(249,244,238,.97) 54%,rgba(226,213,201,.98) 100%)}
+.finalOverlay h2{font-size:clamp(28px,4vw,44px);margin:6px 0 4px;letter-spacing:-.035em}
+.finalOverlay p{margin:5px 0 8px;font-size:13px}
+.finalCake{width:430px;height:330px;transform:scale(1.34);margin:8px 0 22px;filter:drop-shadow(0 25px 22px rgba(57,35,25,.18))}
+.finalBtns button{padding:14px 19px;font-size:13px}
+
+/* Mobilde sayfa artık alt alta değil: seçim solda, pastacı sağda. */
+@media(max-width:900px){
+ html,body{height:100%;overflow:hidden}
+ .app{height:100svh;min-height:100svh;display:grid;grid-template-columns:40% 60%;overflow:hidden}
+ .control{min-height:0;height:100svh;padding:14px 12px 12px;overflow-y:auto;border-right:1px solid var(--line);border-bottom:0}
+ .brand{gap:7px}.brand i{width:34px;height:34px;border-radius:10px;font-size:17px}
+ .brand h1{font-size:14px;line-height:1.05}.brand p{font-size:8px;line-height:1.25}
+ .progress{margin:12px 0 13px;gap:3px}.progress i{height:4px}
+ .kicker{font-size:8px}.question h2{font-size:18px;margin:5px 0 5px}.question>p{font-size:9px;line-height:1.35;margin-bottom:10px}
+ .choices{grid-template-columns:1fr;gap:6px}.choice{min-height:0;padding:8px 8px;border-radius:11px}
+ .choice .ico{display:inline-block;font-size:14px;margin:0 5px 0 0;vertical-align:middle}.choice b{display:inline;font-size:10px}.choice small{font-size:8px;margin:2px 0 0 20px}
+ .wait{margin-top:9px;padding:8px;border-radius:10px;font-size:9px}
+ .recipe{margin-top:12px;padding-top:9px;border-top:1px solid var(--line)}.recipe h3{font-size:8px;margin-bottom:5px}.chips{gap:3px}.chip{padding:4px 5px;font-size:7px}.reset{margin-top:7px;font-size:8px}
+ .stage{height:100svh;min-height:100svh}
+ .sceneTitle{top:10px;left:10px;padding:7px 8px;border-radius:9px}.sceneTitle b{font-size:9px}.sceneTitle span{font-size:7px}
+ .sign{font-size:14px;right:5%;top:4%}
+ .chef{left:-28px;bottom:22%;transform:scale(.58);transform-origin:50% 90%}
+ .work{left:26%;bottom:28%;transform:scale(.64);transform-origin:left bottom}
+ .status{right:8px;bottom:8px;left:8px;max-width:none;padding:7px 8px;font-size:8px;text-align:center}
+ .finalOverlay{position:fixed;inset:0;padding:18px 14px;z-index:100}
+ .finalOverlay h2{font-size:30px;max-width:360px}.finalOverlay p{font-size:12px;max-width:330px}
+ .finalCake{width:330px;height:275px;transform:scale(1.28);margin:8px 0 14px}
+ .finalBtns{width:min(360px,100%);gap:8px}.finalBtns button{flex:1;padding:13px 10px;font-size:12px}
+}
+@media(max-width:430px){
+ .app{grid-template-columns:42% 58%}
+ .control{padding:11px 9px 9px}
+ .brand p{display:none}.brand h1{font-size:12px}
+ .question h2{font-size:16px}
+ .question>p{font-size:8px}
+ .choice{padding:7px}.choice small{display:none}
+ .chef{left:-48px;transform:scale(.52)}
+ .work{left:19%;bottom:28%;transform:scale(.56)}
+ .sign{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -44,7 +124,7 @@ button,input{font:inherit}.app{min-height:100vh;display:grid;grid-template-colum
  <div class="brand"><i>👨‍🍳</i><div><h1>Sanal Pastacı</h1><p>Seçimini yap, pastacın hazırlasın.</p></div></div>
  <div class="progress" id="progress"></div>
  <div class="question" id="question"></div>
- <div class="wait" id="wait"><b id="waitText">Hazırlanıyor</b><span class="dots"></span></div>
+ <div class="wait" id="wait"><div class="waitLine"><b id="waitText">Hazırlanıyor</b><span class="dots"></span></div><div class="makeProgress"><i></i></div></div>
  <div class="recipe"><h3>PASTAN ŞU ANA KADAR</h3><div class="chips" id="chips"></div><button class="reset" id="reset">Baştan başla</button></div>
 </section>
 
@@ -89,9 +169,11 @@ function renderQuestion(){
 }
 function choose(v){if(busy)return;state[stages[step].key]=v;doAction()}
 function doAction(){
- busy=true;document.querySelectorAll(".choice").forEach(b=>b.disabled=true);$("#wait").classList.add("show");$("#waitText").textContent=stages[step].action;$("#stage").classList.add("busy");$("#sceneSub").textContent=stages[step].action+"…";$("#status").textContent=stages[step].action+"…";
+ busy=true;document.querySelectorAll(".choice").forEach(b=>b.disabled=true);$("#wait").classList.add("show");$("#waitText").textContent=stages[step].action;$("#stage").classList.add("busy","step-"+step);$("#sceneSub").textContent=stages[step].action+"…";$("#status").textContent=stages[step].action+"…";
  $("#tool").classList.toggle("rolling",step===0);
- setTimeout(()=>{applyStage(step);$("#stage").classList.remove("busy");$("#wait").classList.remove("show");busy=false;if(step<stages.length-1){step++;renderQuestion();$("#sceneSub").textContent="Bir sonraki seçiminizi bekliyor.";$("#status").textContent="Sonraki adımı seçebilirsiniz."}else finish();renderChips()},1450);
+ const activeStep=step;
+ setTimeout(()=>{applyStage(activeStep)},1900);
+ setTimeout(()=>{$("#stage").classList.remove("busy","step-"+activeStep);$("#wait").classList.remove("show");busy=false;if(step<stages.length-1){step++;renderQuestion();$("#sceneSub").textContent="Bir sonraki seçiminizi bekliyor.";$("#status").textContent="Sonraki adımı seçebilirsiniz."}else finish();renderChips()},2900);
 }
 function applyStage(i){
  colors();
@@ -112,8 +194,8 @@ function renderChips(){$("#chips").innerHTML=Object.entries(state).filter(([k,v]
 function finish(){
  $("#sceneSub").textContent="Pastanız hazır!";$("#status").textContent="Pastacı son dokunuşları tamamladı.";
  setTimeout(()=>{
-   const clone=$("#cake").cloneNode(true);clone.removeAttribute("id");clone.style.left="52px";clone.style.bottom="50px";clone.style.transform="scale(1.15)";
-   $("#finalCake").innerHTML="";$("#finalCake").appendChild(clone);$("#finalTitle").textContent=`${state.name||""} için pasta hazır! 🎂`;$("#finalOverlay").classList.add("show")
+   const clone=$("#cake").cloneNode(true);clone.removeAttribute("id");clone.style.left="50%";clone.style.bottom="42px";clone.style.transform="translateX(-50%) scale(1.38)";clone.style.transformOrigin="center bottom";
+   $("#finalCake").innerHTML="";$("#finalCake").appendChild(clone);$("#finalTitle").textContent=`${state.name||"Pastanız"} için pasta hazır! 🎂`;$("#finalOverlay").classList.add("show")
  },650)
 }
 $("#again").onclick=()=>$("#finalOverlay").classList.remove("show");
