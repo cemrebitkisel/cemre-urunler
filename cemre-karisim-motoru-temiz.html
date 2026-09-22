@@ -703,15 +703,12 @@ linear-gradient(180deg,#fbf6e9,#f3ecd9)}
   font-family:Georgia,"Times New Roman",serif;
 }
 #kisGunesiResult.active{display:block}
-#kisGunesiResult .resultBackdrop{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;
-  user-select:none;-webkit-user-drag:none;opacity:.48;filter:saturate(.96) brightness(1.04);
-}
 #kisGunesiResult .resultScroll{
   position:relative;z-index:2;height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
-  -webkit-overflow-scrolling:touch;scrollbar-width:thin;background:linear-gradient(180deg,rgba(249,245,228,.36),rgba(247,241,220,.48));
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  background:linear-gradient(180deg,#f7f1dc 0%,#f5eed9 34%,#f3ecd6 100%);
 }
-#kisGunesiResult .posterPage{position:relative;width:100%;max-width:768px;margin:0 auto;box-sizing:border-box;overflow:hidden;padding:10px 0 13px;background:rgba(249,245,228,.50)}
+#kisGunesiResult .posterPage{position:relative;width:100%;max-width:768px;margin:0 auto;box-sizing:border-box;overflow:hidden;padding:10px 0 13px;background:linear-gradient(180deg,rgba(249,245,228,.92),rgba(246,240,219,.88))}
 #kisGunesiResult .posterInner{position:relative;z-index:2;width:min(92%,706px);margin:0 auto}
 #kisGunesiResult .resultBack{position:absolute;left:12px;top:12px;z-index:10;width:40px;height:40px;border:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,253,246,.94);color:#0d4b3d;font:400 26px/1 Georgia,serif;box-shadow:0 4px 15px rgba(50,62,45,.13);cursor:pointer}
 #kisGunesiResult .brandBlock{text-align:center;margin:1px auto 4px}
@@ -1122,7 +1119,6 @@ linear-gradient(180deg,#fbf6e9,#f3ecd9)}
   <button class="q4Next" type="button" data-action="prepare">Karışımımı Hazırla →</button>
 </section>
 <section id="kisGunesiResult" aria-label="Kış Güneşi sonuç ekranı">
-  <img class="resultBackdrop" alt="" draggable="false">
   <div class="resultScroll">
     <article class="posterPage">
       <button type="button" class="resultBack" data-result-action="restart" aria-label="Başa dön">‹</button>
@@ -1240,9 +1236,6 @@ linear-gradient(180deg,#fbf6e9,#f3ecd9)}
   const result=document.getElementById('kisGunesiResult');
   const q4=document.getElementById('q4');
   if(!result || !q4) return;
-  const backdrop=result.querySelector('.resultBackdrop');
-  const q4Poster=q4.querySelector('.stepPoster');
-  if(backdrop && q4Poster) backdrop.src=q4Poster.src;
 
   function openKisGunesiResult(){
     const chosen=q4.querySelector('input[name="q4Priority"]:checked');
