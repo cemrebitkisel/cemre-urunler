@@ -725,8 +725,9 @@ linear-gradient(180deg,#fbf6e9,#f3ecd9)}
 #kisGunesiResult .resultEyebrow{margin:0;color:#225546;font-size:14px;line-height:1.1}
 #kisGunesiResult .resultTitle{margin:1px 0 0;color:#a33c20;font-size:38px;line-height:.94;letter-spacing:.01em;font-weight:700}
 #kisGunesiResult .resultSub{margin:4px 0 0;font-size:14px;line-height:1.16;color:#2d4439}
-#kisGunesiResult .heroWrap{position:relative;width:100%;margin:7px 0 0}
+#kisGunesiResult .heroWrap{position:relative;width:100%;margin:7px 0 0;padding-bottom:24px}
 #kisGunesiResult .heroImage{position:relative;z-index:1;width:100%;height:166px;overflow:hidden}
+#kisGunesiResult .heroImage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:44px;pointer-events:none;background:linear-gradient(180deg,rgba(248,242,220,0),rgba(248,242,220,.62) 72%,rgba(248,242,220,.88) 100%)}
 #kisGunesiResult .heroImage img{width:100%;height:100%;object-fit:cover;object-position:center 48%;display:block}
 #kisGunesiResult .goodnessBadge{position:absolute;z-index:4;left:-12px;top:11px;width:74px;height:74px;border-radius:50%;border:1.5px solid rgba(141,119,69,.72);background:rgba(246,242,218,.94);box-shadow:0 4px 14px rgba(71,65,47,.10);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(-4deg)}
 #kisGunesiResult .goodnessBadge::before{content:"◆";font-size:7px;color:#51744e;margin-bottom:1px}
@@ -735,7 +736,7 @@ linear-gradient(180deg,#fbf6e9,#f3ecd9)}
 #kisGunesiResult .seasonNote{position:absolute;z-index:4;right:-12px;top:40px;width:94px;box-sizing:border-box;padding:8px 6px;background:rgba(250,245,228,.94);box-shadow:0 3px 14px rgba(76,64,47,.12);transform:rotate(-6deg);color:#403b31;text-align:center;font-family:"Brush Script MT","Segoe Script",cursive;font-size:12px;line-height:1.17}
 #kisGunesiResult .seasonNote::after{content:"♡";display:block;margin-top:1px;font-size:17px;color:#514a3d}
 #kisGunesiResult .flowSection{position:relative;background:transparent}
-#kisGunesiResult .whySection{width:86%;margin:-1px auto 0;padding:8px 10px 7px;box-sizing:border-box;text-align:center;background:rgba(255,252,242,.76);border-radius:18px;box-shadow:0 2px 9px rgba(73,68,48,.04)}
+#kisGunesiResult .whySection{position:relative;z-index:3;width:84%;margin:-32px auto 0;padding:10px 12px 8px;box-sizing:border-box;text-align:center;background:linear-gradient(180deg,rgba(255,252,242,.90),rgba(249,244,226,.82));border-radius:22px 22px 18px 18px;box-shadow:0 4px 12px rgba(73,68,48,.055);backdrop-filter:blur(1.5px);-webkit-backdrop-filter:blur(1.5px)}
 #kisGunesiResult .sectionTitle{margin:0;text-align:center;font-size:18px;line-height:1.05;color:#1c4f40}
 #kisGunesiResult .sectionTitle .tinyLeaf{font-size:10px;vertical-align:2px;margin-right:5px}
 #kisGunesiResult .whyText{max-width:520px;margin:5px auto 6px;font-size:11px;line-height:1.30;color:#334b3e}
@@ -779,7 +780,7 @@ linear-gradient(180deg,#fbf6e9,#f3ecd9)}
   #kisGunesiResult .goodnessBadge{left:-24px;top:16px;width:104px;height:104px}
   #kisGunesiResult .goodnessBadge strong{font-size:17px}
   #kisGunesiResult .seasonNote{right:-24px;top:62px;width:138px;padding:14px 10px;font-size:18px}
-  #kisGunesiResult .whySection{padding:14px 18px 12px}
+  #kisGunesiResult .whySection{margin-top:-36px;padding:16px 20px 13px}
   #kisGunesiResult .sectionTitle,#kisGunesiResult .lineTitle{font-size:26px}
   #kisGunesiResult .whyText{font-size:17px}
   #kisGunesiResult .trait{font-size:13px;padding:9px 5px}
