@@ -1,1595 +1,256 @@
 <!doctype html>
-<html lang="tr">
-<head>
-<meta charset="utf-8">
+<html lang="tr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Cemre Karışım Motoru</title>
 <style>
-:root{--green:#075d4e;--green2:#0b725f;--cream:#f6f0df;--ink:#17483d;--muted:#6e776c;--line:#d8d0b8}
-*{box-sizing:border-box} html,body{margin:0;min-height:100%;background:#deded8;font-family:Georgia,"Times New Roman",serif;color:var(--ink)}
-button{font:inherit;color:inherit}
-#app{min-height:100vh;display:grid;place-items:center;padding:0}
-.stage{position:relative;width:min(100vw,56.25vh);aspect-ratio:9/16;max-height:100vh;overflow:hidden;background:var(--cream);box-shadow:0 0 30px #0002}
-.screen{position:absolute;inset:0;display:none;overflow:hidden}.screen.active{display:flex;flex-direction:column}
-.logo{text-align:center;font-weight:700;letter-spacing:.18em;font-size:clamp(20px,5.4vw,31px);line-height:1}.logo small{display:block;font-family:Arial,sans-serif;font-size:.29em;letter-spacing:.26em;margin-top:.55em}
-.botanical{background:
-radial-gradient(circle at 0 0,#91a95755 0 8%,transparent 9%),
-radial-gradient(circle at 100% 10%,#6d913f44 0 10%,transparent 11%),
-linear-gradient(180deg,#fbf6e9,#f3ecd9)}
-.decor{position:absolute;font-size:clamp(38px,11vw,72px);opacity:.8;pointer-events:none}.d1{left:-3%;top:6%;transform:rotate(-25deg)}.d2{right:-4%;top:15%;transform:rotate(25deg)}.d3{left:-5%;bottom:5%;transform:rotate(18deg)}.d4{right:-3%;bottom:4%;transform:rotate(-15deg)}
-
-
-
-
-
-
-
-.cta{border:0;border-radius:999px;background:var(--green);color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:clamp(14px,3.8vw,21px);min-height:48px;padding:0 8%;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 10px #0002}
-
-
-/* 2 main */
-#s2{align-items:center;text-align:center;padding:7% 7% 5%}
-#s2 h1{font-size:clamp(28px,7vw,46px);line-height:1.08;margin:11% 0 3%;font-weight:500}
-.sub{font-family:Arial,sans-serif;color:#667168;font-size:clamp(12px,3.1vw,17px);line-height:1.5;margin:0 7%}
-.icons{display:grid;grid-template-columns:repeat(4,1fr);gap:4%;width:86%;margin:7% auto 3%;font-family:Arial,sans-serif;font-size:clamp(10px,2.6vw,14px)}
-.icons b{display:block;font-size:clamp(25px,7vw,42px);margin-bottom:7%}.cup{font-size:clamp(88px,26vw,155px);margin:2% 0}
-#s2 .cta{width:68%;margin-top:1%}.quote{font-size:clamp(14px,3.5vw,19px);font-style:italic;margin:5% 10% 0}
-
-
-.head{display:grid;grid-template-columns:44px 1fr 58px;align-items:center;min-height:50px}.back{width:42px;height:42px;border:0;background:transparent;font-size:34px;cursor:pointer}.step{font-family:Arial,sans-serif;text-align:right;font-size:12px}.progress{height:4px;background:#d8d4c7;border-radius:5px;margin-top:6px;overflow:hidden}.progress i{display:block;height:100%;width:25%;background:var(--green)}
-.lead{text-align:center;font-family:Arial,sans-serif;font-size:clamp(11px,2.9vw,16px);color:var(--muted);margin:0 5% 4%}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:2.2%;flex:1;min-height:0}
-.card{position:relative;min-height:0;border:1px solid #d8d0b8;border-radius:17px;background:#fffaf0;padding:0;overflow:hidden;cursor:pointer;touch-action:manipulation;box-shadow:0 2px 7px #0000000d}
-.card .pic{height:58%;display:grid;place-items:center;font-size:clamp(35px,10vw,60px);background:linear-gradient(135deg,#e8e2c8,#faf6e9)}
-.card .txt{height:42%;display:flex;align-items:center;justify-content:center;padding:4% 7%;text-align:center;font-size:clamp(12px,3vw,17px);line-height:1.15;font-weight:700}
-.card[aria-pressed="true"]{border:3px solid var(--green)}.card[aria-pressed="true"]::after{content:"✓";position:absolute;right:7px;top:7px;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-family:Arial,sans-serif;font-weight:700}
-.foot{text-align:center;font-style:italic;font-size:clamp(11px,2.8vw,15px);margin:1% 0}
-@media (min-width:700px){.stage{border-radius:4px}}
-@media (max-height:650px){#s2 h1{margin-top:5%}.icons{margin-top:4%}.cup{font-size:80px}.cards{gap:1.4%}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* This grid row is intentionally empty: it reserves the photographed cup. */
-
-/* Bekleme ekranı — temiz sürüm: afiş + tek gerçek HTML butonu */
-#s1.screen{
-  padding:0;
-  background:#061f19;
-  overflow:hidden;
-}
-#s1.screen.active{display:block}
-#s1 .waitingPoster{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  display:block;
-  pointer-events:none;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-#s1 .waitingAction{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:1.8%;
-  z-index:5;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-end;
-  gap:9px;
-  pointer-events:none;
-}
-#s1 .waitingCTA{
-  pointer-events:auto;
-  appearance:none;
-  -webkit-appearance:none;
-  width:54%;
-  min-height:38px;
-  padding:0 5.2%;
-  margin:0;
-  border:1px solid rgba(255,255,255,.88);
-  border-radius:999px;
-  background:#033822;
-  color:#fff;
-  font-family:"Segoe UI",Arial,Helvetica,sans-serif;
-  font-size:clamp(12px,2.75vw,16px);
-  font-weight:500;
-  letter-spacing:.01em;
-  line-height:1;
-  white-space:nowrap;
-  text-align:center;
-  box-shadow:0 2px 7px rgba(0,0,0,.24);
-  cursor:pointer;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:.65em;
-}
-#s1 .waitingCTA span{
-  display:inline-block;
-  margin:0;
-  font-size:1.05em;
-  font-weight:300;
-  opacity:.92;
-  transform:translateY(-.02em);
-}
-#s1 .waitingCTA:active{transform:translateY(1px)}
-#s1 .waitingCTA:focus-visible{outline:2px solid #fff;outline-offset:3px}
-
-
-#s1 .touchHint{
-  width:36px;
-  height:44px;
-  color:#fff;
-  opacity:.9;
-  filter:drop-shadow(0 1px 3px rgba(0,0,0,.28));
-  pointer-events:none;
-}
-#s1 .touchHint svg{
-  display:block;
-  width:100%;
-  height:100%;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.45;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-
-/* ===== 2. ekran: açık afiş + tek gerçek HTML butonu ===== */
-#s2.screen{padding:0!important;background:#f4efdf!important;overflow:hidden!important}
-#s2.screen.active{display:block!important}
-#s2 .teaIntroPoster{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center;display:block;
-  pointer-events:none;user-select:none;-webkit-user-drag:none
-}
-#s2 .teaIntroAction{
-  position:absolute;left:0;right:0;bottom:14.2%;z-index:5;
-  display:flex;justify-content:center;pointer-events:none
-}
-#s2 .teaIntroCTA{
-  pointer-events:auto;appearance:none;-webkit-appearance:none;
-  width:64%;min-height:44px;padding:0 6%;margin:0;
-  border:1px solid rgba(255,255,255,.9);border-radius:999px;
-  background:#033822;color:#fff;
-  font-family:"Segoe UI",Arial,Helvetica,sans-serif;
-  font-size:clamp(13px,3vw,17px);font-weight:500;letter-spacing:.01em;
-  line-height:1;white-space:nowrap;text-align:center;
-  box-shadow:0 3px 9px rgba(0,0,0,.22);
-  cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent
-}
-#s2 .teaIntroCTA span{display:inline-block;margin-left:.7em;font-weight:300}
-#s2 .teaIntroCTA:active{transform:translateY(1px)}
-#s2 .teaIntroCTA:focus-visible{outline:2px solid #033822;outline-offset:3px}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Seçimde sadece ince vurgu; ikinci bir kart zemini oluşmaz */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Bitki fotoğraflarının farklı görsel ağırlıklarına göre küçük ince ayarlar */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Kart bazlı küçük denge ayarları */
-
-
-
-
-
-
-
-
-/* ===== 1/4 TEK VE TEMİZ YAPI ===== */
-#s3.feelScreen{padding:0;background:#f4f0df;overflow:hidden}
-#s3.feelScreen.active{display:block}
-#s3 .feelPoster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none}
-#s3 .feelBack{position:absolute;left:5.3%;top:4.05%;z-index:12;width:44px;height:44px;border:1px solid rgba(3,56,34,.14);border-radius:50%;background:rgba(255,252,244,.94);color:#033822;font:400 34px/1 Arial,sans-serif;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer;touch-action:manipulation}
-
-#s3 .feelQuestion{position:absolute;left:9%;right:9%;top:12.5%;height:17.1%;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;color:#064d42}
-#s3 .feelDivider{width:48%;display:flex;align-items:center;gap:10px;margin:0 0 1.4%;color:#0a5b4c}
-#s3 .feelDivider span{flex:1;height:1px;background:rgba(10,91,76,.48)}
-#s3 .feelDivider b{font-family:Georgia,serif;font-size:23px;line-height:1;font-weight:400;color:#0a5b4c;transform:rotate(-18deg)}
-#s3 .feelQuestion h1{margin:0;font-family:Didot,"Bodoni 72","Bodoni MT",Baskerville,"Palatino Linotype",Georgia,serif;font-size:clamp(24px,5.75vw,35px);font-weight:600;line-height:.98;letter-spacing:-.025em;color:#064d42}
-#s3 .feelQuestion p{margin:1.7% 0 0;font-family:"Segoe UI",Arial,sans-serif;font-size:clamp(10.5px,2.5vw,14px);font-weight:400;line-height:1.15;color:#315f55}
-
-#s3 .feelGrid{position:absolute;left:5.7%;right:5.7%;top:31.0%;height:43.1%;z-index:7;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:1.2% 1.45%}
-#s3 .feelCard{position:relative;min-width:0;min-height:0;overflow:hidden;margin:0;padding:0;border:0;border-radius:18px;background:transparent;box-shadow:none;color:#073f35;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-#s3 .feelPlant{position:absolute;left:2%;top:-1.5%;width:96%;height:64%;object-fit:contain;object-position:center;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.92) 84%,rgba(0,0,0,.58) 92%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.92) 84%,rgba(0,0,0,.58) 92%,transparent 100%)}
-#s3 .feelCard:nth-child(1) .feelPlant{left:1%;width:98%;top:-1.8%;height:65%}
-#s3 .feelCard:nth-child(2) .feelPlant{left:2%;width:96%;top:-1.5%;height:64%}
-#s3 .feelCard:nth-child(3) .feelPlant{left:1%;width:98%;top:-2%;height:66%}
-#s3 .feelCard:nth-child(4) .feelPlant{left:2.5%;width:95%;top:-1%;height:63%}
-#s3 .feelCard:nth-child(5) .feelPlant{left:1%;width:98%;top:-2%;height:66%}
-#s3 .feelCard:nth-child(6) .feelPlant{left:2%;width:96%;top:-1.2%;height:64%}
-#s3 .feelText{position:absolute;left:5%;right:9%;bottom:3.5%;height:30%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:"Segoe UI",Arial,sans-serif;line-height:1.04;pointer-events:none}
-#s3 .feelText strong{font-size:clamp(12.5px,3.15vw,17px);font-weight:650}
-#s3 .feelText small{font-size:clamp(10px,2.6vw,13.8px);font-weight:400;margin-top:.08em}
-#s3 .feelArrow{position:absolute;right:5.5%;bottom:6.8%;width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid rgba(3,56,34,.14);display:grid;place-items:center;color:#033822;font:400 27px/1 Arial,sans-serif;pointer-events:none}
-#s3 .feelCard[aria-pressed="true"]{box-shadow:inset 0 0 0 2px #033822;background:rgba(255,255,255,.035)}
-#s3 .feelCard[aria-pressed="true"]::after{content:"✓";position:absolute;right:6%;top:6%;width:25px;height:25px;border-radius:50%;background:#033822;color:#fff;display:grid;place-items:center;font:700 15px Arial,sans-serif;pointer-events:none}
-#s3 .feelNext{position:absolute;left:22%;width:56%;bottom:18.9%;z-index:9;min-height:38px;border:1px solid rgba(255,255,255,.9);border-radius:999px;background:#033822;color:#fff;font-family:"Segoe UI",Arial,sans-serif;font-size:clamp(13px,3vw,17px);font-weight:500;letter-spacing:.01em;box-shadow:0 3px 9px rgba(0,0,0,.18);cursor:pointer;touch-action:manipulation}
-#s3 .feelNext:disabled{opacity:.72;cursor:default}
-#s3 .feelNext[aria-disabled="false"]{opacity:1}
-#s3 .feelNext:not(:disabled):active,#s3 .feelBack:active{transform:translateY(1px)}
-
-/* ===== YENİ TEMİZ 1/4–4/4 ALTYAPISI =====
-   Eski s3/s4/s5 ekranları kullanılmaz. Her adım aynı tek boş şablonu kullanır.
-   Etkileşimli öğeler bundan sonra yalnız gerçek HTML kontrolleri olarak eklenecek. */
-.cleanStep{position:absolute;inset:0;display:none;overflow:hidden;background:#f5f0df}
-.cleanStep.active{display:block}
-.cleanStep .stepPoster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none}
-.cleanStep .stepBack{position:absolute;left:5.3%;top:4.2%;z-index:20;width:44px;height:44px;border:1px solid rgba(3,56,34,.14);border-radius:50%;background:rgba(255,252,244,.94);color:#033822;font:400 34px/1 Arial,sans-serif;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer;touch-action:manipulation}
-.cleanStep .stepState{position:absolute;right:7.6%;top:4.1%;z-index:20;width:23%;color:#033822;font-family:"Segoe UI",Arial,sans-serif;text-align:center}
-.cleanStep .stepNo{font-size:clamp(15px,3.8vw,21px);line-height:1;margin-bottom:8px}
-.cleanStep .stepBar{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;height:7px}
-.cleanStep .stepBar i{display:block;border-radius:999px;background:#d7d7d4}
-.cleanStep[data-step="1"] .stepBar i:nth-child(-n+1),
-.cleanStep[data-step="2"] .stepBar i:nth-child(-n+2),
-.cleanStep[data-step="3"] .stepBar i:nth-child(-n+3),
-.cleanStep[data-step="4"] .stepBar i:nth-child(-n+4){background:#033822}
-/* İçerik katmanı şimdilik bilinçli olarak boş. Sonraki adımlarda soru, kartlar ve butonlar buraya gerçek HTML olarak eklenecek. */
-.cleanStep .contentLayer{position:absolute;inset:0;z-index:10;pointer-events:none}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ===== 1/4 TEMEL EKRAN CSS — REFERANS KORUNDU ===== */
-#q1 .stepQuestion{
-  position:absolute;z-index:15;left:9%;right:9%;top:15.25%;
-  text-align:center;color:#06483d;pointer-events:none;
-}
-#q1 .questionOrnament{
-  display:flex;justify-content:center;align-items:center;gap:10px;
-  margin:0 auto 1.6%;width:55%;opacity:.85;
-}
-#q1 .questionOrnament span{height:1px;background:#2f6e62;flex:1}
-#q1 .questionOrnament b{
-  font-family:Georgia,serif;font-size:clamp(14px,3.5vw,20px);font-weight:400
-}
-#q1 .stepQuestion h1{
-  margin:0;font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(20px,5.1vw,32px);line-height:.97;font-weight:600;letter-spacing:-.018em;
-}
-#q1 .stepQuestion p{
-  margin:1.7% 0 0;font-family:"Segoe UI",Arial,sans-serif;
-  font-size:clamp(9.3px,2.3vw,13px);line-height:1.16;font-weight:400;
-}
-#q1 .stepGrid{
-  position:absolute;z-index:15;left:5.20%;right:5.90%;top:31.50%;height:43.15%;
-  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:2.25% 2.15%;
-}
-#q1 .stepGrid .stepCard:nth-child(odd){transform:translateX(-1.2%)}
-#q1 .stepGrid .stepCard:nth-child(even){transform:translateX(1.2%)}
-#q1 .stepNext{
-  position:absolute;z-index:20;left:22%;width:56%;bottom:19.2%;
-  min-height:33px;height:4.35%;
-  border:1px solid rgba(255,255,255,.9);border-radius:999px;background:#033822;color:#fff;
-  font-family:"Segoe UI",Arial,sans-serif;font-size:clamp(12px,2.7vw,15.5px);
-  font-weight:500;letter-spacing:.01em;box-shadow:0 3px 9px rgba(0,0,0,.18);
-  cursor:pointer;touch-action:manipulation;
-}
-#q1 .stepNext:disabled{opacity:.46;cursor:default}
-#q1 .stepNext:not(:disabled):active,#q1 .stepBack:active{transform:translateY(1px)}
-
-/* ===== 2/4 — TEK KATMANLI, AKIŞ TABANLI TEMİZ YAPI ===== */
-#q2 .stepQuestion{
-  position:absolute;z-index:15;left:9%;right:9%;top:15.25%;
-  text-align:center;color:#06483d;pointer-events:none;
-}
-#q2 .questionOrnament{
-  display:flex;justify-content:center;align-items:center;gap:10px;
-  margin:0 auto 1.6%;width:55%;opacity:.85;
-}
-#q2 .questionOrnament span{height:1px;background:#2f6e62;flex:1}
-#q2 .questionOrnament b{
-  font-family:Georgia,serif;font-size:clamp(14px,3.5vw,20px);font-weight:400
-}
-#q2 .stepQuestion h1{
-  margin:0;font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(20px,5.1vw,32px);line-height:.97;font-weight:600;letter-spacing:-.018em;
-}
-#q2 .stepQuestion p{
-  margin:1.7% 0 0;font-family:"Segoe UI",Arial,sans-serif;
-  font-size:clamp(9.3px,2.3vw,13px);line-height:1.16;font-weight:400;
-}
-#q2 .stepGrid{
-  position:absolute;z-index:15;left:5.20%;right:5.90%;top:31.50%;height:43.15%;
-  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:2.25% 2.15%;
-}
-#q2 .stepGrid .stepCard:nth-child(odd){transform:translateX(-1.2%)}
-#q2 .stepGrid .stepCard:nth-child(even){transform:translateX(1.2%)}
-#q2 .stepCard{
-  position:relative;min-width:0;min-height:0;border:0;outline:0;margin:0;padding:0;
-  border-radius:18px;overflow:hidden;background:transparent;color:#06483d;cursor:pointer;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-  display:grid;grid-template-rows:minmax(0,64%) minmax(0,36%);
-}
-#q2 .stepCard:focus-visible{outline:3px solid #033822;outline-offset:-3px}
-#q2 .q2VisualBox{
-  min-width:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;
-  padding:0;pointer-events:none;
-}
-#q2 .stepVisual{
-  position:static;display:block;width:100%;height:100%;max-width:none;max-height:none;
-  object-fit:cover;object-position:center center;pointer-events:none;user-select:none;-webkit-user-drag:none;
-}
-#q2 .q2BottomRow{
-  min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 32px;
-  align-items:center;column-gap:3px;padding:0 4.8% 3.5% 5%;pointer-events:none;
-}
-#q2 .q2Copy{
-  min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;font-family:"Segoe UI",Arial,sans-serif;line-height:1.04;
-}
-#q2 .q2Copy strong{font-size:clamp(12px,3vw,16.5px);font-weight:700;white-space:normal}
-#q2 .q2Copy small{margin-top:.12em;font-size:clamp(9.5px,2.45vw,13.2px);font-weight:400;white-space:normal}
-#q2 .q2Arrow{
-  width:30px;height:30px;border-radius:50%;border:1px solid rgba(3,56,34,.15);
-  background:rgba(255,255,255,.94);color:#033822;display:grid;place-items:center;
-  font:400 27px/1 Arial,sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.08);
-}
-#q2 .stepCard[aria-pressed="true"]{box-shadow:none}
-#q2 .stepCard[aria-pressed="true"]::after{
-  content:"✓";position:absolute;z-index:5;right:4.8%;top:5.5%;width:25px;height:25px;
-  border-radius:50%;background:#033822;color:#fff;display:grid;place-items:center;
-  font:700 15px/1 Arial,sans-serif;pointer-events:none;
-}
-#q2 .stepNext{
-  position:absolute;z-index:20;left:22%;width:56%;bottom:19.2%;
-  min-height:33px;height:4.35%;
-  border:1px solid rgba(255,255,255,.9);border-radius:999px;background:#033822;color:#fff;
-  font-family:"Segoe UI",Arial,sans-serif;font-size:clamp(12px,2.7vw,15.5px);
-  font-weight:500;letter-spacing:.01em;box-shadow:0 3px 9px rgba(0,0,0,.18);
-  cursor:pointer;touch-action:manipulation;
-}
-#q2 .stepNext:disabled{opacity:.46;cursor:default}
-#q2 .stepNext:not(:disabled):active,#q2 .stepBack:active{transform:translateY(1px)}
-
-/* ===== 1/4 KARTLARI — TEK KATMANLI, AKIŞ TABANLI YAPI ===== */
-#q1 .stepCard{
-  position:relative;border:0;outline:0;margin:0;padding:0;border-radius:18px;
-  overflow:hidden;background:transparent;color:#06483d;cursor:pointer;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-  display:grid;grid-template-rows:minmax(0,64%) minmax(0,36%);
-}
-#q1 .stepCard:focus-visible{outline:3px solid #033822;outline-offset:-3px}
-#q1 .q1VisualBox{
-  min-width:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:flex-start;
-  padding:0;pointer-events:none;
-}
-#q1 .stepVisual{
-  position:relative;display:block;width:104.5%;min-width:104.5%;height:104%;max-width:none;max-height:none;
-  flex:0 0 104.5%;
-  object-fit:cover;object-position:center center;
-  transform:translateY(2.2%);
-  transform-origin:left center;
-  pointer-events:none;user-select:none;-webkit-user-drag:none;
-}
-#q1 .q1BottomRow{
-  min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 32px;
-  align-items:center;column-gap:3px;padding:0 4.8% 3.5% 5%;pointer-events:none;
-}
-#q1 .q1Copy{
-  min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;font-family:"Segoe UI",Arial,sans-serif;line-height:1.04;
-}
-#q1 .q1Copy strong{font-size:clamp(12px,3vw,16.5px);font-weight:700;white-space:normal}
-#q1 .q1Copy small{margin-top:.12em;font-size:clamp(9.5px,2.45vw,13.2px);font-weight:400;white-space:normal}
-#q1 .q1Arrow{
-  width:30px;height:30px;border-radius:50%;border:1px solid rgba(3,56,34,.15);
-  background:rgba(255,255,255,.94);color:#033822;display:grid;place-items:center;
-  font:400 27px/1 Arial,sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.08);
-}
-#q1 .stepCard[aria-pressed="true"]{box-shadow:none}
-#q1 .stepCard[aria-pressed="true"]::after{
-  content:"✓";position:absolute;z-index:5;right:4.8%;top:5.5%;width:25px;height:25px;
-  border-radius:50%;background:#033822;color:#fff;display:grid;place-items:center;
-  font:700 15px/1 Arial,sans-serif;pointer-events:none;
-}
-
-
-/* ===== 2/4 BAHARATLI REFERANS KART TESTİ ===== */
-#q2 .q2ReferenceCard{
-  transform:none !important;
-}
-#q2 .q2ReferenceCard .q2VisualBox{
-  position:relative;
-  left:0;
-  width:calc(100% + 5px);
-  min-width:0;
-  min-height:0;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  pointer-events:none;
-}
-#q2 .q2ReferenceCard .stepVisual{
-  position:static;
-  display:block;
-  width:100%;
-  height:100%;
-  min-width:0;
-  max-width:none;
-  max-height:none;
-  object-fit:fill;
-  object-position:left center;
-  transform:none !important;
-  margin:0;
-  pointer-events:none;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-
-/* ===== 3/4 PREMIUM TEMİZ YENİDEN KURULUM ===== */
-#q3 .q3Question{
-  position:absolute;z-index:15;left:9%;right:9%;top:15.25%;
-  text-align:center;color:#06483d;pointer-events:none;
-}
-#q3 .q3Ornament{
-  display:flex;justify-content:center;align-items:center;gap:10px;
-  margin:0 auto 1.15%;width:49%;opacity:.86;
-}
-#q3 .q3Ornament span{height:1px;background:#2f6e62;flex:1}
-#q3 .q3Ornament b{font-family:Georgia,serif;font-size:clamp(14px,3.3vw,19px);font-weight:400}
-#q3 .q3Question h1{
-  margin:0;font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(21px,5.05vw,31px);line-height:.99;font-weight:600;letter-spacing:-.02em;
-}
-#q3 .q3Question p{
-  margin:1.7% 0 0;font-family:"Segoe UI",Arial,sans-serif;
-  font-size:clamp(9.2px,2.25vw,12.8px);line-height:1.1;font-weight:400;
-}
-#q3 .q3Grid{
-  position:absolute;z-index:15;left:5.20%;right:5.90%;top:31.50%;height:43.15%;
-  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:2.25% 2.15%;
-}
-#q3 .q3Grid .q3Card:nth-child(odd){transform:translateX(-1.2%)}
-#q3 .q3Grid .q3Card:nth-child(even){transform:translateX(1.2%)}
-#q3 .q3Card{
-  position:relative;min-width:0;min-height:0;border:0;outline:0;margin:0;padding:0;
-  border-radius:18px;overflow:hidden;background:transparent;color:#06483d;cursor:pointer;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-  display:grid;grid-template-rows:minmax(0,55%) minmax(0,45%);
-}
-#q3 .q3Card:focus-visible{outline:3px solid #033822;outline-offset:-3px}
-#q3 .q3VisualBox{
-  min-width:0;min-height:0;overflow:hidden;display:flex;align-items:stretch;justify-content:stretch;
-  padding:0;pointer-events:none;
-}
-#q3 .q3Visual{
-  position:static;display:block;width:100%;height:100%;max-width:none;max-height:none;
-  object-fit:cover;object-position:center center;pointer-events:none;user-select:none;-webkit-user-drag:none;
-  filter:none;
-}
-#q3 .q3BottomRow{
-  min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 32px;
-  align-items:center;column-gap:3px;padding:0 4.8% 1.2% 5%;pointer-events:none;
-}
-#q3 .q3Copy{
-  min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;font-family:"Segoe UI",Arial,sans-serif;line-height:1.02;
-}
-#q3 .q3Copy strong{
-  font-size:clamp(10.6px,2.55vw,14.8px);line-height:1.01;font-weight:700;white-space:normal;
-  max-width:100%;
-}
-#q3 .q3Copy small{
-  margin-top:.08em;font-size:clamp(8.1px,1.95vw,10.8px);line-height:1.00;font-weight:400;
-  color:#39473f;white-space:nowrap;max-width:100%;
-}
-#q3 .q3Arrow{
-  width:30px;height:30px;border-radius:50%;border:1px solid rgba(3,56,34,.15);
-  background:rgba(255,255,255,.94);color:#033822;display:grid;place-items:center;
-  font:400 27px/1 Arial,sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.08);
-}
-#q3 .q3Card[aria-pressed="true"]{box-shadow:none}
-#q3 .q3Card[aria-pressed="true"]::after{
-  content:"✓";position:absolute;z-index:5;right:4.8%;top:5.5%;width:25px;height:25px;
-  border-radius:50%;background:#033822;color:#fff;display:grid;place-items:center;
-  font:700 15px/1 Arial,sans-serif;pointer-events:none;
-}
-#q3 .q3Next{
-  position:absolute;z-index:20;left:22%;width:56%;bottom:19.2%;
-  min-height:33px;height:4.35%;border:1px solid rgba(255,255,255,.9);border-radius:999px;
-  background:#033822;color:#fff;font-family:"Segoe UI",Arial,sans-serif;
-  font-size:clamp(12px,2.7vw,15.5px);font-weight:500;letter-spacing:.01em;
-  box-shadow:0 3px 9px rgba(0,0,0,.18);cursor:pointer;touch-action:manipulation;
-}
-#q3 .q3Next:disabled{opacity:.46;cursor:default}
-#q3 .q3Next:not(:disabled):active,#q3 .stepBack:active{transform:translateY(1px)}
-
-
-/* ===== 4/4 PREMIUM TEMİZ KURULUM ===== */
-#q4 .q4Question{
-  position:absolute;z-index:15;left:9%;right:9%;top:15.25%;
-  text-align:center;color:#06483d;pointer-events:none;
-}
-#q4 .q4Ornament{
-  display:flex;justify-content:center;align-items:center;gap:10px;
-  margin:0 auto 1.15%;width:49%;opacity:.86;
-}
-#q4 .q4Ornament span{height:1px;background:#2f6e62;flex:1}
-#q4 .q4Ornament b{font-family:Georgia,serif;font-size:clamp(14px,3.3vw,19px);font-weight:400}
-#q4 .q4Question h1{
-  margin:0;font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(22px,5.25vw,32px);line-height:.99;font-weight:600;letter-spacing:-.02em;
-}
-#q4 .q4Question p{
-  margin:1.7% 0 0;font-family:"Segoe UI",Arial,sans-serif;
-  font-size:clamp(9.2px,2.25vw,12.8px);line-height:1.1;font-weight:400;
-}
-#q4 .q4Grid{
-  position:absolute;z-index:15;left:5.20%;right:5.90%;top:31.50%;height:43.15%;
-  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:2.25% 2.15%;
-}
-#q4 .q4Grid .q4Card:nth-child(odd){transform:translateX(-1.2%)}
-#q4 .q4Grid .q4Card:nth-child(even){transform:translateX(1.2%)}
-#q4 .q4Card{
-  min-width:0;min-height:0;border:0;outline:0;margin:0;padding:0;
-  border-radius:18px;overflow:hidden;background:transparent;color:#06483d;cursor:pointer;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-  display:grid;grid-template-rows:minmax(0,60%) minmax(0,40%);
-}
-#q4 .q4Card:focus-within{outline:3px solid #033822;outline-offset:-3px}
-#q4 .q4Choice{display:none}
-#q4 .q4VisualBox{
-  min-width:0;min-height:0;overflow:hidden;display:flex;align-items:stretch;justify-content:stretch;
-  padding:0;pointer-events:none;
-}
-#q4 .q4Visual{
-  display:block;width:100%;height:100%;max-width:none;max-height:none;
-  object-fit:cover;object-position:center center;pointer-events:none;user-select:none;-webkit-user-drag:none;
-  filter:none;
-}
-#q4 .q4BottomRow{
-  min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 32px;
-  align-items:center;column-gap:3px;padding:0 4.8% 1.0% 5%;pointer-events:none;
-}
-#q4 .q4Copy{
-  min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;font-family:"Segoe UI",Arial,sans-serif;line-height:1.02;
-}
-#q4 .q4Copy strong{
-  font-size:clamp(9.8px,2.28vw,13.7px);line-height:1.00;font-weight:700;
-  white-space:normal;max-width:100%;
-}
-#q4 .q4Copy small{
-  margin-top:.08em;font-size:clamp(7.3px,1.68vw,9.8px);line-height:1.00;font-weight:400;
-  color:#39473f;white-space:normal;max-width:100%;
-}
-#q4 .q4Arrow{
-  width:30px;height:30px;border-radius:50%;border:1px solid rgba(3,56,34,.15);
-  background:rgba(255,255,255,.94);color:#033822;display:grid;place-items:center;
-  font:400 23px/1 Arial,sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.08);
-}
-#q4 .q4Arrow::before{content:"›"}
-#q4 .q4Card:has(.q4Choice:checked) .q4Arrow{background:#033822;color:#fff;border-color:#033822}
-#q4 .q4Card:has(.q4Choice:checked) .q4Arrow::before{content:"✓";font-size:15px;font-weight:700}
-#q4 .q4Next{
-  position:absolute;z-index:20;left:19.5%;width:61%;bottom:18.9%;
-  min-height:35px;height:4.55%;border:1px solid rgba(255,255,255,.9);border-radius:999px;
-  background:#033822;color:#fff;font-family:"Segoe UI",Arial,sans-serif;
-  font-size:clamp(11.8px,2.62vw,15.2px);font-weight:600;letter-spacing:.01em;
-  box-shadow:0 3px 9px rgba(0,0,0,.18);cursor:pointer;touch-action:manipulation;
-  opacity:.46;pointer-events:none;
-}
-#q4:has(.q4Choice:checked) .q4Next{opacity:1;pointer-events:auto}
-#q4 .q4Next:active,#q4 .stepBack:active{transform:translateY(1px)}
-
-</style>
-<style>
-/* ===== KIŞ GÜNEŞİ SONUÇ EKRANI — MOCKUP BİREBİR TEMİZ YENİDEN KURULUM ===== */
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult){
-  position:absolute;inset:0;width:100%;height:100%;z-index:80;display:none;overflow:hidden;background:#efe7cf;color:#173f34;
-  font-family:Georgia,"Times New Roman",serif;
-}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult).active{display:block}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .resultBackdrop{
-  position:absolute;z-index:0;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;
-  pointer-events:none;user-select:none;-webkit-user-drag:none;
-  opacity:1;filter:none;transform:none;
-}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult)::after{
-  content:"";position:absolute;z-index:1;inset:0;pointer-events:none;background:transparent;
-}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .resultScroll{
-  position:relative;z-index:2;width:100%;height:100%;overflow:hidden;background:transparent;
-}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .posterPage{position:relative;width:100%;height:100%;margin:0;box-sizing:border-box;overflow:hidden;padding:10px 0 13px;background:transparent}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .posterInner{position:relative;z-index:2;width:min(92%,706px);margin:0 auto}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .resultBack{position:absolute;left:12px;top:12px;z-index:10;width:40px;height:40px;border:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,253,246,.94);color:#0d4b3d;font:400 26px/1 Georgia,serif;box-shadow:0 4px 15px rgba(50,62,45,.13);cursor:pointer}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brandBlock{text-align:center;margin:2px auto 6px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .leafMark{font-size:20px;line-height:1;color:#174d3f;margin-bottom:1px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brandName{font-size:30px;line-height:.92;letter-spacing:.035em;color:#174d3f}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brandSub{margin-top:3px;font-family:"Segoe UI",Arial,sans-serif;font-size:8px;font-weight:700;letter-spacing:.24em;color:#174d3f}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .introBlock{text-align:center;margin:0 auto 5px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .eyebrowRule{display:flex;align-items:center;gap:8px;justify-content:center;margin:1px auto}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .eyebrowRule::before,:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .eyebrowRule::after{content:"";height:1px;background:rgba(30,76,61,.28);flex:0 0 58px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .eyebrowRule span{font-size:11px;color:#2b6655}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .resultEyebrow{margin:0;color:#225546;font-size:14px;line-height:1.08}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .resultTitle{margin:13px 0 0;color:#a33c20;font-size:40px;line-height:.92;letter-spacing:.012em;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,.18)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .resultSub{margin:5px 0 0;font-size:14px;line-height:1.18;color:#2d4439}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .heroWrap{position:relative;width:100%;margin:4px 0 0;padding-bottom:0;overflow:visible}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .heroImage{position:relative;z-index:2;width:100%;height:auto;overflow:visible;background:transparent;box-shadow:none;display:block}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .heroImage img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain;object-position:center center;filter:none;transform:translateY(-26px) scale(1.16);transform-origin:center top}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .flowSection{position:relative;background:transparent}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .whySection{position:relative;z-index:4;width:82%;margin:-40px auto 0;padding:11px 13px 9px;box-sizing:border-box;text-align:center;background:linear-gradient(180deg,rgba(255,252,244,.96),rgba(248,242,224,.90));border-radius:24px 24px 18px 18px;box-shadow:0 12px 24px rgba(73,68,48,.10),0 -3px 12px rgba(255,255,255,.34)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .sectionTitle{margin:0;text-align:center;font-size:18.5px;line-height:1.03;color:#1c4f40}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .sectionTitle .tinyLeaf{font-size:10px;vertical-align:2px;margin-right:5px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .whyText{max-width:520px;margin:5px auto 7px;font-size:11px;line-height:1.29;color:#334b3e}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .traitRow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .trait{padding:5px 4px;border-radius:17px;background:rgba(249,244,230,.92);font-family:"Segoe UI",Arial,sans-serif;font-weight:700;font-size:9px;color:#215040;border:1px solid rgba(68,101,76,.08)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .profileSection{width:87%;margin:3px auto 0;padding:5px 6px 3px;box-sizing:border-box;background:rgba(255,252,242,.88);border-radius:18px 18px 0 0}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .lineTitle{display:flex;align-items:center;gap:10px;justify-content:center;margin:0 0 4px;font-size:18.5px;line-height:1.08;color:#1c4f40}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .lineTitle::before,:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .lineTitle::after{content:"";height:1px;background:rgba(29,77,61,.33);flex:0 0 56px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .profileGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .profilePhoto{height:44px;display:flex;align-items:flex-end;justify-content:center}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .profilePhoto img{max-width:100%;max-height:44px;object-fit:contain;display:block}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .profileItem strong{display:block;margin-top:1px;font-size:10px;line-height:1.05;color:#214e40}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .ingredientsSection{width:87%;margin:0 auto;padding:4px 8px 6px;box-sizing:border-box;text-align:center;background:rgba(255,252,242,.86)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .ingredientsSection .lineTitle{margin-bottom:2px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .ingredientsText{margin:0;font-size:9.2px;line-height:1.24;color:#33483d}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brewSection{width:87%;margin:5px auto 0;padding:7px 10px 8px;box-sizing:border-box;background:rgba(235,239,226,.88);border:1px solid rgba(44,84,65,.13);border-radius:18px;box-shadow:0 2px 8px rgba(58,72,55,.03)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brewSection .lineTitle{font-size:16.5px;margin-bottom:5px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brewGrid{display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brewCell{padding:1px 6px;text-align:center;border-right:1px solid rgba(35,76,61,.16)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brewCell:last-child{border-right:0}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brewValue{display:block;font-size:16.5px;line-height:1;color:#174e3f;font-weight:700}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .brewLabel{display:block;margin-top:2px;font-family:"Segoe UI",Arial,sans-serif;font-size:7.2px;line-height:1.08;color:#42564c}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .timeBand{width:87%;margin:5px auto 0;box-sizing:border-box;padding:7px 10px;display:grid;grid-template-columns:23px 1fr 92px;align-items:center;gap:6px;background:rgba(246,244,222,.90);border-radius:18px;border:1px solid rgba(53,92,67,.08);box-shadow:0 2px 8px rgba(58,72,55,.03)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .timeLeaf{font-size:17px;color:#48724e;text-align:center}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .timeCopy h3{margin:0;font-size:14.5px;line-height:1.04;color:#1d4c3d}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .timeCopy p{margin:1px 0 0;font-size:9.2px;line-height:1.18;color:#3b4d43}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .smallMotto{font-family:"Brush Script MT","Segoe Script",cursive;font-size:11.5px;line-height:1.12;color:#2f4d40;text-align:center;transform:rotate(-2deg)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .actions{width:76%;margin:7px auto 0}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .primaryAction{width:100%;height:36px;border:0;border-radius:19px;background:linear-gradient(90deg,#085d45,#0a6b50 48%,#095d46);color:#fff;font-family:"Segoe UI",Arial,sans-serif;font-size:11.5px;font-weight:800;letter-spacing:.01em;cursor:pointer;box-shadow:0 6px 16px rgba(16,65,50,.14)}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .secondaryRow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .secondaryAction{height:31px;border:1px solid rgba(10,85,64,.55);border-radius:17px;background:rgba(255,253,245,.89);color:#174e3f;font-family:"Segoe UI",Arial,sans-serif;font-size:8.5px;font-weight:700;cursor:pointer}
-:is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .resultFoot{text-align:center;margin:8px auto 2px;font-size:7.5px;line-height:1.15;color:#506158;letter-spacing:.02em}
-/* Kısa mobil ekranlarda sonuç kompozisyonunu tek parça olarak orantılı sığdır */
-@media (max-height:900px){
-  :is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .posterPage{padding-top:6px;padding-bottom:8px}
-  :is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .posterInner{zoom:.90}
-}
-@media (max-height:800px){
-  :is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .posterInner{zoom:.88}
-}
-@media (max-height:720px){
-  :is(#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult) .posterInner{zoom:.86}
-}
-
-
-/* ENERJİ — yalnız içerik karakteri; geometri ortak sonuç şablonundan gelir */
-#enerjiResult .resultTitle{color:#b86519}
-/* HAFİFLEME ZAMANI — ortak geometri korunur */
-#hafiflemeResult .resultTitle{color:#2f6b4f;font-size:31px;white-space:nowrap;letter-spacing:0}
-/* ZAMANIN İZİNDE — ortak geometri korunur */
-#zamaninIzindeResult .resultTitle{color:#315f49;white-space:nowrap;letter-spacing:0}
-</style>
-
-<style id="q2-reference-edge-fix">
-#q2 .q2ReferenceCard{
-  overflow:visible !important;
-}
-#q2 .q2ReferenceCard .q2VisualBox{
-  position:relative !important;
-  left:0 !important;
-  top:-2px !important;
-  width:calc(100% + 4px) !important;
-  height:calc(100% + 2px) !important;
-  overflow:hidden !important;
-  padding:0 !important;
-  margin:0 !important;
-}
-#q2 .q2ReferenceCard .stepVisual{
-  display:block !important;
-  width:100% !important;
-  height:100% !important;
-  min-width:0 !important;
-  max-width:none !important;
-  max-height:none !important;
-  object-fit:fill !important;
-  object-position:left top !important;
-  transform:none !important;
-  margin:0 !important;
-}
-</style>
-
-
-<style id="q2-all-cards-edge-fix">
-#q2 .tasteCard{
-  overflow:visible !important;
-}
-#q2 .tasteCard .q2VisualBox{
-  position:relative !important;
-  left:0 !important;
-  top:-2px !important;
-  width:calc(100% + 4px) !important;
-  height:calc(100% + 2px) !important;
-  overflow:hidden !important;
-  padding:0 !important;
-  margin:0 !important;
-}
-#q2 .tasteCard .stepVisual{
-  display:block !important;
-  width:100% !important;
-  height:100% !important;
-  min-width:0 !important;
-  max-width:none !important;
-  max-height:none !important;
-  object-fit:fill !important;
-  object-position:left top !important;
-  transform:none !important;
-  margin:0 !important;
-}
-</style>
-
-
-<style id="q4-poster-mode-css">
-#q4.q4PosterMode{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#f3efdf;
-}
-#q4.q4PosterMode .q4PosterSingle{
-  position:absolute;
-  z-index:1;
-  inset:0;
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:fill;
-  object-position:center center;
-  pointer-events:none;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-#q4.q4PosterMode .q4PosterBack{
-  position:absolute;
-  z-index:30;
-  left:3.3%;
-  top:2.6%;
-  width:13.2%;
-  height:8.0%;
-  margin:0;
-  padding:0;
-  border:0;
-  border-radius:50%;
-  background:transparent;
-  cursor:pointer;
-  touch-action:manipulation;
-}
-#q4.q4PosterMode .q4HotspotLayer{
-  position:absolute;
-  z-index:20;
-  inset:0;
-  pointer-events:none;
-}
-#q4.q4PosterMode .q4Hotspot{
-  position:absolute;
-  display:block;
-  margin:0;
-  padding:0;
-  border:0;
-  border-radius:4.5%;
-  background:transparent;
-  cursor:pointer;
-  pointer-events:auto;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-}
-#q4.q4PosterMode .q4Hotspot1{left:3.3%;top:25.8%;width:45.4%;height:19.5%}
-#q4.q4PosterMode .q4Hotspot2{left:50.5%;top:25.8%;width:45.4%;height:19.5%}
-#q4.q4PosterMode .q4Hotspot3{left:3.3%;top:46.0%;width:45.4%;height:19.3%}
-#q4.q4PosterMode .q4Hotspot4{left:50.5%;top:46.0%;width:45.4%;height:19.3%}
-#q4.q4PosterMode .q4Hotspot5{left:3.3%;top:66.1%;width:45.4%;height:17.8%}
-#q4.q4PosterMode .q4Hotspot6{left:50.5%;top:66.1%;width:45.4%;height:17.8%}
-
-#q4.q4PosterMode .q4Choice{
-  position:absolute !important;
-  display:block !important;
-  width:1px !important;
-  height:1px !important;
-  left:50%;
-  top:50%;
-  opacity:0 !important;
-  pointer-events:none;
-}
-#q4.q4PosterMode .q4A11yText{
-  position:absolute;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-  clip:rect(0 0 0 0);
-  clip-path:inset(50%);
-  white-space:nowrap;
-}
-#q4.q4PosterMode .q4Hotspot:focus-within{
-  outline:3px solid rgba(3,56,34,.9);
+*{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;background:#030603;overflow:hidden}
+body{display:flex;justify-content:center}
+.app{position:relative;width:min(100vw,calc(100dvh * 999 / 1574));height:min(100dvh,calc(100vw * 1574 / 999));aspect-ratio:999/1574;overflow:hidden;background:#000}
+.screen{position:absolute;inset:0;display:none} .screen.active{display:block}
+.mock{width:100%;height:100%;object-fit:fill;display:block;user-select:none;-webkit-user-drag:none}
+.hot{position:absolute;border:0;background:transparent;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.choice.selected{outline:3px solid #ffe56d;outline-offset:-5px;box-shadow:inset 0 0 0 1px #fff9,0 0 20px #ffd74d99;border-radius:22px}
+.next.locked{pointer-events:none;filter:grayscale(.45);opacity:.72}
+/* home */
+#start{left:8%;right:8%;bottom:4.7%;height:9.2%;border-radius:999px}
+/* question common */
+.topback{left:4.4%;top:3.5%;width:11.5%;height:7.2%;border-radius:50%}
+.botback{left:5.8%;bottom:4.7%;width:33.5%;height:8.7%;border-radius:999px}
+.next{right:5.5%;bottom:4.7%;width:53%;height:8.7%;border-radius:999px}
+/* q1 */
+.q1c{width:43.5%;height:23.4%}
+#q1a{left:6%;top:32.8%} #q1b{right:6%;top:32.8%}
+#q1c{left:6%;top:57.1%} #q1d{right:6%;top:57.1%}
+/* q2 */
+.q2c{width:43%;height:21.7%}
+#q2a{left:6.7%;top:35.5%} #q2b{right:6.5%;top:35.5%}
+#q2c{left:6.7%;top:58.2%} #q2d{right:6.5%;top:58.2%}
+/* q3 */
+.q3c{width:43%;height:21.8%}
+#q3a{left:6.5%;top:33.7%} #q3b{right:6.4%;top:33.7%}
+#q3c{left:6.5%;top:56.5%} #q3d{right:6.4%;top:56.5%}
+/* q4 */
+.q4c{width:43%;height:21.7%}
+#q4a{left:6.4%;top:35.5%} #q4b{right:6.3%;top:35.5%}
+#q4c{left:6.4%;top:58.2%} #q4d{right:6.3%;top:58.2%}
+/* loading: HTML-only motion over fixed mockup */
+#loading{overflow:hidden}
+.spark{position:absolute;width:7px;height:7px;border-radius:50%;background:#ffd45c;box-shadow:0 0 12px #ffb300;opacity:0;pointer-events:none;animation:rise 2.8s infinite ease-in}
+.s1{left:43%;top:62%;animation-delay:.1s} .s2{left:54%;top:58%;animation-delay:.8s} .s3{left:48%;top:66%;animation-delay:1.4s}
+.s4{left:59%;top:64%;animation-delay:2s} .s5{left:39%;top:59%;animation-delay:2.4s}
+@keyframes rise{0%{transform:translateY(20px) scale(.5);opacity:0}25%{opacity:.9}100%{transform:translateY(-150px) translateX(18px) scale(1.15);opacity:0}}
+.steam{position:absolute;left:38%;top:51%;width:25%;height:18%;pointer-events:none;filter:blur(4px);opacity:.35}
+.steam:before,.steam:after{content:"";position:absolute;left:30%;bottom:0;width:30px;height:120px;border-left:4px solid #fff;border-radius:50%;animation:steam 2.7s infinite ease-in-out}
+.steam:after{left:58%;animation-delay:1.1s}
+@keyframes steam{0%{transform:translateY(20px) scaleX(.6);opacity:0}35%{opacity:.55}100%{transform:translateY(-65px) translateX(15px) scaleX(1.4);opacity:0}}
+.loadbar{position:absolute;left:15%;right:15%;bottom:8.5%;height:2.2%;border-radius:999px;overflow:hidden;pointer-events:none}
+.loadfill{height:100%;width:0;background:linear-gradient(90deg,#fff0a0,#ffbd2e);box-shadow:0 0 18px #ffc12e;animation:fill 4s linear forwards}
+@keyframes fill{to{width:100%}}
+.stageGlow{position:absolute;bottom:5.2%;height:10%;width:22%;border-radius:50%;opacity:0;pointer-events:none;box-shadow:0 0 35px 12px #ffc33166;animation:stages 4s linear forwards}
+.g1{left:12%} .g2{left:39%;animation-delay:1.25s} .g3{right:10%;animation-delay:2.65s}
+@keyframes stages{0%,25%{opacity:.9}35%,100%{opacity:0}}
+@media(min-width:431px){.app{margin:auto;border-radius:24px}}
+
+/* Kart seçim alanları — mockuplardaki gerçek kart sınırlarına hizalı */
+.q1c{width:42.9%;height:23.5%;border-radius:22px}
+#q1a{left:6.6%;top:32.9%} #q1b{left:51.2%;top:32.9%}
+#q1c{left:6.6%;top:57.2%} #q1d{left:51.2%;top:57.2%}
+
+.q2c{width:42.7%;height:21.9%;border-radius:22px}
+#q2a{left:6.8%;top:35.4%} #q2b{left:51.0%;top:35.4%}
+#q2c{left:6.8%;top:58.2%} #q2d{left:51.0%;top:58.2%}
+
+.q3c{width:42.8%;height:21.8%;border-radius:22px}
+#q3a{left:6.4%;top:33.7%} #q3b{left:51.0%;top:33.7%}
+#q3c{left:6.4%;top:56.5%} #q3d{left:51.0%;top:56.5%}
+
+.q4c{width:42.7%;height:21.9%;border-radius:22px}
+#q4a{left:6.5%;top:35.5%} #q4b{left:51.0%;top:35.5%}
+#q4c{left:6.5%;top:58.2%} #q4d{left:51.0%;top:58.2%}
+
+.choice.selected{
+  outline:3px solid #ffe56d;
   outline-offset:-3px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 0 13px rgba(255,215,77,.65);
 }
-#q4.q4PosterMode .q4Hotspot:has(.q4Choice:checked)::after{
-  content:"✓";
+
+
+/* SON HİZA DÜZELTMESİ — yalnız 1/4 ve 4/4 */
+/* 1/4: görseldeki gerçek beyaz kart sınırları */
+.q1c{width:42.6%;height:24.4%;border-radius:22px}
+#q1a{left:6.5%;top:33.1%}
+#q1b{left:51.0%;top:33.1%}
+#q1c{left:6.5%;top:58.8%;height:24.7%}
+#q1d{left:51.0%;top:58.8%;height:24.7%}
+
+/* 4/4: üst sıra zaten doğruydu; alt sıradaki yaklaşık 1.2% yukarı kayma giderildi */
+.q4c{width:42.7%;height:22.3%;border-radius:22px}
+#q4a{left:6.5%;top:35.6%}
+#q4b{left:51.0%;top:35.6%}
+#q4c{left:6.5%;top:59.4%;height:21.7%}
+#q4d{left:51.0%;top:59.4%;height:21.7%}
+
+
+.loadstatus{
   position:absolute;
-  z-index:5;
-  right:4.3%;
-  bottom:7.0%;
-  width:13.0%;
-  aspect-ratio:1;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:#033822;
-  color:#fff;
-  font:700 clamp(12px,3.1vw,18px)/1 Arial,sans-serif;
-  box-shadow:0 2px 7px rgba(0,0,0,.18);
+  left:8%;
+  right:8%;
+  bottom:4.7%;
+  text-align:center;
+  color:#fff8dc;
+  font:600 15px/1.25 Georgia,serif;
+  letter-spacing:.2px;
+  text-shadow:0 2px 7px rgba(0,0,0,.85);
+  pointer-events:none;
 }
-#q4.q4PosterMode .q4PosterNext{
-  position:absolute !important;
-  z-index:40 !important;
-  left:25.8% !important;
-  top:85.4% !important;
-  bottom:auto !important;
-  width:49.7% !important;
-  height:3.9% !important;
-  min-height:0 !important;
-  margin:0 !important;
-  padding:0 3% !important;
-  border:1px solid rgba(255,255,255,.92) !important;
-  border-radius:999px !important;
-  background:#92a491 !important;
-  color:#fff !important;
-  font-family:"Segoe UI",Arial,sans-serif !important;
-  font-size:clamp(11.8px,2.62vw,15.2px) !important;
-  font-weight:600 !important;
-  letter-spacing:.01em !important;
-  box-shadow:0 3px 9px rgba(0,0,0,.18) !important;
-  opacity:1 !important;
-  pointer-events:none !important;
-  cursor:default !important;
-}
-#q4.q4PosterMode:has(.q4Choice:checked) .q4PosterNext{
-  background:#033822 !important;
-  pointer-events:auto !important;
-  cursor:pointer !important;
-}
-#q4.q4PosterMode .q4PosterNext:active{
-  transform:translateY(1px);
-}
-</style>
 
 
-<style id="four-poster-mode">
-.posterMode{
-  position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
-  overflow:hidden !important; background:#f3efdf !important;
+/* 6 sonuç ekranı — Enerji geometrisi ortak şablon */
+.result-detail{
+  left:5.2%;
+  right:5.2%;
+  bottom:4.2%;
+  height:8.7%;
+  border-radius:999px;
 }
-.posterMode .posterSingle{
-  position:absolute; inset:0; z-index:1; width:100%; height:100%;
-  display:block; object-fit:fill; object-position:center center;
-  pointer-events:none; user-select:none; -webkit-user-drag:none;
-}
-.posterMode .posterBack{
-  position:absolute; z-index:40; left:3.8%; top:2.5%; width:13%; height:8%;
-  border:0; background:transparent; border-radius:50%; cursor:pointer; touch-action:manipulation;
-}
-.posterMode .posterHotspotLayer{position:absolute; inset:0; z-index:20; pointer-events:none}
-.posterMode .posterHotspot{
-  position:absolute !important; display:block !important; margin:0 !important; padding:0 !important;
-  border:0 !important; background:transparent !important; border-radius:18px !important;
-  cursor:pointer; pointer-events:auto; touch-action:manipulation; -webkit-tap-highlight-color:transparent;
-  transform:none !important; box-shadow:none !important; min-width:0 !important; min-height:0 !important;
-}
-.posterMode .posterHotspot:focus-visible{outline:3px solid rgba(3,56,34,.85); outline-offset:-3px}
-.posterMode .srOnly{
-  position:absolute !important; width:1px !important; height:1px !important; padding:0 !important;
-  margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important;
-  white-space:nowrap !important; border:0 !important;
-}
-.posterMode .posterHotspot[aria-pressed="true"]::after,
-.posterMode .q4Hotspot:has(.q4Choice:checked)::after{
-  content:"✓"; position:absolute; z-index:5; right:4.0%; bottom:5.0%;
-  width:12.5%; aspect-ratio:1; border-radius:50%; display:grid; place-items:center;
-  background:#033822; color:#fff; font:700 clamp(12px,3vw,18px)/1 Arial,sans-serif;
-  box-shadow:0 2px 7px rgba(0,0,0,.20);
-}
-.posterMode .q4Choice{
-  position:absolute !important; display:block !important; width:1px !important; height:1px !important;
-  opacity:0 !important; pointer-events:none !important;
-}
-.posterMode .posterNext{
-  position:absolute !important; z-index:45 !important; margin:0 !important; padding:0 3% !important;
-  border:1px solid rgba(255,255,255,.9) !important; border-radius:999px !important;
-  color:#fff !important; font-family:"Segoe UI",Arial,sans-serif !important;
-  font-size:clamp(11.8px,2.62vw,15.2px) !important; font-weight:600 !important;
-  letter-spacing:.01em !important; box-shadow:0 3px 9px rgba(0,0,0,.18) !important;
-  cursor:pointer !important; touch-action:manipulation !important;
-}
-.posterMode .posterNext:disabled{
-  background:#91a090 !important; opacity:.78 !important; pointer-events:none !important; cursor:default !important;
-}
-.posterMode .posterNext:not(:disabled){background:#033822 !important; opacity:1 !important}
-.posterMode .posterNext:active{transform:translateY(1px)}
 
-/* 1/4 */
-.q1PosterMode .h1{left:3.8%;top:26.4%;width:44.6%;height:17.4%}
-.q1PosterMode .h2{left:50.2%;top:26.4%;width:44.8%;height:17.4%}
-.q1PosterMode .h3{left:3.8%;top:44.6%;width:44.6%;height:16.8%}
-.q1PosterMode .h4{left:50.2%;top:44.6%;width:44.8%;height:16.8%}
-.q1PosterMode .h5{left:3.8%;top:62.0%;width:44.6%;height:16.5%}
-.q1PosterMode .h6{left:50.2%;top:62.0%;width:44.8%;height:16.5%}
-.q1PosterMode .posterNext{left:24.8% !important;top:79.4% !important;width:49.2% !important;height:4.6% !important}
 
-/* 2/4 */
-.q2PosterMode .h1{left:3.8%;top:27.3%;width:44.6%;height:16.5%}
-.q2PosterMode .h2{left:50.2%;top:27.3%;width:44.8%;height:16.5%}
-.q2PosterMode .h3{left:3.8%;top:44.6%;width:44.6%;height:16.8%}
-.q2PosterMode .h4{left:50.2%;top:44.6%;width:44.8%;height:16.8%}
-.q2PosterMode .h5{left:3.8%;top:62.0%;width:44.6%;height:16.6%}
-.q2PosterMode .h6{left:50.2%;top:62.0%;width:44.8%;height:16.6%}
-.q2PosterMode .posterNext{left:26.3% !important;top:79.8% !important;width:46.2% !important;height:4.3% !important}
+.detail-back{left:2.5%;top:1.2%;width:14%;height:4.8%;border-radius:999px}.detail-share{right:2.5%;top:1.2%;width:16%;height:4.8%;border-radius:999px}.detail-whatsapp{right:1.8%;bottom:1.6%;width:42%;height:7.4%;border-radius:24px}
+</style></head><body><main class="app">
 
-/* 3/4 */
-.q3PosterMode .h1{left:3.8%;top:25.9%;width:44.6%;height:17.8%}
-.q3PosterMode .h2{left:50.2%;top:25.9%;width:44.8%;height:17.8%}
-.q3PosterMode .h3{left:3.8%;top:44.5%;width:44.6%;height:17.3%}
-.q3PosterMode .h4{left:50.2%;top:44.5%;width:44.8%;height:17.3%}
-.q3PosterMode .h5{left:3.8%;top:62.5%;width:44.6%;height:17.5%}
-.q3PosterMode .h6{left:50.2%;top:62.5%;width:44.8%;height:17.5%}
-.q3PosterMode .posterNext{left:25.5% !important;top:81.2% !important;width:48.0% !important;height:4.3% !important}
+<section id="home" class="screen active"><img class="mock" src="images/screen-01.webp" alt="">
+<button id="start" class="hot" aria-label="Keşfetmeye Başla"></button></section>
 
-/* 4/4 */
-.q4PosterMode .h1{left:3.8%;top:25.3%;width:44.6%;height:19.8%}
-.q4PosterMode .h2{left:50.2%;top:25.3%;width:44.8%;height:19.8%}
-.q4PosterMode .h3{left:3.8%;top:45.8%;width:44.6%;height:18.9%}
-.q4PosterMode .h4{left:50.2%;top:45.8%;width:44.8%;height:18.9%}
-.q4PosterMode .h5{left:3.8%;top:65.8%;width:44.6%;height:16.9%}
-.q4PosterMode .h6{left:50.2%;top:65.8%;width:44.8%;height:16.9%}
-.q4PosterMode .posterNext{
-  left:25.1% !important;top:83.8% !important;width:49.7% !important;height:4.5% !important;
-  min-height:0 !important; bottom:auto !important; background:#92a491 !important;
-  opacity:1 !important; pointer-events:none !important; cursor:default !important;
-}
-.q4PosterMode:has(.q4Choice:checked) .posterNext{
-  background:#033822 !important; pointer-events:auto !important; cursor:pointer !important;
-}
-</style>
+<section id="q1" class="screen"><img class="mock" src="images/screen-02.webp" alt="">
+<button class="hot topback" data-go="home" aria-label="Geri"></button>
+<button id="q1a" class="hot choice q1c" data-q="q1" data-v="enerjik"></button>
+<button id="q1b" class="hot choice q1c" data-q="q1" data-v="yorgun"></button>
+<button id="q1c" class="hot choice q1c" data-q="q1" data-v="stresli"></button>
+<button id="q1d" class="hot choice q1c" data-q="q1" data-v="sakin"></button>
+<button class="hot botback" data-go="home"></button><button class="hot next locked" data-for="q1" data-next="q2"></button></section>
 
-</head>
-<body>
-<main id="app">
-<div class="stage">
-<section id="s1" class="screen active" aria-label="Cemre Karışım Motoru bekleme ekranı">
-  <img class="waitingPoster" alt="Cemre Bitkisel Ürünler bitki çayı afişi" src="assets/images/image-01-53181363.png">
-  <div class="waitingAction">
-    <button class="cta waitingCTA" type="button" data-go="2">Dokun ve keşfet <span aria-hidden="true">→</span></button>
-    <div class="touchHint" aria-hidden="true">
-      <svg viewBox="0 0 44 54">
-        <circle cx="22" cy="9" r="7.5" opacity=".58"/>
-        <path d="M22 24V10.5c0-2.2 1.7-4 3.9-4s3.9 1.8 3.9 4v13.8"/>
-        <path d="M29.8 23v-3.1c0-2 1.5-3.6 3.5-3.6 1.9 0 3.4 1.6 3.4 3.6v10.7"/>
-        <path d="M22 24.2l-3-3.6c-1.6-1.9-4.4-2.1-6.2-.4-1.7 1.6-1.9 4.2-.4 6l8.5 11.4c2.7 3.6 6.3 5.4 10.5 5.4h.9c5.6 0 9.7-4.1 9.7-9.8V25.4"/>
-        <path d="M17.3 8.8c.7-3.7 3.8-6.5 7.6-6.8"/>
-      </svg>
-    </div>
-  </div>
-</section>
-<section id="s2" class="screen" aria-label="Cemre bitki çayı başlangıç ekranı">
-  <img class="teaIntroPoster" alt="Sana Özel Bitki Çayını Hazırla afişi" src="assets/images/image-02-7811ecd5.png">
-  <div class="teaIntroAction">
-    <button class="teaIntroCTA" type="button" data-go="q1">Karışımımı Oluştur <span aria-hidden="true">→</span></button>
-  </div>
-</section>
-<section id="q1" class="cleanStep interactiveStep posterMode q1PosterMode" data-step="1" aria-label="Adım 1/4">
-  <img class="posterSingle" src="assets/images/q1-poster-final.webp" alt="Cemre Karışım Motoru 1/4: Bugün nasıl hissetmek istersin?">
-  <button class="posterBack" type="button" data-go="s2" aria-label="Geri"></button>
-  <div class="posterHotspotLayer" role="radiogroup" aria-label="Bugün nasıl hissetmek istersin?">
-    <button class="posterHotspot stepCard h1" type="button" data-feel="Daha canlı ve enerjik" aria-pressed="false"><span class="srOnly">Daha canlı ve enerjik</span></button>
-    <button class="posterHotspot stepCard h2" type="button" data-feel="Daha güçlü ve dirençli" aria-pressed="false"><span class="srOnly">Daha güçlü ve dirençli</span></button>
-    <button class="posterHotspot stepCard h3" type="button" data-feel="Daha hafif ve ferah" aria-pressed="false"><span class="srOnly">Daha hafif ve ferah</span></button>
-    <button class="posterHotspot stepCard h4" type="button" data-feel="Parlak bir zihin" aria-pressed="false"><span class="srOnly">Parlak bir zihin</span></button>
-    <button class="posterHotspot stepCard h5" type="button" data-feel="Keyifli ve huzurlu" aria-pressed="false"><span class="srOnly">Keyifli ve huzurlu</span></button>
-    <button class="posterHotspot stepCard h6" type="button" data-feel="İçten rahat ve dengeli" aria-pressed="false"><span class="srOnly">İçten rahat ve dengeli</span></button>
-  </div>
-  <button class="posterNext stepNext" type="button" data-go="q2" disabled aria-disabled="true">Devam Et →</button>
-</section>
-<section id="q2" class="cleanStep interactiveStep posterMode q2PosterMode" data-step="2" aria-label="Adım 2/4">
-  <img class="posterSingle" src="assets/images/q2-poster-final.webp" alt="Cemre Karışım Motoru 2/4: Hangi tatları seversin?">
-  <button class="posterBack" type="button" data-go="q1" aria-label="Geri"></button>
-  <div class="posterHotspotLayer" role="group" aria-label="Sevdiğin tatlar">
-    <button class="posterHotspot stepCard tasteCard h1" type="button" data-flavor="Narenciyeli ve canlı" aria-pressed="false"><span class="srOnly">Narenciyeli ve canlı</span></button>
-    <button class="posterHotspot stepCard tasteCard h2" type="button" data-flavor="Meyvemsi ve baharatlı" aria-pressed="false"><span class="srOnly">Baharatlı ve sıcak</span></button>
-    <button class="posterHotspot stepCard tasteCard h3" type="button" data-flavor="Ekşi ve ferah" aria-pressed="false"><span class="srOnly">Ekşi ve ferah</span></button>
-    <button class="posterHotspot stepCard tasteCard h4" type="button" data-flavor="Naneli ve bitkisel" aria-pressed="false"><span class="srOnly">Naneli ve bitkisel</span></button>
-    <button class="posterHotspot stepCard tasteCard h5" type="button" data-flavor="Çiçeksi ve yumuşak" aria-pressed="false"><span class="srOnly">Çiçeksi ve yumuşak</span></button>
-    <button class="posterHotspot stepCard tasteCard h6" type="button" data-flavor="Tatlımsı ve aromatik" aria-pressed="false"><span class="srOnly">Aromatik ve tatlımsı</span></button>
-  </div>
-  <button class="posterNext stepNext" type="button" data-go="q3" disabled aria-disabled="true">Devam Et →</button>
-</section>
-<section id="q3" class="cleanStep q3Step posterMode q3PosterMode" data-step="3" aria-label="Adım 3/4">
-  <img class="posterSingle" src="assets/images/q3-poster-final.webp" alt="Cemre Karışım Motoru 3/4: Çayına ne zaman ihtiyaç duyarsın?">
-  <button class="posterBack" type="button" data-go="q2" aria-label="Geri"></button>
-  <div class="posterHotspotLayer" role="radiogroup" aria-label="Çayına ne zaman ihtiyaç duyarsın?">
-    <button class="posterHotspot q3Card h1" type="button" data-when="Güne başlarken" aria-pressed="false"><span class="srOnly">Güne başlarken</span></button>
-    <button class="posterHotspot q3Card h2" type="button" data-when="Mevsim geçişlerinde" aria-pressed="false"><span class="srOnly">Mevsim geçişlerinde</span></button>
-    <button class="posterHotspot q3Card h3" type="button" data-when="Kendimi ağır hissettiğimde" aria-pressed="false"><span class="srOnly">Kendimi ağır hissettiğimde</span></button>
-    <button class="posterHotspot q3Card h4" type="button" data-when="Odaklanmam gerektiğinde" aria-pressed="false"><span class="srOnly">Odaklanmam gerektiğinde</span></button>
-    <button class="posterHotspot q3Card h5" type="button" data-when="Kendime vakit ayırdığımda" aria-pressed="false"><span class="srOnly">Kendime vakit ayırdığımda</span></button>
-    <button class="posterHotspot q3Card h6" type="button" data-when="Yemeklerden sonra" aria-pressed="false"><span class="srOnly">Yemeklerden sonra</span></button>
-  </div>
-  <button class="posterNext q3Next" type="button" data-go="q4" disabled aria-disabled="true">Devam Et →</button>
-</section>
-<section id="q4" class="cleanStep q4Step posterMode q4PosterMode" data-step="4" aria-label="Adım 4/4">
-  <img class="posterSingle" src="assets/images/q4-poster-final.webp" alt="Cemre Karışım Motoru 4/4: Çayında en çok ne ararsın?">
-  <button class="posterBack" type="button" data-go="q3" aria-label="Geri"></button>
-  <div class="posterHotspotLayer" role="radiogroup" aria-label="Çayında en çok ne ararsın?">
-    <label class="posterHotspot q4Hotspot h1" aria-label="Canlı ve zinde hissetmek"><input class="q4Choice" type="radio" name="q4Priority" value="Canlı ve zinde hissetmek" data-tea="Enerji"><span class="srOnly">Canlı ve zinde hissetmek</span></label>
-    <label class="posterHotspot q4Hotspot h2" aria-label="Güçlü ve dirençli kalmak"><input class="q4Choice" type="radio" name="q4Priority" value="Güçlü ve dirençli kalmak" data-tea="Kış Güneşi"><span class="srOnly">Güçlü ve dirençli kalmak</span></label>
-    <label class="posterHotspot q4Hotspot h3" aria-label="Hafif ve ferah hissetmek"><input class="q4Choice" type="radio" name="q4Priority" value="Hafif ve ferah hissetmek" data-tea="Hafifleme Zamanı"><span class="srOnly">Hafif ve ferah hissetmek</span></label>
-    <label class="posterHotspot q4Hotspot h4" aria-label="Zihinsel berraklık"><input class="q4Choice" type="radio" name="q4Priority" value="Zihinsel berraklık" data-tea="Zamanın İzinde"><span class="srOnly">Zihinsel berraklık</span></label>
-    <label class="posterHotspot q4Hotspot h5" aria-label="Sakinlik ve keyif"><input class="q4Choice" type="radio" name="q4Priority" value="Sakinlik ve keyif" data-tea="Akşam Sefası"><span class="srOnly">Sakinlik ve keyif</span></label>
-    <label class="posterHotspot q4Hotspot h6" aria-label="İçten rahat hissetmek"><input class="q4Choice" type="radio" name="q4Priority" value="İçten rahat hissetmek" data-tea="İçsel Bahar"><span class="srOnly">İçten rahat hissetmek</span></label>
-  </div>
-  <button class="posterNext q4Next" type="button" data-action="prepare">Karışımımı Hazırla →</button>
-</section>
-<section id="kisGunesiResult" aria-label="Kış Güneşi sonuç ekranı">
-  <img class="resultBackdrop" src="assets/images/image-27-7bf89226.png" alt="" draggable="false">
-  <div class="resultScroll">
-    <article class="posterPage">
-      <button type="button" class="resultBack" data-result-action="restart" aria-label="Başa dön">‹</button>
-      <div class="posterInner">
-        <header class="brandBlock" aria-label="Cemre Bitkisel Ürünler"><div class="leafMark" aria-hidden="true">❧</div><div class="brandName">CEMRE</div><div class="brandSub">BİTKİSEL ÜRÜNLER</div></header>
-        <section class="introBlock"><div class="eyebrowRule"><span>❧</span></div><p class="resultEyebrow">Sana özel seçimimiz</p><h1 class="resultTitle">KIŞ GÜNEŞİ</h1><p class="resultSub">Sıcak, meyvemsi ve baharatlı bir eşlikçi.</p></section>
-        <section class="heroWrap" aria-label="Kış Güneşi premium çay kompozisyonu"><div class="heroImage"><img src="assets/images/image-28-04158090.png" alt="Amber renkli Kış Güneşi çayı; portakal, kuşburnu, hibiskus, papatya, zencefil ve tarçınla doğal hero sahnesi"></div></section>
-        <section class="flowSection whySection"><h2 class="sectionTitle"><span class="tinyLeaf" aria-hidden="true">❧</span>Neden bu çay?</h2><p class="whyText">Seçimlerinde mevsim geçişleri, sıcak aromalar ve kendini daha güçlü hissetme isteği öne çıktı. Bu yüzden sana Kış Güneşi’ni eşleştirdik.</p><div class="traitRow"><div class="trait">Meyvemsi</div><div class="trait">Baharatlı</div><div class="trait">Sıcak içim</div></div></section>
-        <section class="flowSection profileSection"><h2 class="lineTitle">Tat Profili</h2><div class="profileGrid"><div class="profileItem"><div class="profilePhoto"><img src="assets/images/image-29-d89eb7e9.png" alt="Portakal"></div><strong>Portakal</strong></div><div class="profileItem"><div class="profilePhoto"><img src="assets/images/image-30-f3880eab.png" alt="Kuşburnu"></div><strong>Kuşburnu</strong></div><div class="profileItem"><div class="profilePhoto"><img src="assets/images/image-31-d9d9cda0.png" alt="Ihlamur"></div><strong>Ihlamur</strong></div><div class="profileItem"><div class="profilePhoto"><img src="assets/images/image-32-e3ab5d8d.png" alt="Tarçın ve Kakule"></div><strong>Tarçın &amp; Kakule</strong></div></div></section>
-        <section class="flowSection ingredientsSection"><h2 class="lineTitle">İçindekiler</h2><p class="ingredientsText">Ihlamur · Kuşburnu · Elma · Portakal Kabuğu · Zencefil · Hibiskus · Tarçın · Karanfil · Kakule</p></section>
-        <section class="flowSection brewSection"><h2 class="lineTitle">Demleme Önerisi</h2><div class="brewGrid"><div class="brewCell"><span class="brewValue">5 g</span><span class="brewLabel">Bir fincan için</span></div><div class="brewCell"><span class="brewValue">90–95 °C</span><span class="brewLabel">Su sıcaklığı</span></div><div class="brewCell"><span class="brewValue">6–8 dk</span><span class="brewLabel">Demleme süresi</span></div></div></section>
-        <section class="flowSection timeBand"><div class="timeLeaf" aria-hidden="true">❧</div><div class="timeCopy"><h3>En güzel zamanı</h3><p>Serin günlerde, günün sakin bir molasında.</p></div><div class="smallMotto">Küçük bir<br>mola, büyük<br>bir iyilik...</div></section>
-        <div class="actions"><button type="button" class="primaryAction">MAĞAZADA BU KARIŞIMI İSTE →</button><div class="secondaryRow"><button type="button" class="secondaryAction" data-result-action="whatsapp">WhatsApp’ta Paylaş</button><button type="button" class="secondaryAction" data-result-action="restart">Yeniden Karışım Oluştur</button></div></div>
-        <footer class="resultFoot">CEMRE | Doğadan, Sana Özel | Daha Sağlıklı Yarınlara</footer>
-      </div>
-    </article>
-  </div>
-</section>
+<section id="q2" class="screen"><img class="mock" src="images/screen-03.webp" alt="">
+<button class="hot topback" data-go="q1"></button>
+<button id="q2a" class="hot choice q2c" data-q="q2" data-v="bagisiklik"></button>
+<button id="q2b" class="hot choice q2c" data-q="q2" data-v="sindirim"></button>
+<button id="q2c" class="hot choice q2c" data-q="q2" data-v="rahatlama"></button>
+<button id="q2d" class="hot choice q2c" data-q="q2" data-v="hafiflik"></button>
+<button class="hot botback" data-go="q1"></button><button class="hot next locked" data-for="q2" data-next="q3"></button></section>
 
-<section aria-label="Enerji sonuç ekranı" id="enerjiResult">
-<img alt="" class="resultBackdrop" draggable="false" src="assets/images/image-27-7bf89226.png"/>
-<div class="resultScroll">
-<article class="posterPage">
-<button aria-label="Başa dön" class="resultBack" data-result-action="restart" type="button">‹</button>
-<div class="posterInner">
-<header aria-label="Cemre Bitkisel Ürünler" class="brandBlock"><div aria-hidden="true" class="leafMark">❧</div><div class="brandName">CEMRE</div><div class="brandSub">BİTKİSEL ÜRÜNLER</div></header>
-<section class="introBlock"><div class="eyebrowRule"><span>❧</span></div><p class="resultEyebrow">Sana özel seçimimiz</p><h1 class="resultTitle">ENERJİ</h1><p class="resultSub">Taze, narenciyeli ve canlı bir eşlikçi.</p></section>
-<section aria-label="Enerji premium çay kompozisyonu" class="heroWrap"><div class="heroImage"><img alt="Enerji premium transparan çay kompozisyonu" src="assets/images/image-33-fd7bd17c.png"/></div></section>
-<section class="flowSection whySection"><h2 class="sectionTitle"><span aria-hidden="true" class="tinyLeaf">❧</span>Neden bu çay?</h2><p class="whyText">Seçimlerinde güne canlı başlama, ferah narenciye aromaları ve hareketli bir içim isteği öne çıktı. Bu yüzden sana Enerji’yi eşleştirdik.</p><div class="traitRow"><div class="trait">Narenciyeli</div><div class="trait">Canlı</div><div class="trait">Hafif baharatlı</div></div></section>
-<section class="flowSection profileSection"><h2 class="lineTitle">Tat Profili</h2><div class="profileGrid"><div class="profileItem"><div class="profilePhoto"><img alt="Portakal" src="assets/images/image-34-ecb0fd9d.png"/></div><strong>Portakal</strong></div><div class="profileItem"><div class="profilePhoto"><img alt="Elma" src="assets/images/image-35-b4b02bb5.png"/></div><strong>Elma</strong></div><div class="profileItem"><div class="profilePhoto"><img alt="Zencefil" src="assets/images/image-36-b4c83100.png"/></div><strong>Zencefil</strong></div><div class="profileItem"><div class="profilePhoto"><img alt="Yeşil Çay ve Mate" src="assets/images/image-37-84c49232.png"/></div><strong>Yeşil Çay &amp; Mate</strong></div></div></section>
-<section class="flowSection ingredientsSection"><h2 class="lineTitle">İçindekiler</h2><p class="ingredientsText">Yeşil Çay · Mate · Melisa · Elma · Zencefil · Portakal Kabuğu · Biberiye · Tarçın</p></section>
-<section class="flowSection brewSection"><h2 class="lineTitle">Demleme Önerisi</h2><div class="brewGrid"><div class="brewCell"><span class="brewValue">5 g</span><span class="brewLabel">Bir fincan için</span></div><div class="brewCell"><span class="brewValue">80–85 °C</span><span class="brewLabel">Su sıcaklığı</span></div><div class="brewCell"><span class="brewValue">4–5 dk</span><span class="brewLabel">Demleme süresi</span></div></div></section>
-<section class="flowSection timeBand"><div aria-hidden="true" class="timeLeaf">❧</div><div class="timeCopy"><h3>En güzel zamanı</h3><p>Güne başlarken veya gün içinde tazelenmek istediğinde.</p></div><div aria-hidden="true" class="smallMotto"></div></section>
-<div class="actions"><button class="primaryAction" type="button">MAĞAZADA BU KARIŞIMI İSTE →</button><div class="secondaryRow"><button class="secondaryAction" data-result-action="whatsapp" type="button">WhatsApp’ta Paylaş</button><button class="secondaryAction" data-result-action="restart" type="button">Yeniden Karışım Oluştur</button></div></div>
-<footer class="resultFoot">CEMRE | Doğadan, Sana Özel | Daha Sağlıklı Yarınlara</footer>
-</div>
-</article>
-</div>
+<section id="q3" class="screen"><img class="mock" src="images/screen-04.webp" alt="">
+<button class="hot topback" data-go="q2"></button>
+<button id="q3a" class="hot choice q3c" data-q="q3" data-v="ferah"></button>
+<button id="q3b" class="hot choice q3c" data-q="q3" data-v="meyvemsi"></button>
+<button id="q3c" class="hot choice q3c" data-q="q3" data-v="baharatli"></button>
+<button id="q3d" class="hot choice q3c" data-q="q3" data-v="ciceksi"></button>
+<button class="hot botback" data-go="q2"></button><button class="hot next locked" data-for="q3" data-next="q4"></button></section>
+
+<section id="q4" class="screen"><img class="mock" src="images/screen-05.webp" alt="">
+<button class="hot topback" data-go="q3"></button>
+<button id="q4a" class="hot choice q4c" data-q="q4" data-v="sabah"></button>
+<button id="q4b" class="hot choice q4c" data-q="q4" data-v="gunduz"></button>
+<button id="q4c" class="hot choice q4c" data-q="q4" data-v="aksam"></button>
+<button id="q4d" class="hot choice q4c" data-q="q4" data-v="gece"></button>
+<button class="hot botback" data-go="q3"></button><button class="hot next locked" data-for="q4" data-next="loading"></button></section>
+
+<section id="loading" class="screen"><img class="mock" src="images/screen-06.webp" alt="">
+<div class="steam"></div><i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i><i class="spark s4"></i><i class="spark s5"></i>
+<div class="loadbar"><div class="loadfill"></div></div><div id="loadstatus" class="loadstatus">🌿 Bitkiler seçiliyor...</div>
+
 </section>
 
 
-<section aria-label="Hafifleme Zamanı sonuç ekranı" id="hafiflemeResult">
-<img alt="" class="resultBackdrop" draggable="false" src="assets/images/image-27-7bf89226.png"/>
-<div class="resultScroll"><article class="posterPage">
-<button aria-label="Başa dön" class="resultBack" data-result-action="restart" type="button">‹</button>
-<div class="posterInner">
-<header aria-label="Cemre Bitkisel Ürünler" class="brandBlock"><div aria-hidden="true" class="leafMark">❧</div><div class="brandName">CEMRE</div><div class="brandSub">BİTKİSEL ÜRÜNLER</div></header>
-<section class="introBlock"><div class="eyebrowRule"><span>❧</span></div><p class="resultEyebrow">Sana özel seçimimiz</p><h1 class="resultTitle">HAFİFLEME ZAMANI</h1><p class="resultSub">Ferah, hafif ve dengeli bir eşlikçi.</p></section>
-<section aria-label="Hafifleme Zamanı premium çay kompozisyonu" class="heroWrap"><div class="heroImage"><img alt="Hafifleme Zamanı transparan çay kompozisyonu" src="assets/images/image-38-b6a336ed.png"/></div></section>
-<section class="flowSection whySection"><h2 class="sectionTitle"><span aria-hidden="true" class="tinyLeaf">❧</span>Neden bu çay?</h2><p class="whyText">Seçimlerinde daha hafif hissetme, ferah aromalar ve dengeli bir içim isteği öne çıktı. Bu yüzden sana Hafifleme Zamanı’nı eşleştirdik.</p><div class="traitRow"><div class="trait">Ferah</div><div class="trait">Hafif</div><div class="trait">Dengeli</div></div></section>
-<section class="flowSection profileSection"><h2 class="lineTitle">Tat Profili</h2><div class="profileGrid">
-<div class="profileItem"><div class="profilePhoto"><img alt="Elma" src="assets/images/image-39-57c57285.png"/></div><strong>Elma</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Hibiskus" src="assets/images/image-40-d9fa61d6.png"/></div><strong>Hibiskus</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Rezene" src="assets/images/image-41-608dd294.png"/></div><strong>Rezene</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Melisa" src="assets/images/image-42-bc94246c.png"/></div><strong>Melisa</strong></div>
-</div></section>
-<section class="flowSection ingredientsSection"><h2 class="lineTitle">İçindekiler</h2><p class="ingredientsText">Yeşil Çay · Hibiskus · Mate · Rezene · Melisa · Elma</p></section>
-<section class="flowSection brewSection"><h2 class="lineTitle">Demleme Önerisi</h2><div class="brewGrid"><div class="brewCell"><span class="brewValue">5 g</span><span class="brewLabel">Bir fincan için</span></div><div class="brewCell"><span class="brewValue">80–85 °C</span><span class="brewLabel">Su sıcaklığı</span></div><div class="brewCell"><span class="brewValue">4–5 dk</span><span class="brewLabel">Demleme süresi</span></div></div></section>
-<section class="flowSection timeBand"><div aria-hidden="true" class="timeLeaf">❧</div><div class="timeCopy"><h3>En güzel zamanı</h3><p>Gün içinde hafif ve ferah bir mola istediğinde.</p></div><div aria-hidden="true" class="smallMotto"></div></section>
-<div class="actions"><button class="primaryAction" type="button">MAĞAZADA BU KARIŞIMI İSTE →</button><div class="secondaryRow"><button class="secondaryAction" data-result-action="whatsapp" type="button">WhatsApp’ta Paylaş</button><button class="secondaryAction" data-result-action="restart" type="button">Yeniden Karışım Oluştur</button></div></div>
-<footer class="resultFoot">CEMRE | Doğadan, Sana Özel | Daha Sağlıklı Yarınlara</footer>
-</div></article></div></section>
+<section id="result-energy" class="screen result-screen">
+<img class="mock" src="images/screen-07.webp" alt="">
+<button class="hot result-detail" data-result="result-energy" aria-label="Karışımı İncele"></button>
+</section>
+<section id="result-winter" class="screen result-screen">
+<img class="mock" src="images/screen-08.webp" alt="">
+<button class="hot result-detail" data-result="result-winter" aria-label="Karışımı İncele"></button>
+</section>
+<section id="result-light" class="screen result-screen">
+<img class="mock" src="images/screen-09.webp" alt="">
+<button class="hot result-detail" data-result="result-light" aria-label="Karışımı İncele"></button>
+</section>
+<section id="result-evening" class="screen result-screen">
+<img class="mock" src="images/screen-10.webp" alt="">
+<button class="hot result-detail" data-result="result-evening" aria-label="Karışımı İncele"></button>
+</section>
+<section id="result-spring" class="screen result-screen">
+<img class="mock" src="images/screen-11.webp" alt="">
+<button class="hot result-detail" data-result="result-spring" aria-label="Karışımı İncele"></button>
+</section>
+<section id="result-time" class="screen result-screen">
+<img class="mock" src="images/screen-12.webp" alt="">
+<button class="hot result-detail" data-result="result-time" aria-label="Karışımı İncele"></button>
+</section>
 
-<section aria-label="Zamanın İzinde sonuç ekranı" id="zamaninIzindeResult">
-<img alt="" class="resultBackdrop" draggable="false" src="assets/images/image-27-7bf89226.png"/>
-<div class="resultScroll"><article class="posterPage"><button aria-label="Başa dön" class="resultBack" data-result-action="restart" type="button">‹</button><div class="posterInner">
-<header aria-label="Cemre Bitkisel Ürünler" class="brandBlock"><div aria-hidden="true" class="leafMark">❧</div><div class="brandName">CEMRE</div><div class="brandSub">BİTKİSEL ÜRÜNLER</div></header>
-<section class="introBlock"><div class="eyebrowRule"><span>❧</span></div><p class="resultEyebrow">Sana özel seçimimiz</p><h1 class="resultTitle">ZAMANIN İZİNDE</h1><p class="resultSub">Dingin, aromatik ve berrak bir eşlikçi.</p></section>
-<section aria-label="Zamanın İzinde premium çay kompozisyonu" class="heroWrap"><div class="heroImage"><img alt="Zamanın İzinde transparan çay kompozisyonu" src="assets/images/image-43-2c04dee6.png"/></div></section>
-<section class="flowSection whySection"><h2 class="sectionTitle"><span aria-hidden="true" class="tinyLeaf">❧</span>Neden bu çay?</h2><p class="whyText">Seçimlerinde zihinsel dinginlik, aromatik bitkiler ve dengeli bir içim isteği öne çıktı. Bu yüzden sana Zamanın İzinde’yi eşleştirdik.</p><div class="traitRow"><div class="trait">Dingin</div><div class="trait">Aromatik</div><div class="trait">Dengeli</div></div></section>
-<section class="flowSection profileSection"><h2 class="lineTitle">Tat Profili</h2><div class="profileGrid">
-<div class="profileItem"><div class="profilePhoto"><img alt="Biberiye" src="assets/images/image-44-4cbd2dfe.png"/></div><strong>Biberiye</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Melisa" src="assets/images/image-45-57a3745e.png"/></div><strong>Melisa</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Yeşil Çay" src="assets/images/image-46-eb80506a.png"/></div><strong>Yeşil Çay</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Tarçın" src="assets/images/image-47-ffe24843.png"/></div><strong>Tarçın</strong></div></div></section>
-<section class="flowSection ingredientsSection"><h2 class="lineTitle">İçindekiler</h2><p class="ingredientsText">Yeşil Çay · Melisa · Biberiye · Tarçın</p></section>
-<section class="flowSection brewSection"><h2 class="lineTitle">Demleme Önerisi</h2><div class="brewGrid"><div class="brewCell"><span class="brewValue">5 g</span><span class="brewLabel">Bir fincan için</span></div><div class="brewCell"><span class="brewValue">80–85 °C</span><span class="brewLabel">Su sıcaklığı</span></div><div class="brewCell"><span class="brewValue">4–5 dk</span><span class="brewLabel">Demleme süresi</span></div></div></section>
-<section class="flowSection timeBand"><div aria-hidden="true" class="timeLeaf">❧</div><div class="timeCopy"><h3>En güzel zamanı</h3><p>Günün temposundan uzaklaşıp zihnini dinlendirmek istediğinde.</p></div><div aria-hidden="true" class="smallMotto"></div></section>
-<div class="actions"><button class="primaryAction" type="button">MAĞAZADA BU KARIŞIMI İSTE →</button><div class="secondaryRow"><button class="secondaryAction" data-result-action="whatsapp" type="button">WhatsApp’ta Paylaş</button><button class="secondaryAction" data-result-action="restart" type="button">Yeniden Karışım Oluştur</button></div></div>
-<footer class="resultFoot">CEMRE | Doğadan, Sana Özel | Daha Sağlıklı Yarınlara</footer></div></article></div></section>
+<section id="detail-energy" class="screen detail-screen"><img class="mock" src="images/screen-13.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
+<section id="detail-winter" class="screen detail-screen"><img class="mock" src="images/screen-14.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
+<section id="detail-light" class="screen detail-screen"><img class="mock" src="images/screen-15.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
+<section id="detail-evening" class="screen detail-screen"><img class="mock" src="images/screen-16.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
+<section id="detail-time" class="screen detail-screen"><img class="mock" src="images/screen-17.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
+<section id="detail-spring" class="screen detail-screen">
+<img class="mock" src="images/screen-18.webp" alt="">
+<button class="hot detail-back" aria-label="Geri"></button>
+<button class="hot detail-share" aria-label="Paylaş"></button>
+<button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button>
+</section>
 
-<section aria-label="Akşam Sefası sonuç ekranı" id="aksamSefasiResult">
-<img alt="" class="resultBackdrop" draggable="false" src="assets/images/image-27-7bf89226.png"/>
-<div class="resultScroll"><article class="posterPage"><button aria-label="Başa dön" class="resultBack" data-result-action="restart" type="button">‹</button><div class="posterInner">
-<header aria-label="Cemre Bitkisel Ürünler" class="brandBlock"><div aria-hidden="true" class="leafMark">❧</div><div class="brandName">CEMRE</div><div class="brandSub">BİTKİSEL ÜRÜNLER</div></header>
-<section class="introBlock"><div class="eyebrowRule"><span>❧</span></div><p class="resultEyebrow">Sana özel seçimimiz</p><h1 class="resultTitle">AKŞAM SEFASI</h1><p class="resultSub">Yumuşak, huzurlu ve keyifli bir eşlikçi.</p></section>
-<section aria-label="Akşam Sefası premium çay kompozisyonu" class="heroWrap"><div class="heroImage"><img alt="Akşam Sefası transparan çay kompozisyonu" src="assets/images/image-48-b79998ad.png"/></div></section>
-<section class="flowSection whySection"><h2 class="sectionTitle"><span aria-hidden="true" class="tinyLeaf">❧</span>Neden bu çay?</h2><p class="whyText">Seçimlerinde günün temposundan uzaklaşma, yumuşak aromalar ve kendine keyifli bir mola ayırma isteği öne çıktı. Bu yüzden sana Akşam Sefası’nı eşleştirdik.</p><div class="traitRow"><div class="trait">Huzurlu</div><div class="trait">Yumuşak</div><div class="trait">Keyifli</div></div></section>
-<section class="flowSection profileSection"><h2 class="lineTitle">Tat Profili</h2><div class="profileGrid">
-<div class="profileItem"><div class="profilePhoto"><img alt="Papatya" src="assets/images/image-49-da1fef76.png"/></div><strong>Papatya</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Lavanta" src="assets/images/image-50-fc771fb1.png"/></div><strong>Lavanta</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Melisa" src="assets/images/image-42-bc94246c.png"/></div><strong>Melisa</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Portakal" src="assets/images/image-34-ecb0fd9d.png"/></div><strong>Portakal</strong></div></div></section>
-<section class="flowSection ingredientsSection"><h2 class="lineTitle">İçindekiler</h2><p class="ingredientsText">Papatya · Melisa · Lavanta · Portakal Kabuğu · Hibiskus · Tarçın</p></section>
-<section class="flowSection brewSection"><h2 class="lineTitle">Demleme Önerisi</h2><div class="brewGrid"><div class="brewCell"><span class="brewValue">5 g</span><span class="brewLabel">Bir fincan için</span></div><div class="brewCell"><span class="brewValue">90 °C</span><span class="brewLabel">Su sıcaklığı</span></div><div class="brewCell"><span class="brewValue">5–6 dk</span><span class="brewLabel">Demleme süresi</span></div></div></section>
-<section class="flowSection timeBand"><div aria-hidden="true" class="timeLeaf">❧</div><div class="timeCopy"><h3>En güzel zamanı</h3><p>Günün temposu geride kalırken kendine sakin ve keyifli bir mola ayırmak istediğinde.</p></div><div aria-hidden="true" class="smallMotto"></div></section>
-<div class="actions"><button class="primaryAction" type="button">MAĞAZADA BU KARIŞIMI İSTE →</button><div class="secondaryRow"><button class="secondaryAction" data-result-action="whatsapp" type="button">WhatsApp’ta Paylaş</button><button class="secondaryAction" data-result-action="restart" type="button">Yeniden Karışım Oluştur</button></div></div>
-<footer class="resultFoot">CEMRE | Doğadan, Sana Özel | Daha Sağlıklı Yarınlara</footer></div></article></div></section>
+</main><script>
+const answers={q1:null,q2:null,q3:null,q4:null};
 
-<section aria-label="İçsel Bahar sonuç ekranı" id="icselBaharResult">
-<img alt="" class="resultBackdrop" draggable="false" src="assets/images/image-27-7bf89226.png"/>
-<div class="resultScroll"><article class="posterPage"><button aria-label="Başa dön" class="resultBack" data-icsel-action="restart" type="button">‹</button><div class="posterInner">
-<header aria-label="Cemre Bitkisel Ürünler" class="brandBlock"><div aria-hidden="true" class="leafMark">❧</div><div class="brandName">CEMRE</div><div class="brandSub">BİTKİSEL ÜRÜNLER</div></header>
-<section class="introBlock"><div class="eyebrowRule"><span>❧</span></div><p class="resultEyebrow">Sana özel seçimimiz</p><h1 class="resultTitle">İÇSEL BAHAR</h1><p class="resultSub">Ferah, yumuşak ve dengeli bir eşlikçi.</p></section>
-<section aria-label="İçsel Bahar premium çay kompozisyonu" class="heroWrap"><div class="heroImage"><img alt="İçsel Bahar transparan çay kompozisyonu" src="assets/images/image-51-4851612d.png"/></div></section>
-<section class="flowSection whySection"><h2 class="sectionTitle"><span aria-hidden="true" class="tinyLeaf">❧</span>Neden bu çay?</h2><p class="whyText">Seçimlerinde ferah aromalar, yumuşak bitkisel notalar ve dengeli bir içim isteği öne çıktı. Bu yüzden sana İçsel Bahar’ı eşleştirdik.</p><div class="traitRow"><div class="trait">Ferah</div><div class="trait">Yumuşak</div><div class="trait">Dengeli</div></div></section>
-<section class="flowSection profileSection"><h2 class="lineTitle">Tat Profili</h2><div class="profileGrid">
-<div class="profileItem"><div class="profilePhoto"><img alt="Rezene" src="assets/images/image-52-11a8c0fb.png"/></div><strong>Rezene</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Melisa" src="assets/images/image-42-bc94246c.png"/></div><strong>Melisa</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Zencefil" src="assets/images/image-53-d8349881.png"/></div><strong>Zencefil</strong></div>
-<div class="profileItem"><div class="profilePhoto"><img alt="Anason" src="assets/images/image-54-158ebf7b.png"/></div><strong>Anason</strong></div></div></section>
-<section class="flowSection ingredientsSection"><h2 class="lineTitle">İçindekiler</h2><p class="ingredientsText">Rezene · Melisa · Nane · Zencefil · Anason · Papatya</p></section>
-<section class="flowSection brewSection"><h2 class="lineTitle">Demleme Önerisi</h2><div class="brewGrid"><div class="brewCell"><span class="brewValue">5 g</span><span class="brewLabel">Bir fincan için</span></div><div class="brewCell"><span class="brewValue">90 °C</span><span class="brewLabel">Su sıcaklığı</span></div><div class="brewCell"><span class="brewValue">5–6 dk</span><span class="brewLabel">Demleme süresi</span></div></div></section>
-<section class="flowSection timeBand"><div aria-hidden="true" class="timeLeaf">❧</div><div class="timeCopy"><h3>En güzel zamanı</h3><p>Günün içinde kendine ferah, sakin ve dengeli bir mola ayırmak istediğinde.</p></div><div aria-hidden="true" class="smallMotto"></div></section>
-<div class="actions"><button class="primaryAction" type="button">MAĞAZADA BU KARIŞIMI İSTE →</button><div class="secondaryRow"><button class="secondaryAction" data-icsel-action="whatsapp" type="button">WhatsApp’ta Paylaş</button><button class="secondaryAction" data-icsel-action="restart" type="button">Yeniden Karışım Oluştur</button></div></div>
-<footer class="resultFoot">CEMRE | Doğadan, Sana Özel | Daha Sağlıklı Yarınlara</footer></div></article></div></section>
-</div>
-</main>
-
-<script>
-(()=>{
-  const root=document.querySelector('.stage');
-  const ids=['s1','s2','q1','q2','q3','q4'];
-  const state={feel:null,flavors:[],when:null};
-
-  function go(id){
-    id=String(id);
-    if(/^\d+$/.test(id)) id='s'+id;
-    ids.forEach(name=>{
-      const el=document.getElementById(name);
-      if(el) el.classList.toggle('active',name===id);
-    });
+const resultNames=[
+  'result-energy','result-winter','result-light',
+  'result-time','result-evening','result-spring'
+];
+const choiceIndex={
+  q1:{enerjik:0,yorgun:1,stresli:2,sakin:3},
+  q2:{bagisiklik:0,sindirim:1,rahatlama:2,hafiflik:3},
+  q3:{ferah:0,meyvemsi:1,baharatli:2,ciceksi:3},
+  q4:{sabah:0,gunduz:1,aksam:2,gece:3}
+};
+const weights={
+ q1:[[3,0,0,1,0,1],[0,3,0,0,1,1],[0,0,3,0,1,2],[1,0,0,3,2,0]],
+ q2:[[2,1,0,0,2,0],[0,3,0,1,1,0],[0,1,3,0,0,2],[0,0,1,2,2,3]],
+ q3:[[3,1,0,1,0,0],[1,3,0,0,1,1],[0,0,3,1,0,2],[0,0,1,2,3,2]],
+ q4:[[1,0,0,3,1,0],[0,2,0,1,0,3],[0,0,1,0,3,2],[2,0,1,1,2,0]]
+};
+function calculateResult(){
+  const score=[0,0,0,0,0,0];
+  for(const q of ['q1','q2','q3','q4']){
+    const idx=choiceIndex[q][answers[q]];
+    weights[q][idx].forEach((v,i)=>score[i]+=v);
   }
+  return resultNames[score.indexOf(Math.max(...score))];
+}
 
-  function setNext(section,enabled){
-    const next=section.querySelector('.stepNext');
-    if(!next) return;
-    next.disabled=!enabled;
-    next.setAttribute('aria-disabled',String(!enabled));
+let loadingTimer=null;
+function show(id){
+  clearTimeout(loadingTimer);
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
+  if(id==='loading'){
+    const f=document.querySelector('.loadfill');
+    const s=document.getElementById('loadstatus');
+    f.style.animation='none'; void f.offsetWidth; f.style.animation='fill 4s linear forwards';
+    s.textContent='🌿 Bitkiler seçiliyor...';
+    setTimeout(()=>{ if(document.getElementById('loading').classList.contains('active')) s.textContent='✦ Sana özel denge oluşturuluyor...'; },1300);
+    setTimeout(()=>{ if(document.getElementById('loading').classList.contains('active')) s.textContent='✓ Karışımın hazır!'; },2700);
+    loadingTimer=setTimeout(()=>{ show(calculateResult()); },4000);
   }
-
-  root.addEventListener('click',e=>{
-    const card=e.target.closest('.stepCard');
-    if(card){
-      const section=card.closest('.interactiveStep');
-
-      if(card.dataset.feel){
-        state.feel=card.dataset.feel;
-        section.querySelectorAll('[data-feel]').forEach(x=>x.setAttribute('aria-pressed',String(x===card)));
-        setNext(section,true);
-        return;
-      }
-
-      if(card.dataset.flavor){
-        const pressed=card.getAttribute('aria-pressed')==='true';
-        if(pressed){
-          card.setAttribute('aria-pressed','false');
-          state.flavors=state.flavors.filter(x=>x!==card.dataset.flavor);
-        }else{
-          if(state.flavors.length>=2){
-            const first=[...section.querySelectorAll('[data-flavor]')].find(x=>x.dataset.flavor===state.flavors[0]);
-            if(first) first.setAttribute('aria-pressed','false');
-            state.flavors.shift();
-          }
-          card.setAttribute('aria-pressed','true');
-          state.flavors.push(card.dataset.flavor);
-        }
-        setNext(section,state.flavors.length>0);
-        return;
-      }
-
-      if(card.dataset.when){
-        state.when=card.dataset.when;
-        section.querySelectorAll('[data-when]').forEach(x=>x.setAttribute('aria-pressed',String(x===card)));
-        setNext(section,true);
-        return;
-      }
-    }
-
-    const btn=e.target.closest('[data-go]');
-    if(!btn || btn.disabled) return;
-    e.preventDefault();
-    go(btn.dataset.go);
-  });
+}
+document.getElementById('start').onclick=()=>show('q1');
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{
+  const q=b.dataset.q;
+  document.querySelectorAll('.choice[data-q="'+q+'"]').forEach(x=>x.classList.remove('selected'));
+  b.classList.add('selected'); answers[q]=b.dataset.v;
+  document.querySelector('.next[data-for="'+q+'"]').classList.remove('locked');
+});
+document.querySelectorAll('.next').forEach(b=>b.onclick=()=>{
+  const q=b.dataset.for; if(!answers[q]) return; show(b.dataset.next);
+});
 
 
-  /* 3/4 tek katmanlı kart etkileşimi */
-  const q3=document.getElementById('q3');
-  if(q3){
-    q3.addEventListener('click',e=>{
-      const card=e.target.closest('.q3Card[data-when]');
-      if(!card) return;
-
-      state.when=card.dataset.when;
-      q3.querySelectorAll('.q3Card[data-when]').forEach(x=>{
-        x.setAttribute('aria-pressed',String(x===card));
-      });
-
-      const next=q3.querySelector('.q3Next');
-      if(next){
-        next.disabled=false;
-        next.setAttribute('aria-disabled','false');
-      }
-    });
-  }
-
-  window.CemreCleanFlow={go,state};
-})();
-</script>
-<script>
-(()=>{
-  const result=document.getElementById('kisGunesiResult');
-  const q4=document.getElementById('q4');
-  if(!result || !q4) return;
-
-  function openKisGunesiResult(){
-    const chosen=q4.querySelector('input[name="q4Priority"]:checked');
-    if(!chosen) return;
-
-    const tea=chosen.dataset.tea || '';
-    if(window.CemreCleanFlow && window.CemreCleanFlow.state){
-      window.CemreCleanFlow.state.priority=chosen.value;
-      window.CemreCleanFlow.state.priorityTea=tea;
-    }
-
-    const resultMap={
-      'Enerji':'enerjiResult',
-      'Kış Güneşi':'kisGunesiResult',
-      'Hafifleme Zamanı':'hafiflemeResult',
-      'Zamanın İzinde':'zamaninIzindeResult',
-      'Akşam Sefası':'aksamSefasiResult',
-      'İçsel Bahar':'icselBaharResult'
-    };
-
-    const target=document.getElementById(resultMap[tea] || 'kisGunesiResult');
-    if(!target) return;
-
-    document.querySelectorAll('.stage > .active').forEach(el=>el.classList.remove('active'));
-    target.classList.add('active');
-
-    const scroller=target.querySelector('.resultScroll');
-    if(scroller) scroller.scrollTop=0;
-  }
-
-  function closeResultToStart(){
-    result.classList.remove('active');
-    q4.querySelectorAll('input[name="q4Priority"]').forEach(input=>{input.checked=false;});
-    document.querySelectorAll('#q1 [aria-pressed="true"],#q2 [aria-pressed="true"],#q3 [aria-pressed="true"]').forEach(el=>el.setAttribute('aria-pressed','false'));
-    if(window.CemreCleanFlow && window.CemreCleanFlow.state){
-      const s=window.CemreCleanFlow.state;
-      s.feel=null;s.flavors=[];s.when=null;s.priority=null;s.priorityTea=null;
-    }
-    if(window.CemreCleanFlow && typeof window.CemreCleanFlow.go==='function') window.CemreCleanFlow.go('q1');
-  }
-
-  q4.addEventListener('click',e=>{
-    const prepare=e.target.closest('[data-action="prepare"]');
-    if(!prepare) return;
-    e.preventDefault();
-    openKisGunesiResult();
-  });
-
-  result.addEventListener('click',e=>{
-    const btn=e.target.closest('[data-result-action]');
-    if(!btn) return;
-    const action=btn.dataset.resultAction;
-    if(action==='restart'){
-      closeResultToStart();
-      return;
-    }
-    if(action==='whatsapp'){
-      const message='Cemre Karışım Motoru bana Kış Güneşi’ni önerdi: sıcak, meyvemsi ve baharatlı bir bitki çayı karışımı.';
-      window.open('https://wa.me/?text='+encodeURIComponent(message),'_blank','noopener');
-      return;
-    }
-    if(action==='store'){
-      btn.textContent='KIŞ GÜNEŞİ · MAĞAZADA İSTE';
-      btn.setAttribute('aria-label','Kış Güneşi karışımını mağazada iste');
-    }
-  });
-
-  window.CemreResultFlow={openKisGunesiResult,closeResultToStart};
-})();
-</script>
-
-
-<script>
-(()=>{
-  const result=document.getElementById('enerjiResult');
-  const q4=document.getElementById('q4');
-  if(!result) return;
-
-  function showEnerjiResult(){
-    document.querySelectorAll('.stage > .active').forEach(el=>el.classList.remove('active'));
-    result.classList.add('active');
-    const scroller=result.querySelector('.resultScroll');
-    if(scroller) scroller.scrollTop=0;
-  }
-
-  function closeEnerjiToStart(){
-    result.classList.remove('active');
-    if(q4) q4.querySelectorAll('input[name="q4Priority"]').forEach(input=>{input.checked=false;});
-    document.querySelectorAll('#q1 [aria-pressed="true"],#q2 [aria-pressed="true"],#q3 [aria-pressed="true"]').forEach(el=>el.setAttribute('aria-pressed','false'));
-    if(window.CemreCleanFlow && window.CemreCleanFlow.state){
-      const s=window.CemreCleanFlow.state;
-      s.feel=null;s.flavors=[];s.when=null;s.priority=null;s.priorityTea=null;
-    }
-    if(window.CemreCleanFlow && typeof window.CemreCleanFlow.go==='function') window.CemreCleanFlow.go('q1');
-  }
-
-  result.addEventListener('click',e=>{
-    const btn=e.target.closest('[data-result-action]');
-    if(!btn) return;
-    const action=btn.dataset.resultAction;
-    if(action==='restart'){
-      closeEnerjiToStart();
-      return;
-    }
-    if(action==='whatsapp'){
-      const message='Cemre Karışım Motoru bana Enerji’yi önerdi: taze, narenciyeli ve canlı bir bitki çayı karışımı.';
-      window.open('https://wa.me/?text='+encodeURIComponent(message),'_blank','noopener');
-    }
-  });
-
-  window.CemreEnergyResultFlow={showEnerjiResult,closeEnerjiToStart};
-  window.showEnerjiResult=showEnerjiResult;
-
-  window.showHafiflemeResult=function(){
-    document.querySelectorAll('#s1,#s2,#q1,#q2,#q3,#q4,#kisGunesiResult,#enerjiResult,#hafiflemeResult').forEach(el=>el.classList.remove('active'));
-    const result=document.getElementById('hafiflemeResult');
-    if(result){result.classList.add('active');const s=result.querySelector('.resultScroll');if(s)s.scrollTop=0;}
-  };
-
-  window.showZamaninIzindeResult=function(){
-    document.querySelectorAll('#s1,#s2,#q1,#q2,#q3,#q4,#kisGunesiResult,#enerjiResult,#hafiflemeResult,#zamaninIzindeResult,#aksamSefasiResult,#icselBaharResult').forEach(function(el){el.classList.remove('active');});
-    var r=document.getElementById('zamaninIzindeResult');
-    if(r){r.classList.add('active');var s=r.querySelector('.resultScroll');if(s)s.scrollTop=0;}
-  };
-})();
-</script>
-
-<script>
-(()=>{
-  const result=document.getElementById('aksamSefasiResult');
-  if(!result) return;
-  function showAksamSefasiResult(){
-    document.querySelectorAll('.stage > .active').forEach(el=>el.classList.remove('active'));
-    result.classList.add('active');
-    const s=result.querySelector('.resultScroll'); if(s) s.scrollTop=0;
-  }
-  result.addEventListener('click',e=>{
-    const btn=e.target.closest('[data-result-action]'); if(!btn) return;
-    if(btn.dataset.resultAction==='restart'){
-      result.classList.remove('active');
-      if(window.CemreCleanFlow && typeof window.CemreCleanFlow.go==='function') window.CemreCleanFlow.go('q1');
-    } else if(btn.dataset.resultAction==='whatsapp'){
-      const msg='Cemre Karışım Motoru bana Akşam Sefası’nı önerdi: yumuşak, huzurlu ve keyifli bir bitki çayı karışımı.';
-      window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener');
-    }
-  });
-  window.showAksamSefasiResult=showAksamSefasiResult;
-})();
-</script>
-
-<script>
-(()=>{
-  const result=document.getElementById('icselBaharResult');
-  if(!result) return;
-
-  function showIcselBaharResult(){
-    document.querySelectorAll('.stage > .active').forEach(el=>el.classList.remove('active'));
-    result.classList.add('active');
-    const s=result.querySelector('.resultScroll');
-    if(s) s.scrollTop=0;
-  }
-
-  result.addEventListener('click',e=>{
-    const btn=e.target.closest('[data-icsel-action]');
-    if(!btn) return;
-    if(btn.dataset.icselAction==='restart'){
-      result.classList.remove('active');
-      if(window.CemreCleanFlow && typeof window.CemreCleanFlow.go==='function') window.CemreCleanFlow.go('q1');
-    } else if(btn.dataset.icselAction==='whatsapp'){
-      const msg='Cemre Karışım Motoru bana İçsel Bahar’ı önerdi: ferah, yumuşak ve dengeli bir bitki çayı karışımı.';
-      window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener');
-    }
-  });
-
-  window.showIcselBaharResult=showIcselBaharResult;
-})();
-</script>
-
-</body>
-</html>
+const detailMap={'result-energy':'detail-energy','result-winter':'detail-winter','result-light':'detail-light','result-evening':'detail-evening','result-time':'detail-time','result-spring':'detail-spring'};let detailFrom=null;document.querySelectorAll('.result-detail').forEach(b=>{b.onclick=()=>{const target=detailMap[b.dataset.result];if(!target)return;detailFrom=b.dataset.result;show(target);};});document.querySelectorAll('.detail-back').forEach(b=>{b.onclick=()=>{if(detailFrom)show(detailFrom);};});document.querySelectorAll('.detail-share').forEach(b=>{b.onclick=async()=>{if(navigator.share){try{await navigator.share({title:'Cemre Bitkisel Ürünler',url:location.href});}catch(e){}}};});document.querySelectorAll('.detail-whatsapp').forEach(b=>{b.onclick=()=>{const txt=encodeURIComponent('Cemre Bitkisel Ürünler karışımımı incele: '+location.href);window.open('https://wa.me/?text='+txt,'_blank');};});
+</script></body></html>
