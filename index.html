@@ -213,9 +213,8 @@ body{font-family:Arial,Helvetica,sans-serif}
 
 
 /* TABLET + PC DETAY OKUNABILIRLIK MODU
-   Karışımı İncele sayfaları artık büyük ekranda ortada küçültülüp sıkıştırılmaz.
-   Üstten başlar, genişliği daha fazla kullanır ve gerektiğinde sadece dikey kayar.
-   Telefon görünümüne dokunulmaz. */
+   Tablet sabit kalır: dikey kaydırma vardır ve ekran tam görünür.
+   PC'de ayrıca daha büyük ölçek uygulanır; panel ekran yüksekliğinin çoğunu kullanır. */
 @media (min-width: 601px){
   .app.detail-mode{
     display:block !important;
@@ -239,6 +238,23 @@ body{font-family:Arial,Helvetica,sans-serif}
   }
   .app.detail-mode .detail-screen.active>.mock{
     object-fit:fill !important;
+  }
+}
+
+/* MASAÜSTÜ BÜYÜTME MODU
+   Tablet akışı korunur; yalnız geniş ekranlarda detay paneli daha büyük görünür. */
+@media (min-width: 1024px){
+  .app.detail-mode{
+    display:grid !important;
+    place-items:start center !important;
+    align-content:start !important;
+    padding:16px 0 20px !important;
+  }
+  .app.detail-mode .detail-screen.active{
+    width:min(calc((100dvh - 36px) * 999 / 1574), 88vw) !important;
+    height:min(calc(100dvh - 36px), 92dvh) !important;
+    aspect-ratio:999/1574 !important;
+    margin:0 auto !important;
   }
 }
 
