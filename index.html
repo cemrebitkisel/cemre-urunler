@@ -117,13 +117,65 @@ body{display:flex;justify-content:center}
 
 .detail-back{left:2.5%;top:1.2%;width:14%;height:4.8%;border-radius:999px}.detail-share{right:2.5%;top:1.2%;width:16%;height:4.8%;border-radius:999px}.detail-whatsapp{right:1.8%;bottom:1.6%;width:42%;height:7.4%;border-radius:24px}
 
-/* TEK KOORDINAT SAHNESI */
-html,body{width:100%;height:100%;margin:0;background:#000;overflow:hidden}
-.app{position:relative!important;width:100vw!important;height:100dvh!important;max-width:none!important;aspect-ratio:auto!important;margin:0!important;overflow:hidden!important;background:#000}
-.screen{position:absolute!important;left:50%!important;top:50%!important;width:100vw!important;height:calc(100vw * 1574 / 999)!important;max-height:100dvh!important;max-width:calc(100dvh * 999 / 1574)!important;transform:translate(-50%,-50%)!important;overflow:visible!important;background:transparent!important}
-.screen::before{content:"";position:fixed;left:50%;top:50%;width:100vw;height:100dvh;transform:translate(-50%,-50%) scale(1.06);background-image:var(--screen-bg);background-size:cover;background-position:center;filter:blur(30px) brightness(.48) saturate(.9);z-index:-2}
-.screen>.mock{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:fill!important;transform:none!important;z-index:1}
-.screen>.hot{z-index:3}
+
+/* ESKI FINAL 'PIKSEL KILITLI' SISTEMIN YENI SURUME UYARLANMIS HALI
+   Eski 941x1672 içerik oranı yerine yeni mockupların gerçek 999x1574 oranı kullanılır. */
+html,body{
+  margin:0;width:100%;height:100%;overflow:hidden;background:#000;
+}
+body{font-family:Arial,Helvetica,sans-serif}
+.app{
+  position:fixed !important;
+  inset:0 !important;
+  display:grid !important;
+  place-items:center !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  aspect-ratio:auto !important;
+  margin:0 !important;
+  overflow:hidden !important;
+  background:#000 !important;
+}
+.screen{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:min(100vw,63.47vh) !important;
+  height:min(100vh,157.56vw) !important;
+  aspect-ratio:999/1574 !important;
+  transform:translate(-50%,-50%) !important;
+  overflow:hidden !important;
+  background:#000 !important;
+  pointer-events:none;
+}
+.screen.active{display:block;pointer-events:auto}
+.screen:not(.active){display:none}
+.screen::before,.screen::after{content:none !important}
+.screen>.mock{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  transform:none !important;
+  user-select:none;
+  -webkit-user-drag:none;
+  pointer-events:none;
+  z-index:1;
+}
+.hot{
+  position:absolute !important;
+  z-index:20 !important;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
 
 </style></head><body><main class="app">
 
