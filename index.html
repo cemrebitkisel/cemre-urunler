@@ -117,26 +117,61 @@ body{display:flex;justify-content:center}
 
 .detail-back{left:2.5%;top:1.2%;width:14%;height:4.8%;border-radius:999px}.detail-share{right:2.5%;top:1.2%;width:16%;height:4.8%;border-radius:999px}.detail-whatsapp{right:1.8%;bottom:1.6%;width:42%;height:7.4%;border-radius:24px}
 
-/* iPhone/telefon ekranını doldurma düzeltmesi — görseller ESNETİLMEZ */
-html,body{width:100%;height:100%;min-height:100%;margin:0;background:#000;overflow:hidden}
-body{display:flex;align-items:stretch;justify-content:center}
+/* ORAN KORUMALI TELEFON YERLEŞİMİ
+   Ana mockup asla esnetilmez veya kırpılmaz. */
+html,body{
+  width:100%;
+  height:100%;
+  min-height:100%;
+  margin:0;
+  background:#000;
+  overflow:hidden;
+}
+body{
+  display:flex;
+  justify-content:center;
+  align-items:stretch;
+}
 .app{
+  position:relative !important;
   width:100vw !important;
   height:100dvh !important;
   max-width:none !important;
   aspect-ratio:auto !important;
   margin:0 !important;
   overflow:hidden !important;
+  background:#000;
 }
-.screen{position:absolute;inset:0;overflow:hidden}
+.screen{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:#000;
+}
+.screen::before{
+  content:"";
+  position:absolute;
+  inset:-28px;
+  background-image:var(--screen-bg);
+  background-size:cover;
+  background-position:center;
+  filter:blur(22px) brightness(.55);
+  transform:scale(1.08);
+  z-index:0;
+}
 .screen>.mock{
   position:absolute !important;
-  inset:0 !important;
+  left:50% !important;
+  top:50% !important;
   width:100% !important;
-  height:100% !important;
-  object-fit:cover !important;
-  object-position:center center !important;
+  height:auto !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  object-fit:contain !important;
+  transform:translate(-50%,-50%) !important;
+  z-index:1;
 }
+.screen>.hot{z-index:2}
 
 </style></head><body><main class="app">
 
@@ -275,4 +310,10 @@ document.querySelectorAll('.next').forEach(b=>b.onclick=()=>{
 
 
 const detailMap={'result-energy':'detail-energy','result-winter':'detail-winter','result-light':'detail-light','result-evening':'detail-evening','result-time':'detail-time','result-spring':'detail-spring'};let detailFrom=null;document.querySelectorAll('.result-detail').forEach(b=>{b.onclick=()=>{const target=detailMap[b.dataset.result];if(!target)return;detailFrom=b.dataset.result;show(target);};});document.querySelectorAll('.detail-back').forEach(b=>{b.onclick=()=>{if(detailFrom)show(detailFrom);};});document.querySelectorAll('.detail-share').forEach(b=>{b.onclick=async()=>{if(navigator.share){try{await navigator.share({title:'Cemre Bitkisel Ürünler',url:location.href});}catch(e){}}};});document.querySelectorAll('.detail-whatsapp').forEach(b=>{b.onclick=()=>{const txt=encodeURIComponent('Cemre Bitkisel Ürünler karışımımı incele: '+location.href);window.open('https://wa.me/?text='+txt,'_blank');};});
+
+document.querySelectorAll('.screen').forEach(s=>{
+  const img=s.querySelector(':scope > img.mock');
+  if(img) s.style.setProperty('--screen-bg', `url("${img.getAttribute('src')}")`);
+});
+
 </script></body></html>
