@@ -141,8 +141,8 @@ body{font-family:Arial,Helvetica,sans-serif}
   position:absolute !important;
   left:50% !important;
   top:50% !important;
-  width:min(100vw,63.47vh) !important;
-  height:min(100vh,157.56vw) !important;
+  width:min(100vw,calc(100dvh * 999 / 1574)) !important;
+  height:min(100dvh,calc(100vw * 1574 / 999)) !important;
   aspect-ratio:999/1574 !important;
   transform:translate(-50%,-50%) !important;
   overflow:hidden !important;
@@ -209,6 +209,37 @@ body{font-family:Arial,Helvetica,sans-serif}
 #loading .loadstatus,
 #loading .stageGlow{
   z-index:10 !important;
+}
+
+
+/* TABLET + PC DETAY OKUNABILIRLIK MODU
+   Karışımı İncele sayfaları artık büyük ekranda ortada küçültülüp sıkıştırılmaz.
+   Üstten başlar, genişliği daha fazla kullanır ve gerektiğinde sadece dikey kayar.
+   Telefon görünümüne dokunulmaz. */
+@media (min-width: 601px){
+  .app.detail-mode{
+    display:block !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch;
+    padding:max(10px, env(safe-area-inset-top)) 0 max(18px, env(safe-area-inset-bottom)) !important;
+  }
+  .app.detail-mode .detail-screen.active{
+    position:relative !important;
+    left:auto !important;
+    top:auto !important;
+    width:min(92vw,760px) !important;
+    height:auto !important;
+    max-width:none !important;
+    max-height:none !important;
+    aspect-ratio:999/1574 !important;
+    transform:none !important;
+    margin:0 auto !important;
+    overflow:hidden !important;
+  }
+  .app.detail-mode .detail-screen.active>.mock{
+    object-fit:fill !important;
+  }
 }
 
 </style></head><body><main class="app">
@@ -323,6 +354,7 @@ function calculateResult(){
 let loadingTimer=null;
 function show(id){
   clearTimeout(loadingTimer);
+  document.querySelector('.app').classList.toggle('detail-mode', id.startsWith('detail-'));
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
   if(id==='loading'){
     const f=document.querySelector('.loadfill');
