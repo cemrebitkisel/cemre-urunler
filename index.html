@@ -177,6 +177,40 @@ body{font-family:Arial,Helvetica,sans-serif}
   -webkit-tap-highlight-color:transparent;
 }
 
+
+/* TELEFON TAM EKRAN DÜZELTMESİ
+   İçerik/motor değişmedi. Yalnız mobil sahne viewport'u tamamen kullanır.
+   Tüm hotspotlar ve efektler aynı sahnede yüzde koordinatlarıyla birlikte ölçeklenir. */
+@media (max-width: 600px){
+  .app{
+    width:100vw !important;
+    height:100dvh !important;
+  }
+  .screen{
+    left:0 !important;
+    top:0 !important;
+    width:100vw !important;
+    height:100dvh !important;
+    max-width:none !important;
+    max-height:none !important;
+    aspect-ratio:auto !important;
+    transform:none !important;
+  }
+  .screen>.mock{
+    width:100% !important;
+    height:100% !important;
+    object-fit:fill !important;
+  }
+}
+/* Hazırlanıyor ekranındaki HTML animasyonları görselin üstünde kalır */
+#loading .steam,
+#loading .spark,
+#loading .loadbar,
+#loading .loadstatus,
+#loading .stageGlow{
+  z-index:10 !important;
+}
+
 </style></head><body><main class="app">
 
 <section id="home" class="screen active"><img class="mock" src="images/screen-01.webp" alt="">
