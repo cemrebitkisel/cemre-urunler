@@ -258,6 +258,48 @@ body{font-family:Arial,Helvetica,sans-serif}
   }
 }
 
+
+/* ZAMANIN İZİNDE — SADE SONUÇ EKRANI ETKİLEŞİM VE AMBİYANS */
+.result-time-modern{isolation:isolate}
+.result-time-modern .fx{position:absolute;pointer-events:none;z-index:8}
+.result-time-modern .result-menu{left:4.2%;top:4.2%;width:13.8%;height:8.3%;border-radius:50%;z-index:30}
+.result-time-modern .result-share-main{left:24.5%;bottom:10.1%;width:51%;height:8.5%;border-radius:999px;z-index:30}
+.result-time-modern .result-retry{right:6.7%;bottom:2.4%;width:36%;height:7%;border-radius:999px;z-index:30}
+/* Görseldeki eski alttaki Paylaş etiketini sakin bir arka plan yamasıyla gizle. */
+.result-time-modern .bottom-share-mask{position:absolute;left:12.2%;bottom:2.2%;width:34%;height:7.2%;z-index:21;border-radius:18px;background:linear-gradient(90deg,rgba(18,9,28,.94),rgba(18,9,28,.80));backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);pointer-events:none}
+.result-time-modern .steam{left:61.5%;top:48%;width:29%;height:29%;z-index:10;overflow:visible;filter:none;opacity:1}
+.result-time-modern .steam:before,.result-time-modern .steam:after{content:none!important}
+.result-time-modern .wisp{position:absolute;bottom:11%;width:18%;height:64%;border-radius:50%;filter:blur(4px);opacity:0;background:linear-gradient(to top,rgba(255,238,255,0),rgba(246,220,255,.24) 35%,rgba(255,255,255,.56) 68%,rgba(255,255,255,0));transform-origin:50% 100%;animation:ziSteamRise 4.8s ease-in-out infinite}
+.result-time-modern .w1{left:24%;animation-delay:0s}.result-time-modern .w2{left:43%;height:72%;animation-delay:1.55s}.result-time-modern .w3{left:57%;height:59%;animation-delay:3.05s}
+.result-time-modern .firefly{width:5px;height:5px;border-radius:50%;background:#ffd27a;box-shadow:0 0 7px 2px rgba(255,178,63,.55);opacity:0;animation:ziFirefly 5.8s ease-in-out infinite}
+.result-time-modern .f1{left:13%;top:34%;animation-delay:.4s}.result-time-modern .f2{left:54%;top:41%;animation-delay:2.1s}.result-time-modern .f3{left:77%;top:53%;animation-delay:4s}.result-time-modern .f4{left:88%;top:37%;animation-delay:1.3s}.result-time-modern .f5{left:46%;top:63%;animation-delay:3.3s}.result-time-modern .f6{left:20%;top:71%;animation-delay:5s}
+.result-time-modern .lantern-glow{right:1.2%;top:54.2%;width:14.5%;height:18%;border-radius:50%;background:radial-gradient(circle,rgba(255,219,132,.62) 0%,rgba(255,174,69,.32) 28%,rgba(255,131,35,.12) 50%,rgba(255,110,20,0) 76%);filter:blur(8px);mix-blend-mode:screen;opacity:.52;transform-origin:60% 52%;animation:ziLanternBreath 3.9s ease-in-out infinite}
+.result-time-modern .lantern-core{right:4.1%;top:58.6%;width:7.8%;height:9.8%;border-radius:50%;background:radial-gradient(circle,rgba(255,244,183,.88) 0%,rgba(255,194,79,.46) 32%,rgba(255,140,35,.16) 58%,rgba(255,110,20,0) 78%);filter:blur(4px);mix-blend-mode:screen;opacity:.50;animation:ziLanternCore 2.7s ease-in-out infinite}
+.result-time-modern .reflection{top:45%;width:1.25%;height:10%;border-radius:60%;background:linear-gradient(to bottom,rgba(255,204,124,0),rgba(255,185,93,.38),rgba(255,139,62,.16),rgba(255,168,73,0));filter:blur(2px);opacity:.20;animation:ziReflection 6.8s ease-in-out infinite}
+.result-time-modern .r1{left:55%;animation-delay:0s}.result-time-modern .r2{left:61%;height:12%;animation-delay:2.2s}.result-time-modern .r3{left:67%;height:8%;animation-delay:4.4s}
+.result-time-modern .hourglass-glow{left:7.8%;top:17.7%;width:18%;height:14%;border-radius:50%;background:radial-gradient(circle,rgba(220,134,255,.42) 0%,rgba(191,92,255,.18) 42%,rgba(178,79,255,0) 72%);filter:blur(5px);mix-blend-mode:screen;opacity:0;animation:ziHourglassPulse 1.75s ease-out .38s 1 both}
+.result-time-modern .intro-vignette{inset:0;z-index:19;background:rgba(18,8,31,.20);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:ziIntroClear .8s ease-out forwards}
+@keyframes ziSteamRise{0%{transform:translate3d(0,12px,0) scaleX(.58) rotate(-3deg);opacity:0}18%{opacity:.30}48%{opacity:.48}74%{opacity:.24}100%{transform:translate3d(10px,-86px,0) scaleX(1.25) rotate(8deg);opacity:0}}
+@keyframes ziFirefly{0%,100%{opacity:0;transform:translate3d(0,0,0) scale(.65)}18%{opacity:.45}45%{opacity:.72;transform:translate3d(7px,-7px,0) scale(1)}72%{opacity:.30;transform:translate3d(2px,-14px,0) scale(.82)}}
+@keyframes ziLanternBreath{0%{opacity:.42;transform:scale(.96)}16%{opacity:.62;transform:scale(1.01)}31%{opacity:.50;transform:scale(.985)}49%{opacity:.70;transform:scale(1.035)}67%{opacity:.54;transform:scale(1)}83%{opacity:.66;transform:scale(1.02)}100%{opacity:.42;transform:scale(.96)}}
+@keyframes ziLanternCore{0%,100%{opacity:.40;transform:scale(.94)}21%{opacity:.68;transform:scale(1.05)}44%{opacity:.48;transform:scale(.98)}62%{opacity:.76;transform:scale(1.08)}79%{opacity:.52;transform:scale(1)}}
+@keyframes ziReflection{0%,100%{opacity:.15;transform:scaleY(.92)}50%{opacity:.28;transform:scaleY(1.06)}}
+@keyframes ziHourglassPulse{0%{opacity:0;transform:scale(.78)}42%{opacity:.92;transform:scale(1.08)}72%{opacity:.34;transform:scale(1.02)}100%{opacity:0;transform:scale(1.15)}}
+@keyframes ziIntroClear{0%{opacity:1}100%{opacity:0;visibility:hidden}}
+
+/* Küçük yarı saydam menü */
+.result-menu-pop{position:fixed;z-index:999;left:max(14px,env(safe-area-inset-left));top:max(70px,calc(env(safe-area-inset-top) + 58px));width:min(78vw,320px);padding:10px;border-radius:22px;background:rgba(25,12,38,.88);border:1px solid rgba(226,184,255,.28);box-shadow:0 18px 48px rgba(0,0,0,.38);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;transform:translateY(-8px) scale(.98);pointer-events:none;transition:.22s ease}
+.result-menu-pop.open{opacity:1;transform:none;pointer-events:auto}
+.result-menu-pop button{display:block;width:100%;border:0;background:transparent;color:#f6eaff;text-align:left;padding:14px 15px;border-radius:14px;font:600 16px/1.2 Arial,sans-serif;cursor:pointer}
+.result-menu-pop button+button{border-top:1px solid rgba(255,255,255,.08)}
+.result-menu-pop button:active{background:rgba(215,159,255,.13)}
+.result-about{position:fixed;z-index:1001;inset:0;display:grid;place-items:center;padding:24px;background:rgba(5,2,10,.48);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:.22s ease}
+.result-about.open{opacity:1;pointer-events:auto}
+.result-about-card{width:min(88vw,390px);border-radius:24px;padding:22px;background:rgba(31,15,46,.96);border:1px solid rgba(226,184,255,.28);color:#f7edff;box-shadow:0 24px 64px rgba(0,0,0,.48)}
+.result-about-card h3{margin:0 0 8px;font:700 21px/1.2 Georgia,serif}.result-about-card p{margin:0 0 18px;font:400 15px/1.5 Arial,sans-serif;color:#e8daf2}.result-about-card button{width:100%;border:0;border-radius:14px;padding:12px;background:#c98df1;color:#24112f;font-weight:700}
+.result-toast{position:fixed;z-index:1100;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translate(-50%,12px);padding:10px 15px;border-radius:999px;background:rgba(24,12,35,.92);color:#fff;font:600 13px/1 Arial,sans-serif;opacity:0;pointer-events:none;transition:.25s ease}.result-toast.show{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){.result-time-modern .wisp,.result-time-modern .firefly,.result-time-modern .lantern-glow,.result-time-modern .lantern-core,.result-time-modern .reflection,.result-time-modern .hourglass-glow,.result-time-modern .intro-vignette{animation:none!important}.result-time-modern .intro-vignette{display:none}}
+
 </style></head><body><main class="app">
 
 <section id="home" class="screen active"><img class="mock" src="images/screen-01.webp" alt="">
@@ -322,9 +364,17 @@ body{font-family:Arial,Helvetica,sans-serif}
 <img class="mock" src="images/screen-11.webp" alt="">
 <button class="hot result-detail" data-result="result-spring" aria-label="Karışımı İncele"></button>
 </section>
-<section id="result-time" class="screen result-screen">
-<img class="mock" src="images/screen-12.webp" alt="">
-<button class="hot result-detail" data-result="result-time" aria-label="Karışımı İncele"></button>
+<section id="result-time" class="screen result-screen result-time-modern">
+<img class="mock" src="images/zamanin-izinde-sade.png" alt="Zamanın İzinde sonuç ekranı">
+<button class="hot result-menu" aria-label="Menü"></button>
+<button class="hot result-share-main" aria-label="Sonucu Paylaş"></button>
+<button class="hot result-retry" aria-label="Tekrar Dene"></button>
+<div class="bottom-share-mask" aria-hidden="true"></div>
+<div class="fx steam" aria-hidden="true"><i class="wisp w1"></i><i class="wisp w2"></i><i class="wisp w3"></i></div>
+<i class="fx firefly f1" aria-hidden="true"></i><i class="fx firefly f2" aria-hidden="true"></i><i class="fx firefly f3" aria-hidden="true"></i><i class="fx firefly f4" aria-hidden="true"></i><i class="fx firefly f5" aria-hidden="true"></i><i class="fx firefly f6" aria-hidden="true"></i>
+<div class="fx lantern-glow" aria-hidden="true"></div><div class="fx lantern-core" aria-hidden="true"></div>
+<i class="fx reflection r1" aria-hidden="true"></i><i class="fx reflection r2" aria-hidden="true"></i><i class="fx reflection r3" aria-hidden="true"></i>
+<div class="fx hourglass-glow" aria-hidden="true"></div><div class="fx intro-vignette" aria-hidden="true"></div>
 </section>
 
 <section id="detail-energy" class="screen detail-screen"><img class="mock" src="images/screen-13.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
@@ -338,6 +388,21 @@ body{font-family:Arial,Helvetica,sans-serif}
 <button class="hot detail-share" aria-label="Paylaş"></button>
 <button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button>
 </section>
+
+
+<div id="resultMenuPop" class="result-menu-pop" aria-hidden="true">
+  <button type="button" id="menuHome">Ana Sayfa</button>
+  <button type="button" id="menuRetry">Yeni Karışım / Tekrar Dene</button>
+  <button type="button" id="menuAbout">Karışım Motoru Hakkında</button>
+</div>
+<div id="resultAbout" class="result-about" aria-hidden="true">
+  <div class="result-about-card">
+    <h3>Cemre Karışım Motoru</h3>
+    <p>Dört kısa seçime göre sana uygun bitki çayı karakterini eşleştiren mağaza içi deneyim ekranıdır. Sonuçlar kişisel tıbbi öneri değildir.</p>
+    <button type="button" id="aboutClose">Kapat</button>
+  </div>
+</div>
+<div id="resultToast" class="result-toast" role="status" aria-live="polite"></div>
 
 </main><script>
 const answers={q1:null,q2:null,q3:null,q4:null};
@@ -401,5 +466,52 @@ document.querySelectorAll('.screen').forEach(s=>{
   const img=s.querySelector(':scope > img.mock');
   if(img) s.style.setProperty('--screen-bg', `url("${img.getAttribute('src')}")`);
 });
+
+
+/* Zamanın İzinde sade sonuç ekranı işlevleri */
+const menuPop=document.getElementById('resultMenuPop');
+const aboutBox=document.getElementById('resultAbout');
+const toast=document.getElementById('resultToast');
+function ziResetAnswers(){
+  for(const q of ['q1','q2','q3','q4']) answers[q]=null;
+  document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+  document.querySelectorAll('.next').forEach(x=>x.classList.add('locked'));
+}
+function ziCleanUrl(){ history.replaceState(null,'',location.pathname); }
+function ziHome(){ ziResetAnswers(); ziCleanUrl(); menuPop.classList.remove('open'); show('home'); }
+function ziRetry(){ ziResetAnswers(); ziCleanUrl(); menuPop.classList.remove('open'); show('q1'); }
+function ziToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1800); }
+function ziResultUrl(){
+  const u=new URL(location.href);
+  u.search=''; u.hash='';
+  u.searchParams.set('result','zamanin-izinde');
+  return u.toString();
+}
+async function ziShare(){
+  const url=ziResultUrl();
+  const data={title:'Cemre Karışım Motoru — Zamanın İzinde',text:'Benim Cemre Karışımım: Zamanın İzinde — Zihnini ferahlat, dikkatini toparla.',url};
+  if(navigator.share){
+    try{ await navigator.share(data); return; }catch(e){ if(e && e.name==='AbortError') return; }
+  }
+  try{ await navigator.clipboard.writeText(data.text+' '+url); ziToast('Sonuç bağlantısı kopyalandı'); }
+  catch(e){ prompt('Sonuç bağlantısını kopyala:',url); }
+}
+document.querySelector('.result-menu')?.addEventListener('click',e=>{e.stopPropagation();menuPop.classList.toggle('open');menuPop.setAttribute('aria-hidden',String(!menuPop.classList.contains('open')));});
+document.querySelector('.result-share-main')?.addEventListener('click',ziShare);
+document.querySelector('.result-retry')?.addEventListener('click',ziRetry);
+document.getElementById('menuHome')?.addEventListener('click',ziHome);
+document.getElementById('menuRetry')?.addEventListener('click',ziRetry);
+document.getElementById('menuAbout')?.addEventListener('click',()=>{menuPop.classList.remove('open');aboutBox.classList.add('open');aboutBox.setAttribute('aria-hidden','false');});
+document.getElementById('aboutClose')?.addEventListener('click',()=>{aboutBox.classList.remove('open');aboutBox.setAttribute('aria-hidden','true');});
+aboutBox?.addEventListener('click',e=>{if(e.target===aboutBox){aboutBox.classList.remove('open');aboutBox.setAttribute('aria-hidden','true');}});
+document.addEventListener('click',e=>{if(menuPop.classList.contains('open') && !menuPop.contains(e.target) && !e.target.closest('.result-menu')) menuPop.classList.remove('open');});
+
+/* Paylaşılan sonuç bağlantısı doğrudan aynı sonuç ekranını açar. */
+const ziParams=new URLSearchParams(location.search);
+if(ziParams.get('result')==='zamanin-izinde'){
+  requestAnimationFrame(()=>show('result-time'));
+}else if(ziParams.get('start')==='q1'){
+  requestAnimationFrame(()=>show('q1'));
+}
 
 </script></body></html>
