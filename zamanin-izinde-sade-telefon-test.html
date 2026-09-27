@@ -31,8 +31,9 @@ body{font-family:Arial,Helvetica,sans-serif}
 .f5{left:46%;top:63%;animation-delay:3.3s}
 .f6{left:20%;top:71%;animation-delay:5.0s}
 
-/* 3) Sağdaki fenerde %5-8 seviyesinde hafif nefes alan ışık */
-.lantern-glow{right:-1.5%;top:46%;width:18%;height:22%;border-radius:50%;background:radial-gradient(circle,rgba(255,180,79,.34) 0%,rgba(255,145,44,.10) 38%,rgba(255,120,25,0) 72%);filter:blur(7px);mix-blend-mode:screen;animation:lanternBreath 4.7s ease-in-out infinite}
+/* 3) Sağdaki fener: görünür ama sakin, düzensiz nefes alan sıcak ışık */
+.lantern-glow{right:1.2%;top:54.2%;width:14.5%;height:18%;border-radius:50%;background:radial-gradient(circle,rgba(255,219,132,.58) 0%,rgba(255,174,69,.30) 28%,rgba(255,131,35,.12) 50%,rgba(255,110,20,0) 76%);filter:blur(8px);mix-blend-mode:screen;opacity:.52;transform-origin:60% 52%;animation:lanternBreath 3.9s ease-in-out infinite}
+.lantern-core{right:4.1%;top:58.6%;width:7.8%;height:9.8%;border-radius:50%;background:radial-gradient(circle,rgba(255,244,183,.80) 0%,rgba(255,194,79,.42) 32%,rgba(255,140,35,.14) 58%,rgba(255,110,20,0) 78%);filter:blur(4px);mix-blend-mode:screen;opacity:.50;animation:lanternCore 2.7s ease-in-out infinite}
 
 /* 4) Göldeki birkaç ışık yansımasının çok yavaş parıldaması */
 .reflection{top:45%;width:1.25%;height:10%;border-radius:60%;background:linear-gradient(to bottom,rgba(255,204,124,0),rgba(255,185,93,.38),rgba(255,139,62,.16),rgba(255,168,73,0));filter:blur(2px);opacity:.20;animation:reflection 6.8s ease-in-out infinite}
@@ -70,10 +71,20 @@ body{font-family:Arial,Helvetica,sans-serif}
   72%{opacity:.30;transform:translate3d(2px,-14px,0) scale(.82)}
 }
 @keyframes lanternBreath{
-  0%,100%{opacity:.74;transform:scale(.98)}
-  34%{opacity:.80;transform:scale(1.01)}
-  63%{opacity:.76;transform:scale(1.00)}
-  82%{opacity:.82;transform:scale(1.015)}
+  0%{opacity:.42;transform:scale(.96)}
+  16%{opacity:.62;transform:scale(1.01)}
+  31%{opacity:.50;transform:scale(.985)}
+  49%{opacity:.70;transform:scale(1.035)}
+  67%{opacity:.54;transform:scale(1.00)}
+  83%{opacity:.66;transform:scale(1.02)}
+  100%{opacity:.42;transform:scale(.96)}
+}
+@keyframes lanternCore{
+  0%,100%{opacity:.40;transform:scale(.94)}
+  21%{opacity:.68;transform:scale(1.05)}
+  44%{opacity:.48;transform:scale(.98)}
+  62%{opacity:.76;transform:scale(1.08)}
+  79%{opacity:.52;transform:scale(1.00)}
 }
 @keyframes reflection{
   0%,100%{opacity:.15;transform:scaleY(.92)}
@@ -93,7 +104,7 @@ body{font-family:Arial,Helvetica,sans-serif}
 }
 
 @media(prefers-reduced-motion:reduce){
- .screen,.mock,.wisp,.firefly,.lantern-glow,.reflection,.hourglass-glow,.intro-vignette{animation:none!important}
+ .screen,.mock,.wisp,.firefly,.lantern-glow,.lantern-core,.reflection,.hourglass-glow,.intro-vignette{animation:none!important}
  .intro-vignette{display:none}
 }
 </style>
@@ -115,6 +126,7 @@ body{font-family:Arial,Helvetica,sans-serif}
     <i class="fx firefly f6" aria-hidden="true"></i>
 
     <div class="fx lantern-glow" aria-hidden="true"></div>
+    <div class="fx lantern-core" aria-hidden="true"></div>
     <i class="fx reflection r1" aria-hidden="true"></i>
     <i class="fx reflection r2" aria-hidden="true"></i>
     <i class="fx reflection r3" aria-hidden="true"></i>
