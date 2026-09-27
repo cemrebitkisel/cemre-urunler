@@ -5,18 +5,96 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Zamanın İzinde - Tam Ekran Test</title>
+<title>Zamanın İzinde - Animasyon Test</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b0713}
 body{font-family:Arial,Helvetica,sans-serif}
 .app{position:fixed;inset:0;display:grid;place-items:center;width:100%;height:100%;overflow:hidden;background:#0b0713}
-.screen{position:absolute;left:50%;top:50%;width:min(100vw,calc(100dvh * 991 / 1587));height:min(100dvh,calc(100vw * 1587 / 991));aspect-ratio:991/1587;transform:translate(-50%,-50%);overflow:hidden;background:#0b0713}
-.mock{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block;user-select:none;-webkit-user-drag:none}
+.screen{position:absolute;left:50%;top:50%;width:min(100vw,calc(100dvh * 991 / 1587));height:min(100dvh,calc(100vw * 1587 / 991));aspect-ratio:991/1587;transform:translate(-50%,-50%);overflow:hidden;background:#0b0713;isolation:isolate;animation:screenIn .85s ease-out both}
+.mock{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block;user-select:none;-webkit-user-drag:none;z-index:1;animation:imageFocus .85s ease-out both}
+.fx{position:absolute;pointer-events:none;z-index:4}
+
+/* 1) Fincandan çıkan yavaş ve sakin buhar */
+.steam{left:62.5%;top:48.5%;width:28%;height:29%;z-index:6;overflow:visible}
+.wisp{position:absolute;bottom:11%;width:18%;height:64%;border-radius:50%;filter:blur(4px);opacity:0;background:linear-gradient(to top,rgba(255,238,255,0),rgba(246,220,255,.24) 35%,rgba(255,255,255,.56) 68%,rgba(255,255,255,0));transform-origin:50% 100%;animation:steamRise 4.8s ease-in-out infinite}
+.w1{left:24%;animation-delay:0s}
+.w2{left:43%;height:72%;animation-delay:1.55s}
+.w3{left:57%;height:59%;animation-delay:3.05s}
+
+/* 2) Yalnızca birkaç sıcak ışık zerreciği */
+.firefly{width:5px;height:5px;border-radius:50%;background:#ffd27a;box-shadow:0 0 7px 2px rgba(255,178,63,.55);opacity:0;animation:firefly 5.8s ease-in-out infinite}
+.f1{left:13%;top:34%;animation-delay:.4s}
+.f2{left:54%;top:41%;animation-delay:2.1s}
+.f3{left:77%;top:53%;animation-delay:4.0s}
+.f4{left:88%;top:37%;animation-delay:1.3s}
+.f5{left:46%;top:63%;animation-delay:3.3s}
+.f6{left:20%;top:71%;animation-delay:5.0s}
+
+/* 3) Sağdaki fenerde %5-8 seviyesinde hafif nefes alan ışık */
+.lantern-glow{right:-1.5%;top:46%;width:18%;height:22%;border-radius:50%;background:radial-gradient(circle,rgba(255,180,79,.34) 0%,rgba(255,145,44,.10) 38%,rgba(255,120,25,0) 72%);filter:blur(7px);mix-blend-mode:screen;animation:lanternBreath 4.7s ease-in-out infinite}
+
+/* 4) Göldeki birkaç ışık yansımasının çok yavaş parıldaması */
+.reflection{top:45%;width:1.25%;height:10%;border-radius:60%;background:linear-gradient(to bottom,rgba(255,204,124,0),rgba(255,185,93,.38),rgba(255,139,62,.16),rgba(255,168,73,0));filter:blur(2px);opacity:.20;animation:reflection 6.8s ease-in-out infinite}
+.r1{left:55%;animation-delay:0s}.r2{left:61%;height:12%;animation-delay:2.2s}.r3{left:67%;height:8%;animation-delay:4.4s}
+
+/* 5) Kum saati yalnızca açılışta tek seferlik mor ışıma */
+.hourglass-glow{left:7.8%;top:17.7%;width:18%;height:14%;border-radius:50%;background:radial-gradient(circle,rgba(220,134,255,.42) 0%,rgba(191,92,255,.18) 42%,rgba(178,79,255,0) 72%);filter:blur(5px);mix-blend-mode:screen;opacity:0;animation:hourglassPulse 1.75s ease-out .38s 1 both}
+
+/* 6) Ekran açılışında yumuşak netleşme */
+.intro-vignette{inset:0;z-index:8;background:rgba(18,8,31,.20);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:introClear .8s ease-out forwards}
+
+@keyframes screenIn{
+  from{opacity:.82}
+  to{opacity:1}
+}
+@keyframes imageFocus{
+  0%{filter:blur(2.2px) brightness(.94);transform:scale(1.008)}
+  100%{filter:blur(0) brightness(1);transform:scale(1)}
+}
+@keyframes introClear{
+  0%{opacity:1}
+  100%{opacity:0;visibility:hidden}
+}
+@keyframes steamRise{
+  0%{transform:translate3d(0,12px,0) scaleX(.58) rotate(-3deg);opacity:0}
+  18%{opacity:.30}
+  48%{opacity:.48}
+  74%{opacity:.24}
+  100%{transform:translate3d(10px,-86px,0) scaleX(1.25) rotate(8deg);opacity:0}
+}
+@keyframes firefly{
+  0%,100%{opacity:0;transform:translate3d(0,0,0) scale(.65)}
+  18%{opacity:.45}
+  45%{opacity:.72;transform:translate3d(7px,-7px,0) scale(1)}
+  72%{opacity:.30;transform:translate3d(2px,-14px,0) scale(.82)}
+}
+@keyframes lanternBreath{
+  0%,100%{opacity:.74;transform:scale(.98)}
+  34%{opacity:.80;transform:scale(1.01)}
+  63%{opacity:.76;transform:scale(1.00)}
+  82%{opacity:.82;transform:scale(1.015)}
+}
+@keyframes reflection{
+  0%,100%{opacity:.15;transform:scaleY(.92)}
+  50%{opacity:.28;transform:scaleY(1.06)}
+}
+@keyframes hourglassPulse{
+  0%{opacity:0;transform:scale(.78)}
+  42%{opacity:.92;transform:scale(1.08)}
+  72%{opacity:.34;transform:scale(1.02)}
+  100%{opacity:0;transform:scale(1.15)}
+}
+
 @media(max-width:600px){
  .app{width:100vw;height:100dvh}
  .screen{left:0;top:0;width:100vw;height:100dvh;max-width:none;max-height:none;aspect-ratio:auto;transform:none}
  .mock{width:100%;height:100%;object-fit:fill}
+}
+
+@media(prefers-reduced-motion:reduce){
+ .screen,.mock,.wisp,.firefly,.lantern-glow,.reflection,.hourglass-glow,.intro-vignette{animation:none!important}
+ .intro-vignette{display:none}
 }
 </style>
 </head>
@@ -24,6 +102,24 @@ body{font-family:Arial,Helvetica,sans-serif}
 <div class="app">
   <div class="screen">
     <img class="mock" src="images/zamanin-izinde-sade.png" alt="Zamanın İzinde sonuç ekranı">
+
+    <div class="fx steam" aria-hidden="true">
+      <i class="wisp w1"></i><i class="wisp w2"></i><i class="wisp w3"></i>
+    </div>
+
+    <i class="fx firefly f1" aria-hidden="true"></i>
+    <i class="fx firefly f2" aria-hidden="true"></i>
+    <i class="fx firefly f3" aria-hidden="true"></i>
+    <i class="fx firefly f4" aria-hidden="true"></i>
+    <i class="fx firefly f5" aria-hidden="true"></i>
+    <i class="fx firefly f6" aria-hidden="true"></i>
+
+    <div class="fx lantern-glow" aria-hidden="true"></div>
+    <i class="fx reflection r1" aria-hidden="true"></i>
+    <i class="fx reflection r2" aria-hidden="true"></i>
+    <i class="fx reflection r3" aria-hidden="true"></i>
+    <div class="fx hourglass-glow" aria-hidden="true"></div>
+    <div class="fx intro-vignette" aria-hidden="true"></div>
   </div>
 </div>
 </body>
