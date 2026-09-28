@@ -11,16 +11,21 @@ html,body{margin:0;width:100%;height:100%;background:#07040d;font-family:Arial,H
 body{overflow:hidden}
 .app{position:relative;width:100vw;height:100dvh;overflow:hidden;background:#100719}
 .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;display:block;user-select:none;-webkit-user-drag:none;animation:sceneIn .8s ease-out both}
-@keyframes sceneIn{from{filter:blur(5px) brightness(.86);transform:scale(1.012);opacity:.55}to{filter:blur(0) brightness(1);transform:scale(1);opacity:1}}
+@keyframes sceneIn{
+  from{filter:blur(5px) brightness(.86);transform:scale(1.012);opacity:.55}
+  to{filter:blur(0) brightness(1);transform:scale(1);opacity:1}
+}
 .hot{position:absolute;border:0;background:transparent;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;z-index:20}
 #menuBtn{left:4.5%;top:4.3%;width:12%;height:8%;border-radius:50%}
 #shareBtn{left:25%;bottom:8.8%;width:50%;height:7.8%;border-radius:999px}
 #prepBtn{left:8%;bottom:1.8%;width:41%;height:5.8%;border-radius:999px}
 #retryBtn{right:8%;bottom:1.8%;width:41%;height:5.8%;border-radius:999px}
+
 .menu{position:absolute;left:3%;top:12%;width:min(58vw,400px);background:rgba(31,12,44,.92);border:1px solid rgba(220,182,255,.25);border-radius:24px;overflow:hidden;backdrop-filter:blur(14px);opacity:0;transform:scale(.96) translateY(-8px);pointer-events:none;transition:.18s ease;z-index:40}
 .menu.open{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
 .menu button{width:100%;padding:17px 20px;text-align:left;border:0;border-bottom:1px solid rgba(255,255,255,.08);background:transparent;color:#fff;font-weight:700;font-size:17px}
 .menu button:last-child{border-bottom:0}
+
 .backdrop{position:absolute;inset:0;background:rgba(10,3,16,.58);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px;z-index:60}
 .backdrop.show{display:flex}
 .modal{width:min(88vw,520px);background:rgba(35,13,49,.96);border:1px solid rgba(222,185,255,.30);color:#fff;border-radius:26px;padding:24px;box-shadow:0 20px 60px #0008}
@@ -29,20 +34,54 @@ body{overflow:hidden}
 .steps{display:grid;gap:10px;margin:14px 0 20px}
 .step{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.07);font-size:16px}
 .close{width:100%;border:0;border-radius:999px;padding:13px 16px;font-weight:800;font-size:16px;background:#c883ee;color:#24102d}
-.steam{position:absolute;left:62%;top:58%;width:18%;height:24%;pointer-events:none;filter:blur(2px);opacity:.34;z-index:10}
-.steam::before,.steam::after{content:"";position:absolute;left:35%;bottom:0;width:30px;height:145px;border-left:4px solid rgba(255,255,255,.78);border-radius:50%;animation:steam 3.8s infinite ease-in-out}
-.steam::after{left:58%;animation-delay:1.7s;height:125px}
-@keyframes steam{0%{transform:translateY(18px) scaleX(.65);opacity:0}30%{opacity:.44}100%{transform:translateY(-92px) translateX(10px) scaleX(1.4);opacity:0}}
-.firefly{position:absolute;width:5px;height:5px;border-radius:50%;background:#ffd66f;box-shadow:0 0 10px 3px #ffbd45;opacity:0;pointer-events:none;animation:fly 6s infinite ease-in-out;z-index:8}
-.f1{left:55%;top:39%;animation-delay:.4s}.f2{left:83%;top:47%;animation-delay:1.7s}.f3{left:46%;top:57%;animation-delay:3.2s}.f4{left:74%;top:32%;animation-delay:4.6s}
-@keyframes fly{0%,100%{opacity:0;transform:translate(0,8px) scale(.6)}35%{opacity:.75}65%{opacity:.32;transform:translate(10px,-12px) scale(1)}}
-.lanternGlow{position:absolute;right:-1%;top:52%;width:18%;height:24%;border-radius:50%;background:radial-gradient(circle,rgba(255,190,80,.26),rgba(255,120,25,.08) 45%,transparent 72%);mix-blend-mode:screen;pointer-events:none;animation:lantern 4.7s infinite ease-in-out;z-index:9}
-@keyframes lantern{0%,100%{opacity:.45;transform:scale(.98)}42%{opacity:.58;transform:scale(1.03)}67%{opacity:.50}}
+
+/* Shared steam */
+.steam{position:absolute;pointer-events:none;z-index:11;filter:blur(1.6px)}
+.steam span{
+  position:absolute;bottom:0;width:26px;height:125px;border-left:4px solid rgba(255,255,255,.88);
+  border-radius:50%;opacity:0;animation:steamRise 4.2s infinite ease-in-out;
+}
+.steam .s1{left:10%;animation-delay:0s}
+.steam .s2{left:42%;height:145px;animation-delay:1.3s}
+.steam .s3{left:68%;height:115px;animation-delay:2.5s}
+@keyframes steamRise{
+  0%{transform:translateY(12px) translateX(0) scaleX(.55);opacity:0}
+  20%{opacity:.48}
+  55%{opacity:.34}
+  100%{transform:translateY(-95px) translateX(12px) scaleX(1.45);opacity:0}
+}
+
+/* Golden particles for Energia and Zaman */
+.spark{position:absolute;width:7px;height:7px;border-radius:50%;background:#ffd978;box-shadow:0 0 12px 4px rgba(255,188,69,.8);opacity:0;pointer-events:none;z-index:9;animation:sparkFloat 6.5s infinite ease-in-out}
+.sp1{left:53%;top:43%;animation-delay:.2s}
+.sp2{left:74%;top:38%;animation-delay:1.7s}
+.sp3{left:82%;top:54%;animation-delay:3.1s}
+.sp4{left:48%;top:61%;animation-delay:4.8s}
+@keyframes sparkFloat{
+  0%,100%{opacity:0;transform:translate(0,8px) scale(.65)}
+  25%{opacity:.75}
+  60%{opacity:.38;transform:translate(8px,-10px) scale(1)}
+}
+
+/* Zaman lantern */
+.lanternGlow{position:absolute;right:-1%;top:52%;width:18%;height:24%;border-radius:50%;background:radial-gradient(circle,rgba(255,190,80,.30),rgba(255,120,25,.10) 45%,transparent 72%);mix-blend-mode:screen;pointer-events:none;animation:lantern 4.7s infinite ease-in-out;z-index:9}
+@keyframes lantern{0%,100%{opacity:.48;transform:scale(.98)}42%{opacity:.62;transform:scale(1.04)}67%{opacity:.52}}
+
+/* Winter snow */
 .snow{position:absolute;inset:0;pointer-events:none;z-index:8;overflow:hidden}
-.snow i{position:absolute;top:-8%;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.88);box-shadow:0 0 5px rgba(255,255,255,.55);animation:snowfall linear infinite}
+.snow i{position:absolute;top:-8%;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 5px rgba(255,255,255,.55);animation:snowfall linear infinite}
 @keyframes snowfall{to{transform:translate3d(18px,115dvh,0) rotate(180deg);opacity:.15}}
-.sunGlow{position:absolute;right:17%;top:18%;width:25%;height:20%;border-radius:50%;background:radial-gradient(circle,rgba(255,210,120,.23),rgba(255,170,70,.07) 50%,transparent 72%);mix-blend-mode:screen;pointer-events:none;animation:sun 6s infinite ease-in-out;z-index:7}
-@keyframes sun{0%,100%{opacity:.34;transform:scale(.98)}50%{opacity:.50;transform:scale(1.03)}}
+
+/* Sun breathing for Energy */
+.sunGlow{position:absolute;right:11%;top:16%;width:33%;height:28%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,224,145,.32) 0%,rgba(255,182,72,.18) 32%,rgba(255,140,35,.06) 58%,transparent 74%);
+  mix-blend-mode:screen;pointer-events:none;animation:sunBreath 5.2s infinite ease-in-out;z-index:8}
+.sunCore{position:absolute;right:20%;top:23%;width:12%;height:11%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,246,208,.38),rgba(255,195,90,.18) 45%,transparent 72%);
+  mix-blend-mode:screen;pointer-events:none;animation:sunCore 4.3s infinite ease-in-out;z-index:9}
+@keyframes sunBreath{0%,100%{opacity:.42;transform:scale(.96)}50%{opacity:.64;transform:scale(1.05)}}
+@keyframes sunCore{0%,100%{opacity:.34}50%{opacity:.58}}
+
 .hidden{display:none!important}
 @media (min-width:700px){.app{width:min(100vw,calc(100dvh * 1024 / 1536));margin:0 auto}}
 </style>
@@ -50,22 +89,40 @@ body{overflow:hidden}
 <body>
 <div class="app">
   <img id="bg" class="bg" src="images/zamanin-izinde.png" alt="Cemre Karışım Motoru sonucu">
-  <div id="steam" class="steam"></div>
-  <i class="firefly f1"></i><i class="firefly f2"></i><i class="firefly f3"></i><i class="firefly f4"></i>
-  <div id="lanternGlow" class="lanternGlow"></div>
-  <div id="snow" class="snow hidden" aria-hidden="true">
-    <i style="left:5%;animation-duration:8s;animation-delay:-2s"></i><i style="left:14%;animation-duration:10s;animation-delay:-6s"></i><i style="left:23%;animation-duration:7.5s;animation-delay:-1s"></i><i style="left:35%;animation-duration:9s;animation-delay:-4s"></i><i style="left:48%;animation-duration:11s;animation-delay:-8s"></i><i style="left:61%;animation-duration:8.5s;animation-delay:-3s"></i><i style="left:72%;animation-duration:10.5s;animation-delay:-7s"></i><i style="left:83%;animation-duration:7.8s;animation-delay:-5s"></i><i style="left:93%;animation-duration:9.6s;animation-delay:-2.5s"></i>
+
+  <div id="steam" class="steam">
+    <span class="s1"></span><span class="s2"></span><span class="s3"></span>
   </div>
+
+  <i class="spark sp1"></i><i class="spark sp2"></i><i class="spark sp3"></i><i class="spark sp4"></i>
+  <div id="lanternGlow" class="lanternGlow"></div>
+
+  <div id="snow" class="snow hidden" aria-hidden="true">
+    <i style="left:5%;animation-duration:8s;animation-delay:-2s"></i>
+    <i style="left:14%;animation-duration:10s;animation-delay:-6s"></i>
+    <i style="left:23%;animation-duration:7.5s;animation-delay:-1s"></i>
+    <i style="left:35%;animation-duration:9s;animation-delay:-4s"></i>
+    <i style="left:48%;animation-duration:11s;animation-delay:-8s"></i>
+    <i style="left:61%;animation-duration:8.5s;animation-delay:-3s"></i>
+    <i style="left:72%;animation-duration:10.5s;animation-delay:-7s"></i>
+    <i style="left:83%;animation-duration:7.8s;animation-delay:-5s"></i>
+    <i style="left:93%;animation-duration:9.6s;animation-delay:-2.5s"></i>
+  </div>
+
   <div id="sunGlow" class="sunGlow hidden"></div>
+  <div id="sunCore" class="sunCore hidden"></div>
+
   <button id="menuBtn" class="hot" aria-label="Menü"></button>
   <button id="shareBtn" class="hot" aria-label="Sonucu Paylaş"></button>
   <button id="prepBtn" class="hot" aria-label="Nasıl Hazırlanır"></button>
   <button id="retryBtn" class="hot" aria-label="Tekrar Dene"></button>
+
   <div id="menu" class="menu">
     <button data-action="home">Ana Sayfa</button>
     <button data-action="retry">Yeni Karışım / Tekrar Dene</button>
     <button data-action="about">Karışım Motoru Hakkında</button>
   </div>
+
   <div id="aboutModal" class="backdrop">
     <div class="modal">
       <h2>Cemre Karışım Motoru</h2>
@@ -73,6 +130,7 @@ body{overflow:hidden}
       <button class="close" data-close="aboutModal">Kapat</button>
     </div>
   </div>
+
   <div id="prepModal" class="backdrop">
     <div class="modal">
       <h2>Nasıl Hazırlanır?</h2>
@@ -85,29 +143,98 @@ body{overflow:hidden}
     </div>
   </div>
 </div>
+
 <script>
 const RESULTS={
-'zamanin-izinde':{img:'images/zamanin-izinde.png',title:'Cemre Karışım Motoru – Zamanın İzinde',text:'Benim Cemre Karışımım: Zamanın İzinde — Yoğun anlarda zihnini ferahlatacak, dikkatini toparlamana eşlik edecek özel bir karışım.',fx:'zaman'},
-'kis-gunesi':{img:'images/kis-gunesi.png',title:'Cemre Karışım Motoru – Kış Güneşi',text:'Benim Cemre Karışımım: Kış Güneşi — Soğuk günlere sıcaklık katan, baharatlı ve meyvemsi karaktere sahip özel bir karışım.',fx:'kis'},
-'enerji':{img:'images/enerji.png',title:'Cemre Karışım Motoru – Enerji',text:'Benim Cemre Karışımım: Enerji — Güne daha canlı başlamaya eşlik eden, narenciyeli ve bitkisel karaktere sahip özel bir karışım.',fx:'enerji'}
+  'zamanin-izinde':{
+    img:'images/zamanin-izinde.png',
+    title:'Cemre Karışım Motoru – Zamanın İzinde',
+    text:'Benim Cemre Karışımım: Zamanın İzinde — Yoğun anlarda zihnini ferahlatacak, dikkatini toparlamana eşlik edecek özel bir karışım.',
+    fx:'zaman'
+  },
+  'kis-gunesi':{
+    img:'images/kis-gunesi.png',
+    title:'Cemre Karışım Motoru – Kış Güneşi',
+    text:'Benim Cemre Karışımım: Kış Güneşi — Soğuk günlere sıcaklık katan, baharatlı ve meyvemsi karaktere sahip özel bir karışım.',
+    fx:'kis'
+  },
+  'enerji':{
+    img:'images/enerji.png',
+    title:'Cemre Karışım Motoru – Enerji',
+    text:'Benim Cemre Karışımım: Enerji — Güne daha canlı başlamaya eşlik eden, narenciyeli ve bitkisel karaktere sahip özel bir karışım.',
+    fx:'enerji'
+  }
 };
+
 const params=new URLSearchParams(location.search);
 const key=params.get('result')||'zamanin-izinde';
 const current=RESULTS[key]||RESULTS['zamanin-izinde'];
-document.getElementById('bg').src=current.img;document.title=current.title;
-const snow=document.getElementById('snow'),sunGlow=document.getElementById('sunGlow'),lantern=document.getElementById('lanternGlow'),fireflies=[...document.querySelectorAll('.firefly')];
-if(current.fx==='kis'){snow.classList.remove('hidden');sunGlow.classList.remove('hidden');fireflies.forEach(x=>x.classList.add('hidden'))}
-else if(current.fx==='enerji'){sunGlow.classList.remove('hidden');lantern.classList.add('hidden');fireflies.forEach(x=>x.classList.remove('hidden'))}
-const menu=document.getElementById('menu'),homeUrl='https://cemrebitkisel.github.io/cemre-urunler/';
+document.getElementById('bg').src=current.img;
+document.title=current.title;
+
+const steam=document.getElementById('steam');
+const snow=document.getElementById('snow');
+const sunGlow=document.getElementById('sunGlow');
+const sunCore=document.getElementById('sunCore');
+const lantern=document.getElementById('lanternGlow');
+const sparks=[...document.querySelectorAll('.spark')];
+
+snow.classList.add('hidden');
+sunGlow.classList.add('hidden');
+sunCore.classList.add('hidden');
+lantern.classList.add('hidden');
+sparks.forEach(x=>x.classList.add('hidden'));
+
+/* Per-screen animation placement */
+if(current.fx==='zaman'){
+  steam.style.left='61%'; steam.style.top='57%'; steam.style.width='19%'; steam.style.height='25%';
+  lantern.classList.remove('hidden');
+  sparks.forEach(x=>x.classList.remove('hidden'));
+}
+if(current.fx==='kis'){
+  steam.style.left='61%'; steam.style.top='55%'; steam.style.width='19%'; steam.style.height='25%';
+  snow.classList.remove('hidden');
+  lantern.classList.remove('hidden');
+}
+if(current.fx==='enerji'){
+  /* cup is lower-right on Energy image */
+  steam.style.left='63%'; steam.style.top='54%'; steam.style.width='18%'; steam.style.height='24%';
+  sunGlow.classList.remove('hidden');
+  sunCore.classList.remove('hidden');
+  sparks.forEach(x=>x.classList.remove('hidden'));
+}
+
+const menu=document.getElementById('menu');
+const homeUrl='https://cemrebitkisel.github.io/cemre-urunler/';
 document.getElementById('menuBtn').onclick=()=>menu.classList.toggle('open');
+
 function openModal(id){menu.classList.remove('open');document.getElementById(id).classList.add('show')}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
 document.querySelectorAll('.backdrop').forEach(x=>x.addEventListener('click',e=>{if(e.target===x)x.classList.remove('show')}));
-document.querySelectorAll('#menu button').forEach(b=>{b.onclick=()=>{const a=b.dataset.action;if(a==='home'||a==='retry')location.href=homeUrl;if(a==='about')openModal('aboutModal')}});
+
+document.querySelectorAll('#menu button').forEach(b=>{
+  b.onclick=()=>{
+    const a=b.dataset.action;
+    if(a==='home'||a==='retry') location.href=homeUrl;
+    if(a==='about') openModal('aboutModal');
+  };
+});
+
 document.getElementById('prepBtn').onclick=()=>openModal('prepModal');
 document.getElementById('retryBtn').onclick=()=>location.href=homeUrl;
-document.getElementById('shareBtn').onclick=async()=>{const shareUrl=location.origin+location.pathname+'?result='+key;const data={title:current.title,text:current.text,url:shareUrl};try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(shareUrl);alert('Sonuç bağlantısı kopyalandı.')}}catch(e){}};
+
+document.getElementById('shareBtn').onclick=async()=>{
+  const shareUrl=location.origin+location.pathname+'?result='+key;
+  const data={title:current.title,text:current.text,url:shareUrl};
+  try{
+    if(navigator.share) await navigator.share(data);
+    else{
+      await navigator.clipboard.writeText(shareUrl);
+      alert('Sonuç bağlantısı kopyalandı.');
+    }
+  }catch(e){}
+};
 </script>
 </body>
 </html>
