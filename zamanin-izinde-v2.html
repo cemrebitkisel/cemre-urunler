@@ -81,6 +81,60 @@ body{overflow:hidden}
 @keyframes sunBreath{0%,100%{opacity:.58;transform:scale(.95)}50%{opacity:.84;transform:scale(1.08)}}
 @keyframes sunCore{0%,100%{opacity:.50}50%{opacity:.78}}
 
+
+/* Hafifleme Zamanı: yaprak + güneş nefesi + bokeh */
+.haf-sun{
+  position:absolute;right:-2%;top:7%;width:48%;height:40%;border-radius:50%;
+  background:radial-gradient(circle at 70% 35%,
+    rgba(255,248,190,.38) 0%,
+    rgba(216,255,132,.18) 34%,
+    rgba(185,240,100,.07) 55%,
+    transparent 74%);
+  mix-blend-mode:screen;pointer-events:none;z-index:8;
+  animation:hafSunBreath 5.4s infinite ease-in-out;
+}
+@keyframes hafSunBreath{
+  0%,100%{opacity:.48;transform:scale(.97)}
+  50%{opacity:.78;transform:scale(1.055)}
+}
+
+.haf-leaf{
+  position:absolute;width:18px;height:10px;
+  background:linear-gradient(135deg,rgba(174,235,73,.96),rgba(62,139,43,.94));
+  border-radius:100% 0 100% 0;
+  box-shadow:0 0 8px rgba(183,235,84,.28);
+  pointer-events:none;z-index:10;opacity:0;
+  animation:leafDrift 7.2s infinite ease-in-out;
+}
+.hl1{left:73%;top:21%;animation-delay:-1.0s}
+.hl2{left:84%;top:29%;animation-delay:-3.4s;animation-duration:8.1s}
+.hl3{left:65%;top:34%;animation-delay:-5.7s;animation-duration:7.6s}
+@keyframes leafDrift{
+  0%{opacity:0;transform:translate3d(0,-18px,0) rotate(5deg) scale(.8)}
+  16%{opacity:.85}
+  52%{opacity:.74;transform:translate3d(-18px,65px,0) rotate(125deg) scale(1)}
+  86%{opacity:.42}
+  100%{opacity:0;transform:translate3d(16px,150px,0) rotate(245deg) scale(.88)}
+}
+
+.haf-bokeh{
+  position:absolute;border-radius:50%;
+  background:rgba(228,255,151,.88);
+  box-shadow:0 0 15px 5px rgba(202,245,102,.42);
+  pointer-events:none;z-index:9;opacity:0;
+  animation:hafBokeh 5.6s infinite ease-in-out;
+}
+.hb1{width:7px;height:7px;left:52%;top:43%;animation-delay:-.7s}
+.hb2{width:9px;height:9px;left:78%;top:39%;animation-delay:-2.0s;animation-duration:6.3s}
+.hb3{width:6px;height:6px;left:87%;top:52%;animation-delay:-3.5s;animation-duration:5.2s}
+.hb4{width:8px;height:8px;left:58%;top:59%;animation-delay:-4.8s;animation-duration:6.8s}
+@keyframes hafBokeh{
+  0%,100%{opacity:.08;transform:translateY(10px) scale(.7)}
+  30%{opacity:.82}
+  62%{opacity:.46;transform:translateY(-8px) scale(1.12)}
+  82%{opacity:.72}
+}
+
 .hidden{display:none!important}
 @media (min-width:700px){.app{width:min(100vw,calc(100dvh * 1024 / 1536));margin:0 auto}}
 </style>
@@ -115,6 +169,16 @@ body{overflow:hidden}
 
   <div id="sunGlow" class="sunGlow hidden"></div>
   <div id="sunCore" class="sunCore hidden"></div>
+
+  <div id="hafSun" class="haf-sun hidden"></div>
+  <i class="haf-leaf hl1 hidden"></i>
+  <i class="haf-leaf hl2 hidden"></i>
+  <i class="haf-leaf hl3 hidden"></i>
+  <i class="haf-bokeh hb1 hidden"></i>
+  <i class="haf-bokeh hb2 hidden"></i>
+  <i class="haf-bokeh hb3 hidden"></i>
+  <i class="haf-bokeh hb4 hidden"></i>
+
 
   <button id="menuBtn" class="hot" aria-label="Menü"></button>
   <button id="shareBtn" class="hot" aria-label="Sonucu Paylaş"></button>
@@ -167,6 +231,12 @@ const RESULTS={
     title:'Cemre Karışım Motoru – Enerji',
     text:'Benim Cemre Karışımım: Enerji — Güne daha canlı başlamaya eşlik eden, narenciyeli ve bitkisel karaktere sahip özel bir karışım.',
     fx:'enerji'
+  },
+  'hafifleme-zamani':{
+    img:'images/hafifleme-zamani.png',
+    title:'Cemre Karışım Motoru – Hafifleme Zamanı',
+    text:'Benim Cemre Karışımım: Hafifleme Zamanı — Dengeli ve ferahlatıcı karakteriyle gün içinde daha hafif hissetmene eşlik eden özel bir karışım.',
+    fx:'hafifleme'
   }
 };
 
@@ -182,12 +252,18 @@ const sunGlow=document.getElementById('sunGlow');
 const sunCore=document.getElementById('sunCore');
 const lantern=document.getElementById('lanternGlow');
 const sparks=[...document.querySelectorAll('.spark')];
+const hafSun=document.getElementById('hafSun');
+const hafLeaves=[...document.querySelectorAll('.haf-leaf')];
+const hafBokehs=[...document.querySelectorAll('.haf-bokeh')];
 
 snow.classList.add('hidden');
 sunGlow.classList.add('hidden');
 sunCore.classList.add('hidden');
 lantern.classList.add('hidden');
 sparks.forEach(x=>x.classList.add('hidden'));
+hafSun.classList.add('hidden');
+hafLeaves.forEach(x=>x.classList.add('hidden'));
+hafBokehs.forEach(x=>x.classList.add('hidden'));
 
 /* Per-screen animation placement */
 if(current.fx==='zaman'){
@@ -206,6 +282,13 @@ if(current.fx==='enerji'){
   sunGlow.classList.remove('hidden');
   sunCore.classList.remove('hidden');
   sparks.forEach(x=>x.classList.remove('hidden'));
+}
+if(current.fx==='hafifleme'){
+  /* Fincan ağzı yaklaşık %57 ekran yüksekliğinde; buharın altı tam fincan ağzına oturur. */
+  steam.style.left='66%'; steam.style.top='46.5%'; steam.style.width='17%'; steam.style.height='10.5%';
+  hafSun.classList.remove('hidden');
+  hafLeaves.forEach(x=>x.classList.remove('hidden'));
+  hafBokehs.forEach(x=>x.classList.remove('hidden'));
 }
 
 const menu=document.getElementById('menu');
