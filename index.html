@@ -424,6 +424,171 @@ body{font-family:Arial,Helvetica,sans-serif}
   }
 }
 
+
+/* ===== HAZIRLANIYOR — REVİZE ANİMASYON ===== */
+#loading{overflow:hidden}
+
+/* Fincanın üzerindeki bitki sarmalını canlı gösteren dönen ışık halkaları */
+.blend-swirl{
+  position:absolute;
+  left:25%;
+  top:30.5%;
+  width:51%;
+  height:39%;
+  pointer-events:none;
+  z-index:9;
+  transform-origin:50% 58%;
+}
+.blend-ring{
+  position:absolute;
+  left:50%;
+  top:50%;
+  border-radius:50%;
+  border:3px solid transparent;
+  filter:drop-shadow(0 0 7px rgba(255,199,63,.75));
+  opacity:.72;
+}
+.br1{
+  width:78%;height:35%;
+  margin-left:-39%;margin-top:-17.5%;
+  border-top-color:rgba(255,226,124,.95);
+  border-right-color:rgba(255,178,45,.50);
+  animation:blendSpin1 4.6s linear infinite;
+}
+.br2{
+  width:64%;height:48%;
+  margin-left:-32%;margin-top:-24%;
+  border-left-color:rgba(255,242,171,.92);
+  border-bottom-color:rgba(255,177,34,.48);
+  animation:blendSpin2 5.7s linear infinite reverse;
+}
+.br3{
+  width:48%;height:64%;
+  margin-left:-24%;margin-top:-32%;
+  border-top-color:rgba(255,235,143,.72);
+  border-left-color:rgba(255,194,54,.42);
+  animation:blendSpin3 6.5s linear infinite;
+}
+@keyframes blendSpin1{to{transform:rotate(360deg) scale(1.035)}}
+@keyframes blendSpin2{to{transform:rotate(360deg) scale(.97)}}
+@keyframes blendSpin3{0%,100%{transform:rotate(0deg) scale(.96)}50%{transform:rotate(180deg) scale(1.06)}}
+
+/* Sarmaldaki hafif nefes/parlama */
+.blend-glow{
+  position:absolute;
+  left:31%;
+  top:34%;
+  width:40%;
+  height:34%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,219,113,.20),rgba(255,169,40,.08) 45%,transparent 70%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:8;
+  animation:blendGlow 2.8s ease-in-out infinite;
+}
+@keyframes blendGlow{
+  0%,100%{opacity:.46;transform:scale(.94)}
+  50%{opacity:.82;transform:scale(1.08)}
+}
+
+/* Sarmala eşlik eden küçük bitki/ışık parçacıkları */
+.blend-particle{
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#ffe27b;
+  box-shadow:0 0 13px 5px rgba(255,188,48,.85);
+  opacity:0;
+  pointer-events:none;
+  z-index:10;
+  animation:blendParticle 3.8s infinite ease-in-out;
+}
+.bp1{left:36%;top:54%;animation-delay:-.2s}
+.bp2{left:45%;top:48%;animation-delay:-1s}
+.bp3{left:55%;top:52%;animation-delay:-1.8s}
+.bp4{left:63%;top:45%;animation-delay:-2.6s}
+.bp5{left:50%;top:59%;animation-delay:-3.3s}
+@keyframes blendParticle{
+  0%{opacity:0;transform:translateY(14px) scale(.5)}
+  24%{opacity:.95}
+  65%{opacity:.50;transform:translateY(-50px) translateX(9px) scale(1)}
+  100%{opacity:0;transform:translateY(-105px) translateX(-7px) scale(.72)}
+}
+
+/* Buhar fincan ağzına hizalı */
+#loading .steam{
+  position:absolute;
+  left:42%;
+  top:57%;
+  width:18%;
+  height:11%;
+  pointer-events:none;
+  filter:blur(2px);
+  opacity:.48;
+  z-index:11;
+}
+#loading .steam:before,#loading .steam:after{
+  content:"";
+  position:absolute;
+  left:28%;
+  bottom:0;
+  width:28px;
+  height:105px;
+  border-left:4px solid rgba(255,255,255,.88);
+  border-radius:50%;
+  animation:loadingSteam 3.2s infinite ease-in-out;
+}
+#loading .steam:after{left:58%;animation-delay:1.25s;height:120px}
+@keyframes loadingSteam{
+  0%{transform:translateY(12px) scaleX(.55);opacity:0}
+  26%{opacity:.62}
+  100%{transform:translateY(-72px) translateX(12px) scaleX(1.35);opacity:0}
+}
+
+/* Progress: 0 → 100 */
+#loading .loadbar{
+  position:absolute;
+  left:15%;
+  right:15%;
+  bottom:8.4%;
+  height:2.2%;
+  border-radius:999px;
+  overflow:hidden;
+  pointer-events:none;
+  background:rgba(31,55,18,.22);
+  box-shadow:inset 0 0 0 1px rgba(255,245,190,.35),0 0 12px rgba(255,188,44,.12);
+  z-index:20;
+}
+#loading .loadfill{
+  height:100%;
+  width:0;
+  border-radius:999px;
+  background:linear-gradient(90deg,#fff3ad,#ffc83e,#f2a81b);
+  box-shadow:0 0 18px rgba(255,193,46,.78);
+  animation:loadingFill 4s linear forwards;
+}
+@keyframes loadingFill{from{width:0}to{width:100%}}
+
+#loading .loadstatus{
+  position:absolute;
+  left:8%;
+  right:8%;
+  bottom:4.5%;
+  text-align:center;
+  color:#fff8dc;
+  font:700 15px/1.25 Georgia,serif;
+  letter-spacing:.2px;
+  text-shadow:0 2px 7px rgba(0,0,0,.9);
+  pointer-events:none;
+  z-index:20;
+  transition:opacity .22s ease,transform .22s ease;
+}
+#loading .loadstatus.status-change{
+  opacity:0;
+  transform:translateY(5px);
+}
+
 </style></head><body><main class="app">
 
 <section id="home" class="screen active"><img class="mock" src="images/screen-01.webp" alt="">
@@ -461,10 +626,22 @@ body{font-family:Arial,Helvetica,sans-serif}
 <button id="q4d" class="hot choice q4c" data-q="q4" data-v="gece"></button>
 <button class="hot botback" data-go="q3"></button><button class="hot next locked" data-for="q4" data-next="loading"></button></section>
 
-<section id="loading" class="screen"><img class="mock" src="images/screen-06.webp" alt="">
-<div class="steam"></div><i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i><i class="spark s4"></i><i class="spark s5"></i>
-<div class="loadbar"><div class="loadfill"></div></div><div id="loadstatus" class="loadstatus">🌿 Bitkiler seçiliyor...</div>
-
+<section id="loading" class="screen">
+  <img class="mock" src="images/screen-06.webp" alt="Senin için özel karışımın hazırlanıyor">
+  <div class="blend-glow"></div>
+  <div class="blend-swirl" aria-hidden="true">
+    <i class="blend-ring br1"></i>
+    <i class="blend-ring br2"></i>
+    <i class="blend-ring br3"></i>
+  </div>
+  <i class="blend-particle bp1"></i>
+  <i class="blend-particle bp2"></i>
+  <i class="blend-particle bp3"></i>
+  <i class="blend-particle bp4"></i>
+  <i class="blend-particle bp5"></i>
+  <div class="steam"></div>
+  <div class="loadbar"><div class="loadfill"></div></div>
+  <div id="loadstatus" class="loadstatus">🌿 Bitkiler seçiliyor…</div>
 </section>
 
 
@@ -693,12 +870,34 @@ function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
 
   if(id==='loading'){
-    const f=document.querySelector('.loadfill');
+    const f=document.querySelector('#loading .loadfill');
     const s=document.getElementById('loadstatus');
-    f.style.animation='none'; void f.offsetWidth; f.style.animation='fill 4s linear forwards';
-    s.textContent='🌿 Bitkiler seçiliyor...';
-    setTimeout(()=>{if(document.getElementById('loading').classList.contains('active'))s.textContent='✦ Sana özel denge oluşturuluyor...';},1300);
-    setTimeout(()=>{if(document.getElementById('loading').classList.contains('active'))s.textContent='✓ Karışımın hazır!';},2700);
+
+    f.style.animation='none';
+    void f.offsetWidth;
+    f.style.animation='loadingFill 4s linear forwards';
+
+    const setLoadingText=(value)=>{
+      s.classList.add('status-change');
+      setTimeout(()=>{
+        s.textContent=value;
+        s.classList.remove('status-change');
+      },180);
+    };
+
+    s.textContent='🌿 Bitkiler seçiliyor…';
+    s.classList.remove('status-change');
+
+    setTimeout(()=>{
+      if(document.getElementById('loading').classList.contains('active'))
+        setLoadingText('✦ Denge oluşturuluyor…');
+    },1350);
+
+    setTimeout(()=>{
+      if(document.getElementById('loading').classList.contains('active'))
+        setLoadingText('✓ Karışımın hazır!');
+    },2850);
+
     loadingTimer=setTimeout(()=>openResult(calculateResult()),4000);
   }
 }
