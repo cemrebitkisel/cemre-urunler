@@ -38,29 +38,29 @@ body{overflow:hidden}
 /* Shared steam */
 .steam{position:absolute;pointer-events:none;z-index:11;filter:blur(1.6px)}
 .steam span{
-  position:absolute;bottom:0;width:26px;height:125px;border-left:4px solid rgba(255,255,255,.88);
+  position:absolute;bottom:0;width:30px;height:135px;border-left:5px solid rgba(255,255,255,.94);
   border-radius:50%;opacity:0;animation:steamRise 4.2s infinite ease-in-out;
 }
 .steam .s1{left:10%;animation-delay:0s}
-.steam .s2{left:42%;height:145px;animation-delay:1.3s}
-.steam .s3{left:68%;height:115px;animation-delay:2.5s}
+.steam .s2{left:42%;height:155px;animation-delay:1.25s}
+.steam .s3{left:68%;height:125px;animation-delay:2.35s}
 @keyframes steamRise{
   0%{transform:translateY(12px) translateX(0) scaleX(.55);opacity:0}
-  20%{opacity:.48}
-  55%{opacity:.34}
-  100%{transform:translateY(-95px) translateX(12px) scaleX(1.45);opacity:0}
+  18%{opacity:.68}
+  56%{opacity:.52}
+  100%{transform:translateY(-112px) translateX(12px) scaleX(1.45);opacity:0}
 }
 
 /* Golden particles for Energia and Zaman */
-.spark{position:absolute;width:7px;height:7px;border-radius:50%;background:#ffd978;box-shadow:0 0 12px 4px rgba(255,188,69,.8);opacity:0;pointer-events:none;z-index:9;animation:sparkFloat 6.5s infinite ease-in-out}
+.spark{position:absolute;width:8px;height:8px;border-radius:50%;background:#ffd978;box-shadow:0 0 16px 6px rgba(255,188,69,.92);opacity:0;pointer-events:none;z-index:9;animation:sparkFloat 6.5s infinite ease-in-out}
 .sp1{left:53%;top:43%;animation-delay:.2s}
 .sp2{left:74%;top:38%;animation-delay:1.7s}
 .sp3{left:82%;top:54%;animation-delay:3.1s}
 .sp4{left:48%;top:61%;animation-delay:4.8s}
 @keyframes sparkFloat{
   0%,100%{opacity:0;transform:translate(0,8px) scale(.65)}
-  25%{opacity:.75}
-  60%{opacity:.38;transform:translate(8px,-10px) scale(1)}
+  22%{opacity:.92}
+  62%{opacity:.52;transform:translate(8px,-10px) scale(1)}
 }
 
 /* Zaman lantern */
@@ -74,13 +74,13 @@ body{overflow:hidden}
 
 /* Sun breathing for Energy */
 .sunGlow{position:absolute;right:11%;top:16%;width:33%;height:28%;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,224,145,.32) 0%,rgba(255,182,72,.18) 32%,rgba(255,140,35,.06) 58%,transparent 74%);
+  background:radial-gradient(circle,rgba(255,224,145,.45) 0%,rgba(255,182,72,.28) 32%,rgba(255,140,35,.11) 58%,transparent 74%);
   mix-blend-mode:screen;pointer-events:none;animation:sunBreath 5.2s infinite ease-in-out;z-index:8}
 .sunCore{position:absolute;right:20%;top:23%;width:12%;height:11%;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,246,208,.38),rgba(255,195,90,.18) 45%,transparent 72%);
+  background:radial-gradient(circle,rgba(255,246,208,.58),rgba(255,195,90,.28) 45%,transparent 72%);
   mix-blend-mode:screen;pointer-events:none;animation:sunCore 4.3s infinite ease-in-out;z-index:9}
-@keyframes sunBreath{0%,100%{opacity:.42;transform:scale(.96)}50%{opacity:.64;transform:scale(1.05)}}
-@keyframes sunCore{0%,100%{opacity:.34}50%{opacity:.58}}
+@keyframes sunBreath{0%,100%{opacity:.58;transform:scale(.95)}50%{opacity:.84;transform:scale(1.08)}}
+@keyframes sunCore{0%,100%{opacity:.50}50%{opacity:.78}}
 
 .hidden{display:none!important}
 @media (min-width:700px){.app{width:min(100vw,calc(100dvh * 1024 / 1536));margin:0 auto}}
@@ -94,7 +94,7 @@ body{overflow:hidden}
     <span class="s1"></span><span class="s2"></span><span class="s3"></span>
   </div>
 
-  <i class="spark sp1"></i><i class="spark sp2"></i><i class="spark sp3"></i><i class="spark sp4"></i>
+  <i class="spark sp1"></i><i class="spark sp2"></i><i class="spark sp3"></i><i class="spark sp4"></i><i class="spark" style="left:67%;top:48%;animation-delay:2.4s;animation-duration:7.2s"></i><i class="spark" style="left:58%;top:34%;animation-delay:5.1s;animation-duration:6.8s"></i>
   <div id="lanternGlow" class="lanternGlow"></div>
 
   <div id="snow" class="snow hidden" aria-hidden="true">
