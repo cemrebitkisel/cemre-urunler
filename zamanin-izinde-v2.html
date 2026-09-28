@@ -52,13 +52,12 @@ body{overflow:hidden}
 }
 
 /* Golden particles for Energia and Zaman */
-.spark{position:absolute;width:8px;height:8px;border-radius:50%;background:#ffd978;box-shadow:0 0 16px 6px rgba(255,188,69,.92);opacity:0;pointer-events:none;z-index:9;animation:sparkFloat 6.5s infinite ease-in-out}
+.spark{position:absolute;width:8px;height:8px;border-radius:50%;background:#ffe08a;box-shadow:0 0 18px 6px rgba(255,187,60,.95);opacity:.15;pointer-events:none;z-index:9;animation:sparkFloat 5.8s infinite ease-in-out}
 .sp1{left:53%;top:43%;animation-delay:.2s}
 .sp2{left:74%;top:38%;animation-delay:1.7s}
 .sp3{left:82%;top:54%;animation-delay:3.1s}
 .sp4{left:48%;top:61%;animation-delay:4.8s}
-@keyframes sparkFloat{
-  0%,100%{opacity:0;transform:translate(0,8px) scale(.65)}
+@keyframes sparkFloat{0%{opacity:.18;transform:translate(0,8px) scale(.72)}22%{opacity:.95;transform:translate(2px,1px) scale(1)}55%{opacity:.55;transform:translate(8px,-9px) scale(.92)}78%{opacity:.82;transform:translate(12px,-15px) scale(1.08)}100%{opacity:.16;transform:translate(15px,-22px) scale(.74)}}
   22%{opacity:.92}
   62%{opacity:.52;transform:translate(8px,-10px) scale(1)}
 }
@@ -94,7 +93,12 @@ body{overflow:hidden}
     <span class="s1"></span><span class="s2"></span><span class="s3"></span>
   </div>
 
-  <i class="spark sp1"></i><i class="spark sp2"></i><i class="spark sp3"></i><i class="spark sp4"></i><i class="spark" style="left:67%;top:48%;animation-delay:2.4s;animation-duration:7.2s"></i><i class="spark" style="left:58%;top:34%;animation-delay:5.1s;animation-duration:6.8s"></i>
+  <i class="spark" style="left:50%;top:38%;animation-delay:-.4s;animation-duration:5.7s"></i>
+  <i class="spark" style="left:58%;top:44%;animation-delay:-1.6s;animation-duration:6.2s"></i>
+  <i class="spark" style="left:68%;top:36%;animation-delay:-2.7s;animation-duration:5.4s"></i>
+  <i class="spark" style="left:76%;top:49%;animation-delay:-3.8s;animation-duration:6.5s"></i>
+  <i class="spark" style="left:84%;top:40%;animation-delay:-4.7s;animation-duration:5.9s"></i>
+  <i class="spark" style="left:62%;top:55%;animation-delay:-5.3s;animation-duration:6.8s"></i>
   <div id="lanternGlow" class="lanternGlow"></div>
 
   <div id="snow" class="snow hidden" aria-hidden="true">
@@ -198,7 +202,7 @@ if(current.fx==='kis'){
 }
 if(current.fx==='enerji'){
   /* cup is lower-right on Energy image */
-  steam.style.left='63%'; steam.style.top='54%'; steam.style.width='18%'; steam.style.height='24%';
+  steam.style.left='64%'; steam.style.top='50%'; steam.style.width='17%'; steam.style.height='15%';
   sunGlow.classList.remove('hidden');
   sunCore.classList.remove('hidden');
   sparks.forEach(x=>x.classList.remove('hidden'));
