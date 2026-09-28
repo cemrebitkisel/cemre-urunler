@@ -4,166 +4,68 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#12081d">
-<title>Zamanın İzinde – İşlev Testi</title>
+<title>Cemre Karışım Motoru – Sonuç</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;background:#07040d;font-family:Arial,Helvetica,sans-serif}
 body{overflow:hidden}
-.app{
-  position:relative;
-  width:100vw;
-  height:100dvh;
-  overflow:hidden;
-  background:#100719;
-}
-.bg{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  object-fit:fill;
-  display:block;
-  user-select:none;
-  -webkit-user-drag:none;
-  animation:sceneIn .8s ease-out both;
-}
-@keyframes sceneIn{
-  from{filter:blur(5px) brightness(.86);transform:scale(1.012);opacity:.55}
-  to{filter:blur(0) brightness(1);transform:scale(1);opacity:1}
-}
-
-/* tıklama alanları */
-.hot{position:absolute;border:0;background:transparent;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
-#menuBtn{left:4.5%;top:4.7%;width:12%;height:8%;border-radius:50%}
+.app{position:relative;width:100vw;height:100dvh;overflow:hidden;background:#100719}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;display:block;user-select:none;-webkit-user-drag:none;animation:sceneIn .8s ease-out both}
+@keyframes sceneIn{from{filter:blur(5px) brightness(.86);transform:scale(1.012);opacity:.55}to{filter:blur(0) brightness(1);transform:scale(1);opacity:1}}
+.hot{position:absolute;border:0;background:transparent;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;z-index:20}
+#menuBtn{left:4.5%;top:4.3%;width:12%;height:8%;border-radius:50%}
 #shareBtn{left:25%;bottom:8.8%;width:50%;height:7.8%;border-radius:999px}
-#prepBtn{left:9%;bottom:2.0%;width:38%;height:5.6%;border-radius:999px}
-#retryBtn{right:8%;bottom:2.0%;width:38%;height:5.6%;border-radius:999px}
-
-/* eski alt alanı temizle + iki dengeli kontrol */
-.bottomClean{
-  position:absolute;left:5%;right:5%;bottom:.5%;height:8.8%;
-  background:linear-gradient(180deg,rgba(25,8,35,.10),rgba(17,5,26,.82));
-  border-radius:24px;
-  pointer-events:none;
-  backdrop-filter:blur(2px);
-}
-.ctrl{
-  position:absolute;bottom:1.6%;height:5.8%;border-radius:999px;
-  border:1px solid rgba(222,186,255,.25);
-  background:rgba(24,8,36,.46);
-  color:#f3e8ff;
-  font-weight:600;
-  font-size:clamp(13px,3.6vw,18px);
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  backdrop-filter:blur(8px);
-}
-#prepVisual{left:8%;width:40%}
-#retryVisual{right:8%;width:40%}
-
-/* menü */
-.menu{
-  position:absolute;left:3%;top:12%;
-  width:min(56vw,390px);
-  background:rgba(31,12,44,.92);
-  border:1px solid rgba(220,182,255,.25);
-  border-radius:24px;
-  overflow:hidden;
-  backdrop-filter:blur(14px);
-  transform-origin:top left;
-  opacity:0;transform:scale(.96) translateY(-8px);
-  pointer-events:none;transition:.18s ease;
-  z-index:30;
-}
+#prepBtn{left:8%;bottom:1.8%;width:41%;height:5.8%;border-radius:999px}
+#retryBtn{right:8%;bottom:1.8%;width:41%;height:5.8%;border-radius:999px}
+.menu{position:absolute;left:3%;top:12%;width:min(58vw,400px);background:rgba(31,12,44,.92);border:1px solid rgba(220,182,255,.25);border-radius:24px;overflow:hidden;backdrop-filter:blur(14px);opacity:0;transform:scale(.96) translateY(-8px);pointer-events:none;transition:.18s ease;z-index:40}
 .menu.open{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
-.menu button{
-  width:100%;padding:17px 20px;text-align:left;border:0;border-bottom:1px solid rgba(255,255,255,.08);
-  background:transparent;color:#fff;font-weight:700;font-size:17px
-}
+.menu button{width:100%;padding:17px 20px;text-align:left;border:0;border-bottom:1px solid rgba(255,255,255,.08);background:transparent;color:#fff;font-weight:700;font-size:17px}
 .menu button:last-child{border-bottom:0}
-
-/* modal */
-.backdrop{
-  position:absolute;inset:0;background:rgba(10,3,16,.58);backdrop-filter:blur(8px);
-  display:none;align-items:center;justify-content:center;padding:24px;z-index:50
-}
+.backdrop{position:absolute;inset:0;background:rgba(10,3,16,.58);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px;z-index:60}
 .backdrop.show{display:flex}
-.modal{
-  width:min(88vw,520px);background:rgba(35,13,49,.96);border:1px solid rgba(222,185,255,.30);
-  color:#fff;border-radius:26px;padding:24px;box-shadow:0 20px 60px #0008
-}
+.modal{width:min(88vw,520px);background:rgba(35,13,49,.96);border:1px solid rgba(222,185,255,.30);color:#fff;border-radius:26px;padding:24px;box-shadow:0 20px 60px #0008}
 .modal h2{margin:0 0 12px;font-size:24px}
 .modal p{margin:0 0 16px;line-height:1.45;font-size:16px;color:#eadff2}
-.modal .steps{display:grid;gap:10px;margin:14px 0 20px}
-.modal .step{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.07);font-size:16px}
-.modal .close{
-  width:100%;border:0;border-radius:999px;padding:13px 16px;font-weight:800;font-size:16px;
-  background:#c883ee;color:#24102d
-}
-
-/* animasyonlar */
-.steam{position:absolute;left:63%;top:58%;width:18%;height:24%;pointer-events:none;filter:blur(2px);opacity:.36}
-.steam::before,.steam::after{
-  content:"";position:absolute;left:35%;bottom:0;width:30px;height:150px;border-left:4px solid rgba(255,255,255,.82);
-  border-radius:50%;animation:steam 3.8s infinite ease-in-out
-}
-.steam::after{left:58%;animation-delay:1.7s;height:130px}
-@keyframes steam{
-  0%{transform:translateY(18px) scaleX(.65);opacity:0}
-  30%{opacity:.45}
-  100%{transform:translateY(-95px) translateX(12px) scaleX(1.45);opacity:0}
-}
-.firefly{position:absolute;width:5px;height:5px;border-radius:50%;background:#ffd66f;box-shadow:0 0 10px 3px #ffbd45;opacity:0;pointer-events:none;animation:fly 6s infinite ease-in-out}
-.f1{left:55%;top:39%;animation-delay:.4s}.f2{left:83%;top:47%;animation-delay:1.7s}
-.f3{left:46%;top:57%;animation-delay:3.2s}.f4{left:74%;top:32%;animation-delay:4.6s}
-.f5{left:88%;top:62%;animation-delay:2.3s}.f6{left:57%;top:68%;animation-delay:5.2s}
-@keyframes fly{0%,100%{opacity:0;transform:translate(0,8px) scale(.6)}35%{opacity:.8}65%{opacity:.35;transform:translate(10px,-12px) scale(1)}}
-.lanternGlow{
-  position:absolute;right:1.5%;top:55%;width:17%;height:22%;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,192,82,.22),rgba(255,135,25,.08) 45%,transparent 70%);
-  mix-blend-mode:screen;pointer-events:none;animation:lantern 4.7s infinite ease-in-out
-}
-@keyframes lantern{0%,100%{opacity:.45;transform:scale(.98)}42%{opacity:.58;transform:scale(1.03)}67%{opacity:.50;transform:scale(1)}}
-.reflection{
-  position:absolute;left:58%;top:50%;width:17%;height:16%;pointer-events:none;
-  background:linear-gradient(90deg,transparent,rgba(255,178,85,.10),transparent);
-  filter:blur(7px);opacity:.28;animation:reflect 6.5s infinite ease-in-out
-}
-@keyframes reflect{0%,100%{opacity:.20;transform:translateX(-4px)}50%{opacity:.36;transform:translateX(5px)}}
-.hourGlow{
-  position:absolute;left:11%;top:23%;width:15%;height:13%;border-radius:50%;pointer-events:none;
-  box-shadow:0 0 0 0 rgba(216,120,255,0);animation:hourOnce 1.4s ease-out .3s 1 both
-}
-@keyframes hourOnce{0%{box-shadow:0 0 0 0 rgba(216,120,255,0)}45%{box-shadow:0 0 30px 14px rgba(216,120,255,.34)}100%{box-shadow:0 0 0 0 rgba(216,120,255,0)}}
-
-@media (min-width:700px){
-  .app{width:min(100vw,calc(100dvh * 999 / 1574));margin:0 auto}
-}
+.steps{display:grid;gap:10px;margin:14px 0 20px}
+.step{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.07);font-size:16px}
+.close{width:100%;border:0;border-radius:999px;padding:13px 16px;font-weight:800;font-size:16px;background:#c883ee;color:#24102d}
+.steam{position:absolute;left:62%;top:58%;width:18%;height:24%;pointer-events:none;filter:blur(2px);opacity:.34;z-index:10}
+.steam::before,.steam::after{content:"";position:absolute;left:35%;bottom:0;width:30px;height:145px;border-left:4px solid rgba(255,255,255,.78);border-radius:50%;animation:steam 3.8s infinite ease-in-out}
+.steam::after{left:58%;animation-delay:1.7s;height:125px}
+@keyframes steam{0%{transform:translateY(18px) scaleX(.65);opacity:0}30%{opacity:.44}100%{transform:translateY(-92px) translateX(10px) scaleX(1.4);opacity:0}}
+.firefly{position:absolute;width:5px;height:5px;border-radius:50%;background:#ffd66f;box-shadow:0 0 10px 3px #ffbd45;opacity:0;pointer-events:none;animation:fly 6s infinite ease-in-out;z-index:8}
+.f1{left:55%;top:39%;animation-delay:.4s}.f2{left:83%;top:47%;animation-delay:1.7s}.f3{left:46%;top:57%;animation-delay:3.2s}.f4{left:74%;top:32%;animation-delay:4.6s}
+@keyframes fly{0%,100%{opacity:0;transform:translate(0,8px) scale(.6)}35%{opacity:.75}65%{opacity:.32;transform:translate(10px,-12px) scale(1)}}
+.lanternGlow{position:absolute;right:-1%;top:52%;width:18%;height:24%;border-radius:50%;background:radial-gradient(circle,rgba(255,190,80,.26),rgba(255,120,25,.08) 45%,transparent 72%);mix-blend-mode:screen;pointer-events:none;animation:lantern 4.7s infinite ease-in-out;z-index:9}
+@keyframes lantern{0%,100%{opacity:.45;transform:scale(.98)}42%{opacity:.58;transform:scale(1.03)}67%{opacity:.50}}
+.snow{position:absolute;inset:0;pointer-events:none;z-index:8;overflow:hidden}
+.snow i{position:absolute;top:-8%;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.88);box-shadow:0 0 5px rgba(255,255,255,.55);animation:snowfall linear infinite}
+@keyframes snowfall{to{transform:translate3d(18px,115dvh,0) rotate(180deg);opacity:.15}}
+.sunGlow{position:absolute;right:17%;top:18%;width:25%;height:20%;border-radius:50%;background:radial-gradient(circle,rgba(255,210,120,.23),rgba(255,170,70,.07) 50%,transparent 72%);mix-blend-mode:screen;pointer-events:none;animation:sun 6s infinite ease-in-out;z-index:7}
+@keyframes sun{0%,100%{opacity:.34;transform:scale(.98)}50%{opacity:.50;transform:scale(1.03)}}
+.hidden{display:none!important}
+@media (min-width:700px){.app{width:min(100vw,calc(100dvh * 1024 / 1536));margin:0 auto}}
 </style>
 </head>
 <body>
 <div class="app">
-  <img class="bg" src="images/zamanin-izinde-sade.png" alt="Zamanın İzinde">
-
-  <div class="steam"></div>
-  <i class="firefly f1"></i><i class="firefly f2"></i><i class="firefly f3"></i>
-  <i class="firefly f4"></i><i class="firefly f5"></i><i class="firefly f6"></i>
-  <div class="lanternGlow"></div>
-  <div class="reflection"></div>
-  <div class="hourGlow"></div>
-
+  <img id="bg" class="bg" src="images/zamanin-izinde.png" alt="Cemre Karışım Motoru sonucu">
+  <div id="steam" class="steam"></div>
+  <i class="firefly f1"></i><i class="firefly f2"></i><i class="firefly f3"></i><i class="firefly f4"></i>
+  <div id="lanternGlow" class="lanternGlow"></div>
+  <div id="snow" class="snow hidden" aria-hidden="true">
+    <i style="left:5%;animation-duration:8s;animation-delay:-2s"></i><i style="left:14%;animation-duration:10s;animation-delay:-6s"></i><i style="left:23%;animation-duration:7.5s;animation-delay:-1s"></i><i style="left:35%;animation-duration:9s;animation-delay:-4s"></i><i style="left:48%;animation-duration:11s;animation-delay:-8s"></i><i style="left:61%;animation-duration:8.5s;animation-delay:-3s"></i><i style="left:72%;animation-duration:10.5s;animation-delay:-7s"></i><i style="left:83%;animation-duration:7.8s;animation-delay:-5s"></i><i style="left:93%;animation-duration:9.6s;animation-delay:-2.5s"></i>
+  </div>
+  <div id="sunGlow" class="sunGlow hidden"></div>
   <button id="menuBtn" class="hot" aria-label="Menü"></button>
   <button id="shareBtn" class="hot" aria-label="Sonucu Paylaş"></button>
-
-  <div class="bottomClean"></div>
-  <div id="prepVisual" class="ctrl">☕ Nasıl Hazırlanır?</div>
-  <div id="retryVisual" class="ctrl">↻ Tekrar Dene</div>
   <button id="prepBtn" class="hot" aria-label="Nasıl Hazırlanır"></button>
   <button id="retryBtn" class="hot" aria-label="Tekrar Dene"></button>
-
   <div id="menu" class="menu">
     <button data-action="home">Ana Sayfa</button>
     <button data-action="retry">Yeni Karışım / Tekrar Dene</button>
     <button data-action="about">Karışım Motoru Hakkında</button>
   </div>
-
   <div id="aboutModal" class="backdrop">
     <div class="modal">
       <h2>Cemre Karışım Motoru</h2>
@@ -171,7 +73,6 @@ body{overflow:hidden}
       <button class="close" data-close="aboutModal">Kapat</button>
     </div>
   </div>
-
   <div id="prepModal" class="backdrop">
     <div class="modal">
       <h2>Nasıl Hazırlanır?</h2>
@@ -184,49 +85,29 @@ body{overflow:hidden}
     </div>
   </div>
 </div>
-
 <script>
-const menu=document.getElementById('menu');
-const homeUrl='https://cemrebitkisel.github.io/cemre-urunler/';
+const RESULTS={
+'zamanin-izinde':{img:'images/zamanin-izinde.png',title:'Cemre Karışım Motoru – Zamanın İzinde',text:'Benim Cemre Karışımım: Zamanın İzinde — Yoğun anlarda zihnini ferahlatacak, dikkatini toparlamana eşlik edecek özel bir karışım.',fx:'zaman'},
+'kis-gunesi':{img:'images/kis-gunesi.png',title:'Cemre Karışım Motoru – Kış Güneşi',text:'Benim Cemre Karışımım: Kış Güneşi — Soğuk günlere sıcaklık katan, baharatlı ve meyvemsi karaktere sahip özel bir karışım.',fx:'kis'},
+'enerji':{img:'images/enerji.png',title:'Cemre Karışım Motoru – Enerji',text:'Benim Cemre Karışımım: Enerji — Güne daha canlı başlamaya eşlik eden, narenciyeli ve bitkisel karaktere sahip özel bir karışım.',fx:'enerji'}
+};
+const params=new URLSearchParams(location.search);
+const key=params.get('result')||'zamanin-izinde';
+const current=RESULTS[key]||RESULTS['zamanin-izinde'];
+document.getElementById('bg').src=current.img;document.title=current.title;
+const snow=document.getElementById('snow'),sunGlow=document.getElementById('sunGlow'),lantern=document.getElementById('lanternGlow'),fireflies=[...document.querySelectorAll('.firefly')];
+if(current.fx==='kis'){snow.classList.remove('hidden');sunGlow.classList.remove('hidden');fireflies.forEach(x=>x.classList.add('hidden'))}
+else if(current.fx==='enerji'){sunGlow.classList.remove('hidden');lantern.classList.add('hidden');fireflies.forEach(x=>x.classList.remove('hidden'))}
+const menu=document.getElementById('menu'),homeUrl='https://cemrebitkisel.github.io/cemre-urunler/';
 document.getElementById('menuBtn').onclick=()=>menu.classList.toggle('open');
-
 function openModal(id){menu.classList.remove('open');document.getElementById(id).classList.add('show')}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
-
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
 document.querySelectorAll('.backdrop').forEach(x=>x.addEventListener('click',e=>{if(e.target===x)x.classList.remove('show')}));
-
-document.querySelectorAll('#menu button').forEach(b=>{
-  b.onclick=()=>{
-    const a=b.dataset.action;
-    if(a==='home') location.href=homeUrl;
-    if(a==='retry') location.href=homeUrl;
-    if(a==='about') openModal('aboutModal');
-  };
-});
-
+document.querySelectorAll('#menu button').forEach(b=>{b.onclick=()=>{const a=b.dataset.action;if(a==='home'||a==='retry')location.href=homeUrl;if(a==='about')openModal('aboutModal')}});
 document.getElementById('prepBtn').onclick=()=>openModal('prepModal');
 document.getElementById('retryBtn').onclick=()=>location.href=homeUrl;
-
-document.getElementById('shareBtn').onclick=async()=>{
-  const shareUrl=location.origin+location.pathname+'?result=zamanin-izinde';
-  const data={
-    title:'Cemre Karışım Motoru – Zamanın İzinde',
-    text:'Benim Cemre Karışımım: Zamanın İzinde — Zihnini ferahlat, dikkatini toparla.',
-    url:shareUrl
-  };
-  try{
-    if(navigator.share) await navigator.share(data);
-    else{
-      await navigator.clipboard.writeText(shareUrl);
-      alert('Sonuç bağlantısı kopyalandı.');
-    }
-  }catch(e){}
-};
-
-if(new URLSearchParams(location.search).get('result')==='zamanin-izinde'){
-  // Bu tek sayfa zaten doğrudan Zamanın İzinde sonucunu gösterir.
-}
+document.getElementById('shareBtn').onclick=async()=>{const shareUrl=location.origin+location.pathname+'?result='+key;const data={title:current.title,text:current.text,url:shareUrl};try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(shareUrl);alert('Sonuç bağlantısı kopyalandı.')}}catch(e){}};
 </script>
 </body>
 </html>
