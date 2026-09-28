@@ -193,6 +193,62 @@ body{overflow:hidden}
   50%{opacity:.52;transform:translateX(5%) scaleX(1.04)}
 }
 
+
+/* İçsel Bahar: buhar + pembe yapraklar + pastel güneş nefesi + çiçek bokeh */
+.spring-sun{
+  position:absolute;right:-1%;top:8%;width:46%;height:38%;border-radius:50%;
+  background:radial-gradient(circle at 72% 38%,
+    rgba(255,241,196,.34) 0%,
+    rgba(255,210,154,.18) 32%,
+    rgba(255,170,190,.08) 54%,
+    transparent 74%);
+  mix-blend-mode:screen;pointer-events:none;z-index:8;
+  animation:springSunBreath 6s infinite ease-in-out;
+}
+@keyframes springSunBreath{
+  0%,100%{opacity:.42;transform:scale(.97)}
+  50%{opacity:.68;transform:scale(1.045)}
+}
+
+.spring-petal{
+  position:absolute;width:19px;height:11px;
+  background:linear-gradient(135deg,rgba(255,184,214,.98),rgba(229,99,160,.96));
+  border-radius:80% 20% 80% 20%;
+  box-shadow:0 0 9px rgba(255,155,205,.30);
+  pointer-events:none;z-index:10;opacity:0;
+  animation:springPetal 8s infinite ease-in-out;
+}
+.spp1{left:79%;top:18%;animation-delay:-.7s}
+.spp2{left:68%;top:27%;animation-delay:-2.6s;animation-duration:8.8s}
+.spp3{left:86%;top:34%;animation-delay:-4.7s;animation-duration:7.6s}
+.spp4{left:61%;top:40%;animation-delay:-6.3s;animation-duration:9.2s}
+@keyframes springPetal{
+  0%{opacity:0;transform:translate3d(0,-16px,0) rotate(8deg) scale(.82)}
+  15%{opacity:.92}
+  48%{opacity:.78;transform:translate3d(-22px,70px,0) rotate(145deg) scale(1)}
+  82%{opacity:.42}
+  100%{opacity:0;transform:translate3d(14px,170px,0) rotate(300deg) scale(.9)}
+}
+
+.spring-bokeh{
+  position:absolute;border-radius:50%;
+  pointer-events:none;z-index:9;opacity:0;
+  background:rgba(255,207,219,.92);
+  box-shadow:0 0 16px 5px rgba(255,178,205,.42);
+  animation:springBokeh 5.8s infinite ease-in-out;
+}
+.sb1{width:7px;height:7px;left:49%;top:36%;animation-delay:-.5s}
+.sb2{width:9px;height:9px;left:61%;top:48%;animation-delay:-1.8s;animation-duration:6.5s}
+.sb3{width:6px;height:6px;left:75%;top:42%;animation-delay:-3.1s;animation-duration:5.3s}
+.sb4{width:8px;height:8px;left:84%;top:54%;animation-delay:-4.4s;animation-duration:6.9s}
+.sb5{width:7px;height:7px;left:57%;top:58%;animation-delay:-5.2s;animation-duration:6.1s}
+@keyframes springBokeh{
+  0%,100%{opacity:.08;transform:translateY(8px) scale(.72)}
+  28%{opacity:.86}
+  60%{opacity:.46;transform:translateY(-8px) scale(1.12)}
+  82%{opacity:.72}
+}
+
 .hidden{display:none!important}
 @media (min-width:700px){.app{width:min(100vw,calc(100dvh * 1024 / 1536));margin:0 auto}}
 </style>
@@ -228,6 +284,18 @@ body{overflow:hidden}
   <div id="sunGlow" class="sunGlow hidden"></div>
   <div id="sunCore" class="sunCore hidden"></div>
 
+
+
+  <div id="springSun" class="spring-sun hidden"></div>
+  <i class="spring-petal spp1 hidden"></i>
+  <i class="spring-petal spp2 hidden"></i>
+  <i class="spring-petal spp3 hidden"></i>
+  <i class="spring-petal spp4 hidden"></i>
+  <i class="spring-bokeh sb1 hidden"></i>
+  <i class="spring-bokeh sb2 hidden"></i>
+  <i class="spring-bokeh sb3 hidden"></i>
+  <i class="spring-bokeh sb4 hidden"></i>
+  <i class="spring-bokeh sb5 hidden"></i>
 
   <div id="eveningLantern" class="evening-lantern hidden"></div>
   <div id="eveningCandle" class="evening-candle hidden"></div>
@@ -309,6 +377,12 @@ const RESULTS={
     title:'Cemre Karışım Motoru – Akşam Sefası',
     text:'Benim Cemre Karışımım: Akşam Sefası — Günün yorgunluğunu geride bırakmaya eşlik eden, daha sakin ve huzurlu bir akşam için özel bir karışım.',
     fx:'aksam'
+  },
+  'icsel-bahar':{
+    img:'images/icsel-bahar.png',
+    title:'Cemre Karışım Motoru – İçsel Bahar',
+    text:'Benim Cemre Karışımım: İçsel Bahar — Kendini daha canlı, dengeli ve iyi hissetmene eşlik eden, yenileyici ve hafif karakterde özel bir karışım.',
+    fx:'bahar'
   }
 };
 
@@ -331,6 +405,9 @@ const eveningLantern=document.getElementById('eveningLantern');
 const eveningCandle=document.getElementById('eveningCandle');
 const petals=[...document.querySelectorAll('.petal')];
 const waterShimmer=document.getElementById('waterShimmer');
+const springSun=document.getElementById('springSun');
+const springPetals=[...document.querySelectorAll('.spring-petal')];
+const springBokehs=[...document.querySelectorAll('.spring-bokeh')];
 
 snow.classList.add('hidden');
 sunGlow.classList.add('hidden');
@@ -344,6 +421,9 @@ eveningLantern.classList.add('hidden');
 eveningCandle.classList.add('hidden');
 petals.forEach(x=>x.classList.add('hidden'));
 waterShimmer.classList.add('hidden');
+springSun.classList.add('hidden');
+springPetals.forEach(x=>x.classList.add('hidden'));
+springBokehs.forEach(x=>x.classList.add('hidden'));
 
 /* Per-screen animation placement */
 if(current.fx==='zaman'){
@@ -377,6 +457,13 @@ if(current.fx==='aksam'){
   eveningCandle.classList.remove('hidden');
   petals.forEach(x=>x.classList.remove('hidden'));
   waterShimmer.classList.remove('hidden');
+}
+if(current.fx==='bahar'){
+  /* İçsel Bahar fincan ağzına hizalı buhar + bahar animasyonları */
+  steam.style.left='66%'; steam.style.top='47.5%'; steam.style.width='16%'; steam.style.height='11%';
+  springSun.classList.remove('hidden');
+  springPetals.forEach(x=>x.classList.remove('hidden'));
+  springBokehs.forEach(x=>x.classList.remove('hidden'));
 }
 
 const menu=document.getElementById('menu');
