@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Zamanın İzinde İşlev Testi</title>
+<title>Cemre Karışım Motoru</title>
 <style>
 *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;background:#030603;overflow:hidden}
 body{display:flex;justify-content:center}
@@ -259,46 +259,170 @@ body{font-family:Arial,Helvetica,sans-serif}
 }
 
 
-/* ZAMANIN İZİNDE — SADE SONUÇ EKRANI ETKİLEŞİM VE AMBİYANS */
-.result-time-modern{isolation:isolate}
-.result-time-modern .fx{position:absolute;pointer-events:none;z-index:8}
-.result-time-modern .result-menu{left:4.2%;top:4.2%;width:13.8%;height:8.3%;border-radius:50%;z-index:30}
-.result-time-modern .result-share-main{left:24.5%;bottom:10.1%;width:51%;height:8.5%;border-radius:999px;z-index:30}
-.result-time-modern .result-retry{right:6.7%;bottom:2.4%;width:36%;height:7%;border-radius:999px;z-index:30}
-/* Görseldeki eski alttaki Paylaş etiketini sakin bir arka plan yamasıyla gizle. */
-.result-time-modern .bottom-share-mask{position:absolute;left:12.2%;bottom:2.2%;width:34%;height:7.2%;z-index:21;border-radius:18px;background:linear-gradient(90deg,rgba(18,9,28,.94),rgba(18,9,28,.80));backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);pointer-events:none}
-.result-time-modern .steam{left:61.5%;top:48%;width:29%;height:29%;z-index:10;overflow:visible;filter:none;opacity:1}
-.result-time-modern .steam:before,.result-time-modern .steam:after{content:none!important}
-.result-time-modern .wisp{position:absolute;bottom:11%;width:18%;height:64%;border-radius:50%;filter:blur(4px);opacity:0;background:linear-gradient(to top,rgba(255,238,255,0),rgba(246,220,255,.24) 35%,rgba(255,255,255,.56) 68%,rgba(255,255,255,0));transform-origin:50% 100%;animation:ziSteamRise 4.8s ease-in-out infinite}
-.result-time-modern .w1{left:24%;animation-delay:0s}.result-time-modern .w2{left:43%;height:72%;animation-delay:1.55s}.result-time-modern .w3{left:57%;height:59%;animation-delay:3.05s}
-.result-time-modern .firefly{width:5px;height:5px;border-radius:50%;background:#ffd27a;box-shadow:0 0 7px 2px rgba(255,178,63,.55);opacity:0;animation:ziFirefly 5.8s ease-in-out infinite}
-.result-time-modern .f1{left:13%;top:34%;animation-delay:.4s}.result-time-modern .f2{left:54%;top:41%;animation-delay:2.1s}.result-time-modern .f3{left:77%;top:53%;animation-delay:4s}.result-time-modern .f4{left:88%;top:37%;animation-delay:1.3s}.result-time-modern .f5{left:46%;top:63%;animation-delay:3.3s}.result-time-modern .f6{left:20%;top:71%;animation-delay:5s}
-.result-time-modern .lantern-glow{right:1.2%;top:54.2%;width:14.5%;height:18%;border-radius:50%;background:radial-gradient(circle,rgba(255,219,132,.62) 0%,rgba(255,174,69,.32) 28%,rgba(255,131,35,.12) 50%,rgba(255,110,20,0) 76%);filter:blur(8px);mix-blend-mode:screen;opacity:.52;transform-origin:60% 52%;animation:ziLanternBreath 3.9s ease-in-out infinite}
-.result-time-modern .lantern-core{right:4.1%;top:58.6%;width:7.8%;height:9.8%;border-radius:50%;background:radial-gradient(circle,rgba(255,244,183,.88) 0%,rgba(255,194,79,.46) 32%,rgba(255,140,35,.16) 58%,rgba(255,110,20,0) 78%);filter:blur(4px);mix-blend-mode:screen;opacity:.50;animation:ziLanternCore 2.7s ease-in-out infinite}
-.result-time-modern .reflection{top:45%;width:1.25%;height:10%;border-radius:60%;background:linear-gradient(to bottom,rgba(255,204,124,0),rgba(255,185,93,.38),rgba(255,139,62,.16),rgba(255,168,73,0));filter:blur(2px);opacity:.20;animation:ziReflection 6.8s ease-in-out infinite}
-.result-time-modern .r1{left:55%;animation-delay:0s}.result-time-modern .r2{left:61%;height:12%;animation-delay:2.2s}.result-time-modern .r3{left:67%;height:8%;animation-delay:4.4s}
-.result-time-modern .hourglass-glow{left:7.8%;top:17.7%;width:18%;height:14%;border-radius:50%;background:radial-gradient(circle,rgba(220,134,255,.42) 0%,rgba(191,92,255,.18) 42%,rgba(178,79,255,0) 72%);filter:blur(5px);mix-blend-mode:screen;opacity:0;animation:ziHourglassPulse 1.75s ease-out .38s 1 both}
-.result-time-modern .intro-vignette{inset:0;z-index:19;background:rgba(18,8,31,.20);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:ziIntroClear .8s ease-out forwards}
-@keyframes ziSteamRise{0%{transform:translate3d(0,12px,0) scaleX(.58) rotate(-3deg);opacity:0}18%{opacity:.30}48%{opacity:.48}74%{opacity:.24}100%{transform:translate3d(10px,-86px,0) scaleX(1.25) rotate(8deg);opacity:0}}
-@keyframes ziFirefly{0%,100%{opacity:0;transform:translate3d(0,0,0) scale(.65)}18%{opacity:.45}45%{opacity:.72;transform:translate3d(7px,-7px,0) scale(1)}72%{opacity:.30;transform:translate3d(2px,-14px,0) scale(.82)}}
-@keyframes ziLanternBreath{0%{opacity:.42;transform:scale(.96)}16%{opacity:.62;transform:scale(1.01)}31%{opacity:.50;transform:scale(.985)}49%{opacity:.70;transform:scale(1.035)}67%{opacity:.54;transform:scale(1)}83%{opacity:.66;transform:scale(1.02)}100%{opacity:.42;transform:scale(.96)}}
-@keyframes ziLanternCore{0%,100%{opacity:.40;transform:scale(.94)}21%{opacity:.68;transform:scale(1.05)}44%{opacity:.48;transform:scale(.98)}62%{opacity:.76;transform:scale(1.08)}79%{opacity:.52;transform:scale(1)}}
-@keyframes ziReflection{0%,100%{opacity:.15;transform:scaleY(.92)}50%{opacity:.28;transform:scaleY(1.06)}}
-@keyframes ziHourglassPulse{0%{opacity:0;transform:scale(.78)}42%{opacity:.92;transform:scale(1.08)}72%{opacity:.34;transform:scale(1.02)}100%{opacity:0;transform:scale(1.15)}}
-@keyframes ziIntroClear{0%{opacity:1}100%{opacity:0;visibility:hidden}}
+/* ===== YENİ 6 SONUÇ EKRANI — TEK DİNAMİK SONUÇ SAHNESİ ===== */
+.result-screen{
+  aspect-ratio:1024/1536 !important;
+}
+.result-screen>.mock{
+  object-fit:fill !important;
+}
+.result-hot{position:absolute !important;z-index:30 !important;border:0;background:transparent;cursor:pointer}
+#resultMenuBtn{left:4.5%;top:3.4%;width:12.5%;height:8%;border-radius:50%}
+#resultShareBtn{left:27%;bottom:8.8%;width:46%;height:7.5%;border-radius:999px}
+#resultPrepBtn{left:8%;bottom:1.8%;width:41%;height:6.1%;border-radius:999px}
+#resultRetryBtn{right:8%;bottom:1.8%;width:41%;height:6.1%;border-radius:999px}
 
-/* Küçük yarı saydam menü */
-.result-menu-pop{position:fixed;z-index:999;left:max(14px,env(safe-area-inset-left));top:max(70px,calc(env(safe-area-inset-top) + 58px));width:min(78vw,320px);padding:10px;border-radius:22px;background:rgba(25,12,38,.88);border:1px solid rgba(226,184,255,.28);box-shadow:0 18px 48px rgba(0,0,0,.38);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;transform:translateY(-8px) scale(.98);pointer-events:none;transition:.22s ease}
-.result-menu-pop.open{opacity:1;transform:none;pointer-events:auto}
-.result-menu-pop button{display:block;width:100%;border:0;background:transparent;color:#f6eaff;text-align:left;padding:14px 15px;border-radius:14px;font:600 16px/1.2 Arial,sans-serif;cursor:pointer}
-.result-menu-pop button+button{border-top:1px solid rgba(255,255,255,.08)}
-.result-menu-pop button:active{background:rgba(215,159,255,.13)}
-.result-about{position:fixed;z-index:1001;inset:0;display:grid;place-items:center;padding:24px;background:rgba(5,2,10,.48);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:.22s ease}
-.result-about.open{opacity:1;pointer-events:auto}
-.result-about-card{width:min(88vw,390px);border-radius:24px;padding:22px;background:rgba(31,15,46,.96);border:1px solid rgba(226,184,255,.28);color:#f7edff;box-shadow:0 24px 64px rgba(0,0,0,.48)}
-.result-about-card h3{margin:0 0 8px;font:700 21px/1.2 Georgia,serif}.result-about-card p{margin:0 0 18px;font:400 15px/1.5 Arial,sans-serif;color:#e8daf2}.result-about-card button{width:100%;border:0;border-radius:14px;padding:12px;background:#c98df1;color:#24112f;font-weight:700}
-.result-toast{position:fixed;z-index:1100;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translate(-50%,12px);padding:10px 15px;border-radius:999px;background:rgba(24,12,35,.92);color:#fff;font:600 13px/1 Arial,sans-serif;opacity:0;pointer-events:none;transition:.25s ease}.result-toast.show{opacity:1;transform:translate(-50%,0)}
-@media(prefers-reduced-motion:reduce){.result-time-modern .wisp,.result-time-modern .firefly,.result-time-modern .lantern-glow,.result-time-modern .lantern-core,.result-time-modern .reflection,.result-time-modern .hourglass-glow,.result-time-modern .intro-vignette{animation:none!important}.result-time-modern .intro-vignette{display:none}}
+.result-menu{
+  position:absolute;left:3%;top:11.5%;width:min(60%,410px);
+  background:rgba(18,18,26,.92);border:1px solid rgba(255,255,255,.18);
+  border-radius:22px;overflow:hidden;backdrop-filter:blur(14px);
+  opacity:0;transform:scale(.96) translateY(-8px);pointer-events:none;
+  transition:.18s ease;z-index:60;
+}
+.result-menu.open{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
+.result-menu button{
+  width:100%;padding:16px 19px;text-align:left;border:0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:transparent;color:#fff;font-weight:700;font-size:16px
+}
+.result-menu button:last-child{border-bottom:0}
+
+.result-backdrop{
+  position:absolute;inset:0;background:rgba(4,8,14,.60);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:24px;z-index:80
+}
+.result-backdrop.show{display:flex}
+.result-modal{
+  width:min(88%,520px);background:rgba(24,22,32,.96);
+  border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:26px;
+  padding:24px;box-shadow:0 20px 60px #0009
+}
+.result-modal h2{margin:0 0 12px;font-size:24px}
+.result-modal p{margin:0 0 16px;line-height:1.45;font-size:16px;color:#eef1f5}
+.result-steps{display:grid;gap:10px;margin:14px 0 20px}
+.result-step{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.07);font-size:16px}
+.result-close{width:100%;border:0;border-radius:999px;padding:13px 16px;font-weight:800;font-size:16px;background:#e1c07d;color:#241b10}
+
+/* Ortak fincan buharı */
+.result-steam{position:absolute;pointer-events:none;z-index:18;filter:blur(1.6px)}
+.result-steam span{
+  position:absolute;bottom:0;width:29px;height:135px;border-left:5px solid rgba(255,255,255,.94);
+  border-radius:50%;opacity:0;animation:resultSteam 4.2s infinite ease-in-out
+}
+.result-steam .rs1{left:10%;animation-delay:0s}
+.result-steam .rs2{left:42%;height:155px;animation-delay:1.25s}
+.result-steam .rs3{left:68%;height:125px;animation-delay:2.35s}
+@keyframes resultSteam{
+  0%{transform:translateY(12px) translateX(0) scaleX(.55);opacity:0}
+  18%{opacity:.68}
+  56%{opacity:.52}
+  100%{transform:translateY(-112px) translateX(12px) scaleX(1.45);opacity:0}
+}
+
+/* Enerji / Zamanın İzinde: altın ışık zerrecikleri */
+.result-spark{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:#ffe08a;box-shadow:0 0 18px 6px rgba(255,187,60,.95);
+  opacity:.15;pointer-events:none;z-index:14;animation:resultSpark 5.8s infinite ease-in-out
+}
+@keyframes resultSpark{
+  0%{opacity:.18;transform:translate(0,8px) scale(.72)}
+  22%{opacity:.95;transform:translate(2px,1px) scale(1)}
+  55%{opacity:.55;transform:translate(8px,-9px) scale(.92)}
+  78%{opacity:.82;transform:translate(12px,-15px) scale(1.08)}
+  100%{opacity:.16;transform:translate(15px,-22px) scale(.74)}
+}
+
+/* Kış Güneşi */
+.result-snow{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:hidden}
+.result-snow i{
+  position:absolute;top:-8%;width:4px;height:4px;border-radius:50%;
+  background:rgba(255,255,255,.9);box-shadow:0 0 5px rgba(255,255,255,.55);
+  animation:resultSnow linear infinite
+}
+@keyframes resultSnow{to{transform:translate3d(18px,115dvh,0) rotate(180deg);opacity:.15}}
+
+/* Güneş nefesi */
+.result-sun{
+  position:absolute;right:-1%;top:8%;width:46%;height:38%;border-radius:50%;
+  background:radial-gradient(circle at 72% 38%,rgba(255,241,196,.36),rgba(255,210,154,.18) 32%,rgba(255,170,190,.07) 54%,transparent 74%);
+  mix-blend-mode:screen;pointer-events:none;z-index:13;animation:resultSun 5.8s infinite ease-in-out
+}
+@keyframes resultSun{0%,100%{opacity:.44;transform:scale(.97)}50%{opacity:.72;transform:scale(1.05)}}
+
+/* Hafifleme yaprakları */
+.result-leaf{
+  position:absolute;width:18px;height:10px;
+  background:linear-gradient(135deg,rgba(174,235,73,.96),rgba(62,139,43,.94));
+  border-radius:100% 0 100% 0;box-shadow:0 0 8px rgba(183,235,84,.28);
+  pointer-events:none;z-index:16;opacity:0;animation:resultLeaf 7.6s infinite ease-in-out
+}
+@keyframes resultLeaf{
+  0%{opacity:0;transform:translate3d(0,-18px,0) rotate(5deg) scale(.8)}
+  16%{opacity:.85}
+  52%{opacity:.74;transform:translate3d(-18px,65px,0) rotate(125deg) scale(1)}
+  86%{opacity:.42}
+  100%{opacity:0;transform:translate3d(16px,150px,0) rotate(245deg) scale(.88)}
+}
+
+/* Akşam / İçsel Bahar çiçek yaprakları */
+.result-petal{
+  position:absolute;width:19px;height:11px;border-radius:80% 20% 80% 20%;
+  background:linear-gradient(135deg,rgba(255,184,214,.98),rgba(208,78,165,.96));
+  box-shadow:0 0 9px rgba(255,155,205,.30);
+  pointer-events:none;z-index:16;opacity:0;animation:resultPetal 8.2s infinite ease-in-out
+}
+@keyframes resultPetal{
+  0%{opacity:0;transform:translate3d(0,-16px,0) rotate(8deg) scale(.82)}
+  15%{opacity:.92}
+  48%{opacity:.78;transform:translate3d(-22px,70px,0) rotate(145deg) scale(1)}
+  82%{opacity:.42}
+  100%{opacity:0;transform:translate3d(14px,170px,0) rotate(300deg) scale(.9)}
+}
+
+/* Bokeh */
+.result-bokeh{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:15;opacity:0;
+  background:rgba(255,220,170,.92);box-shadow:0 0 16px 5px rgba(255,190,130,.42);
+  animation:resultBokeh 5.8s infinite ease-in-out
+}
+@keyframes resultBokeh{
+  0%,100%{opacity:.08;transform:translateY(8px) scale(.72)}
+  28%{opacity:.86}
+  60%{opacity:.46;transform:translateY(-8px) scale(1.12)}
+  82%{opacity:.72}
+}
+
+/* Fener / mum */
+.result-lantern{
+  position:absolute;right:0%;top:45%;width:24%;height:30%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,185,90,.34),rgba(255,120,35,.13) 46%,transparent 72%);
+  mix-blend-mode:screen;pointer-events:none;z-index:13;animation:resultLantern 3.8s infinite ease-in-out
+}
+@keyframes resultLantern{
+  0%,100%{opacity:.44;transform:scale(.98)}18%{opacity:.58}
+  41%{opacity:.49;transform:scale(1.02)}67%{opacity:.63;transform:scale(1.04)}82%{opacity:.52}
+}
+
+/* Akşam göl parıltısı */
+.result-shimmer{
+  position:absolute;left:55%;top:26%;width:40%;height:25%;
+  background:linear-gradient(110deg,transparent 0%,rgba(255,210,165,.03) 36%,rgba(255,220,180,.18) 50%,rgba(255,190,150,.05) 64%,transparent 100%);
+  filter:blur(10px);mix-blend-mode:screen;pointer-events:none;z-index:12;
+  animation:resultShimmer 7.5s infinite ease-in-out
+}
+@keyframes resultShimmer{
+  0%,100%{opacity:.22;transform:translateX(-3%) scaleX(.96)}
+  50%{opacity:.52;transform:translateX(5%) scaleX(1.04)}
+}
+.result-hidden{display:none!important}
+
+@media (min-width:601px){
+  .result-screen{
+    width:min(100vw,calc(100dvh * 1024 / 1536)) !important;
+    height:min(100dvh,calc(100vw * 1536 / 1024)) !important;
+  }
+}
 
 </style></head><body><main class="app">
 
@@ -344,65 +468,84 @@ body{font-family:Arial,Helvetica,sans-serif}
 </section>
 
 
-<section id="result-energy" class="screen result-screen">
-<img class="mock" src="images/screen-07.webp" alt="">
-<button class="hot result-detail" data-result="result-energy" aria-label="Karışımı İncele"></button>
-</section>
-<section id="result-winter" class="screen result-screen">
-<img class="mock" src="images/screen-08.webp" alt="">
-<button class="hot result-detail" data-result="result-winter" aria-label="Karışımı İncele"></button>
-</section>
-<section id="result-light" class="screen result-screen">
-<img class="mock" src="images/screen-09.webp" alt="">
-<button class="hot result-detail" data-result="result-light" aria-label="Karışımı İncele"></button>
-</section>
-<section id="result-evening" class="screen result-screen">
-<img class="mock" src="images/screen-10.webp" alt="">
-<button class="hot result-detail" data-result="result-evening" aria-label="Karışımı İncele"></button>
-</section>
-<section id="result-spring" class="screen result-screen">
-<img class="mock" src="images/screen-11.webp" alt="">
-<button class="hot result-detail" data-result="result-spring" aria-label="Karışımı İncele"></button>
-</section>
-<section id="result-time" class="screen result-screen result-time-modern">
-<img class="mock" src="images/zamanin-izinde-sade.png" alt="Zamanın İzinde sonuç ekranı">
-<button class="hot result-menu" aria-label="Menü"></button>
-<button class="hot result-share-main" aria-label="Sonucu Paylaş"></button>
-<button class="hot result-retry" aria-label="Tekrar Dene"></button>
-<div class="bottom-share-mask" aria-hidden="true"></div>
-<div class="fx steam" aria-hidden="true"><i class="wisp w1"></i><i class="wisp w2"></i><i class="wisp w3"></i></div>
-<i class="fx firefly f1" aria-hidden="true"></i><i class="fx firefly f2" aria-hidden="true"></i><i class="fx firefly f3" aria-hidden="true"></i><i class="fx firefly f4" aria-hidden="true"></i><i class="fx firefly f5" aria-hidden="true"></i><i class="fx firefly f6" aria-hidden="true"></i>
-<div class="fx lantern-glow" aria-hidden="true"></div><div class="fx lantern-core" aria-hidden="true"></div>
-<i class="fx reflection r1" aria-hidden="true"></i><i class="fx reflection r2" aria-hidden="true"></i><i class="fx reflection r3" aria-hidden="true"></i>
-<div class="fx hourglass-glow" aria-hidden="true"></div><div class="fx intro-vignette" aria-hidden="true"></div>
-</section>
 
-<section id="detail-energy" class="screen detail-screen"><img class="mock" src="images/screen-13.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
-<section id="detail-winter" class="screen detail-screen"><img class="mock" src="images/screen-14.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
-<section id="detail-light" class="screen detail-screen"><img class="mock" src="images/screen-15.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
-<section id="detail-evening" class="screen detail-screen"><img class="mock" src="images/screen-16.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
-<section id="detail-time" class="screen detail-screen"><img class="mock" src="images/screen-17.webp" alt=""><button class="hot detail-back" aria-label="Geri"></button><button class="hot detail-share" aria-label="Paylaş"></button><button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button></section>
-<section id="detail-spring" class="screen detail-screen">
-<img class="mock" src="images/screen-18.webp" alt="">
-<button class="hot detail-back" aria-label="Geri"></button>
-<button class="hot detail-share" aria-label="Paylaş"></button>
-<button class="hot detail-whatsapp" aria-label="WhatsApp'ta Paylaş"></button>
-</section>
+<section id="result" class="screen result-screen">
+  <img id="resultMock" class="mock" src="images/enerji.png" alt="Karışım sonucu">
 
-
-<div id="resultMenuPop" class="result-menu-pop" aria-hidden="true">
-  <button type="button" id="menuHome">Ana Sayfa</button>
-  <button type="button" id="menuRetry">Yeni Karışım / Tekrar Dene</button>
-  <button type="button" id="menuAbout">Karışım Motoru Hakkında</button>
-</div>
-<div id="resultAbout" class="result-about" aria-hidden="true">
-  <div class="result-about-card">
-    <h3>Cemre Karışım Motoru</h3>
-    <p>Dört kısa seçime göre sana uygun bitki çayı karakterini eşleştiren mağaza içi deneyim ekranıdır. Sonuçlar kişisel tıbbi öneri değildir.</p>
-    <button type="button" id="aboutClose">Kapat</button>
+  <div id="resultSteam" class="result-steam">
+    <span class="rs1"></span><span class="rs2"></span><span class="rs3"></span>
   </div>
-</div>
-<div id="resultToast" class="result-toast" role="status" aria-live="polite"></div>
+
+  <i class="result-spark result-hidden" style="left:50%;top:38%;animation-delay:-.4s;animation-duration:5.7s"></i>
+  <i class="result-spark result-hidden" style="left:58%;top:44%;animation-delay:-1.6s;animation-duration:6.2s"></i>
+  <i class="result-spark result-hidden" style="left:68%;top:36%;animation-delay:-2.7s;animation-duration:5.4s"></i>
+  <i class="result-spark result-hidden" style="left:76%;top:49%;animation-delay:-3.8s;animation-duration:6.5s"></i>
+  <i class="result-spark result-hidden" style="left:84%;top:40%;animation-delay:-4.7s;animation-duration:5.9s"></i>
+  <i class="result-spark result-hidden" style="left:62%;top:55%;animation-delay:-5.3s;animation-duration:6.8s"></i>
+
+  <div id="resultSnow" class="result-snow result-hidden">
+    <i style="left:5%;animation-duration:8s;animation-delay:-2s"></i>
+    <i style="left:14%;animation-duration:10s;animation-delay:-6s"></i>
+    <i style="left:23%;animation-duration:7.5s;animation-delay:-1s"></i>
+    <i style="left:35%;animation-duration:9s;animation-delay:-4s"></i>
+    <i style="left:48%;animation-duration:11s;animation-delay:-8s"></i>
+    <i style="left:61%;animation-duration:8.5s;animation-delay:-3s"></i>
+    <i style="left:72%;animation-duration:10.5s;animation-delay:-7s"></i>
+    <i style="left:83%;animation-duration:7.8s;animation-delay:-5s"></i>
+    <i style="left:93%;animation-duration:9.6s;animation-delay:-2.5s"></i>
+  </div>
+
+  <div id="resultSun" class="result-sun result-hidden"></div>
+  <i class="result-leaf result-hidden" style="left:73%;top:21%;animation-delay:-1s"></i>
+  <i class="result-leaf result-hidden" style="left:84%;top:29%;animation-delay:-3.4s;animation-duration:8.1s"></i>
+  <i class="result-leaf result-hidden" style="left:65%;top:34%;animation-delay:-5.7s;animation-duration:7.6s"></i>
+
+  <i class="result-petal result-hidden" style="left:81%;top:28%;animation-delay:-1.3s"></i>
+  <i class="result-petal result-hidden" style="left:72%;top:38%;animation-delay:-4.2s;animation-duration:8.8s"></i>
+  <i class="result-petal result-hidden" style="left:88%;top:42%;animation-delay:-6.6s;animation-duration:7.6s"></i>
+  <i class="result-petal result-hidden" style="left:61%;top:34%;animation-delay:-2.2s;animation-duration:9.2s"></i>
+
+  <i class="result-bokeh result-hidden" style="width:7px;height:7px;left:52%;top:43%;animation-delay:-.7s"></i>
+  <i class="result-bokeh result-hidden" style="width:9px;height:9px;left:78%;top:39%;animation-delay:-2s;animation-duration:6.3s"></i>
+  <i class="result-bokeh result-hidden" style="width:6px;height:6px;left:87%;top:52%;animation-delay:-3.5s;animation-duration:5.2s"></i>
+  <i class="result-bokeh result-hidden" style="width:8px;height:8px;left:58%;top:59%;animation-delay:-4.8s;animation-duration:6.8s"></i>
+  <i class="result-bokeh result-hidden" style="width:7px;height:7px;left:68%;top:48%;animation-delay:-5.4s;animation-duration:6.1s"></i>
+
+  <div id="resultLantern" class="result-lantern result-hidden"></div>
+  <div id="resultShimmer" class="result-shimmer result-hidden"></div>
+
+  <button id="resultMenuBtn" class="result-hot" aria-label="Menü"></button>
+  <button id="resultShareBtn" class="result-hot" aria-label="Sonucu Paylaş"></button>
+  <button id="resultPrepBtn" class="result-hot" aria-label="Nasıl Hazırlanır"></button>
+  <button id="resultRetryBtn" class="result-hot" aria-label="Tekrar Dene"></button>
+
+  <div id="resultMenu" class="result-menu">
+    <button data-result-action="home">Ana Sayfa</button>
+    <button data-result-action="retry">Yeni Karışım / Tekrar Dene</button>
+    <button data-result-action="about">Karışım Motoru Hakkında</button>
+  </div>
+
+  <div id="prepModal" class="result-backdrop">
+    <div class="result-modal">
+      <h2>Nasıl Hazırlanır?</h2>
+      <div class="result-steps">
+        <div class="result-step">🥄 1 tatlı kaşığı karışım</div>
+        <div class="result-step">☕ 200–250 ml sıcak su</div>
+        <div class="result-step">⏳ 5–7 dakika demleme</div>
+      </div>
+      <button class="result-close" data-result-close="prepModal">Kapat</button>
+    </div>
+  </div>
+
+  <div id="aboutModal" class="result-backdrop">
+    <div class="result-modal">
+      <h2>Cemre Karışım Motoru</h2>
+      <p>Dört kısa seçime göre sana uygun bitki çayı karakterini eşleştiren mağaza içi deneyim ekranıdır. Sonuçlar kişisel tıbbi öneri değildir.</p>
+      <button class="result-close" data-result-close="aboutModal">Kapat</button>
+    </div>
+  </div>
+</section>
+
 
 </main><script>
 const answers={q1:null,q2:null,q3:null,q4:null};
@@ -423,6 +566,47 @@ const weights={
  q3:[[3,1,0,1,0,0],[1,3,0,0,1,1],[0,0,3,1,0,2],[0,0,1,2,3,2]],
  q4:[[1,0,0,3,1,0],[0,2,0,1,0,3],[0,0,1,0,3,2],[2,0,1,1,2,0]]
 };
+
+const RESULT_CONFIG={
+  'result-energy':{
+    slug:'enerji',img:'images/enerji.png',fx:'energy',
+    title:'Cemre Karışım Motoru – Enerji',
+    text:'Benim Cemre Karışımım: Enerji — Güne daha canlı başlamaya eşlik eden, narenciyeli ve bitkisel karaktere sahip özel bir karışım.',
+    steam:{left:'65%',top:'48%',width:'14%',height:'13%'}
+  },
+  'result-winter':{
+    slug:'kis-gunesi',img:'images/kis-gunesi.png',fx:'winter',
+    title:'Cemre Karışım Motoru – Kış Güneşi',
+    text:'Benim Cemre Karışımım: Kış Güneşi — Soğuk günlere sıcaklık katan, baharatlı ve meyvemsi karaktere sahip özel bir karışım.',
+    steam:{left:'61%',top:'55%',width:'19%',height:'25%'}
+  },
+  'result-light':{
+    slug:'hafifleme-zamani',img:'images/hafifleme-zamani.png',fx:'light',
+    title:'Cemre Karışım Motoru – Hafifleme Zamanı',
+    text:'Benim Cemre Karışımım: Hafifleme Zamanı — Dengeli ve ferahlatıcı karakteriyle gün içinde daha hafif hissetmene eşlik eden özel bir karışım.',
+    steam:{left:'66%',top:'46.5%',width:'17%',height:'10.5%'}
+  },
+  'result-time':{
+    slug:'zamanin-izinde',img:'images/zamanin-izinde.png',fx:'time',
+    title:'Cemre Karışım Motoru – Zamanın İzinde',
+    text:'Benim Cemre Karışımım: Zamanın İzinde — Yoğun anlarda zihnini ferahlatacak, dikkatini toparlamana eşlik edecek özel bir karışım.',
+    steam:{left:'61%',top:'57%',width:'19%',height:'25%'}
+  },
+  'result-evening':{
+    slug:'aksam-sefasi',img:'images/aksam-sefasi.png',fx:'evening',
+    title:'Cemre Karışım Motoru – Akşam Sefası',
+    text:'Benim Cemre Karışımım: Akşam Sefası — Günün yorgunluğunu geride bırakmaya eşlik eden, daha sakin ve huzurlu bir akşam için özel bir karışım.',
+    steam:{left:'65%',top:'49%',width:'16%',height:'11%'}
+  },
+  'result-spring':{
+    slug:'icsel-bahar',img:'images/icsel-bahar.png',fx:'spring',
+    title:'Cemre Karışım Motoru – İçsel Bahar',
+    text:'Benim Cemre Karışımım: İçsel Bahar — Kendini daha canlı, dengeli ve iyi hissetmene eşlik eden, yenileyici ve hafif karakterde özel bir karışım.',
+    steam:{left:'66%',top:'47.5%',width:'16%',height:'11%'}
+  }
+};
+const SLUG_TO_RESULT=Object.fromEntries(Object.entries(RESULT_CONFIG).map(([k,v])=>[v.slug,k]));
+
 function calculateResult(){
   const score=[0,0,0,0,0,0];
   for(const q of ['q1','q2','q3','q4']){
@@ -433,85 +617,171 @@ function calculateResult(){
 }
 
 let loadingTimer=null;
+let currentResultKey=null;
+
+function resetAnswers(){
+  for(const q of ['q1','q2','q3','q4']) answers[q]=null;
+  document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+  document.querySelectorAll('.next').forEach(x=>x.classList.add('locked'));
+}
+
+function hideResultFx(){
+  document.querySelectorAll('.result-spark,.result-leaf,.result-petal,.result-bokeh').forEach(x=>x.classList.add('result-hidden'));
+  ['resultSnow','resultSun','resultLantern','resultShimmer'].forEach(id=>document.getElementById(id).classList.add('result-hidden'));
+}
+
+function applyResultFx(fx){
+  hideResultFx();
+  const sparks=[...document.querySelectorAll('.result-spark')];
+  const leaves=[...document.querySelectorAll('.result-leaf')];
+  const petals=[...document.querySelectorAll('.result-petal')];
+  const bokehs=[...document.querySelectorAll('.result-bokeh')];
+
+  if(fx==='energy'){
+    document.getElementById('resultSun').classList.remove('result-hidden');
+    sparks.forEach(x=>x.classList.remove('result-hidden'));
+  }else if(fx==='winter'){
+    document.getElementById('resultSnow').classList.remove('result-hidden');
+    document.getElementById('resultSun').classList.remove('result-hidden');
+    document.getElementById('resultLantern').classList.remove('result-hidden');
+  }else if(fx==='light'){
+    document.getElementById('resultSun').classList.remove('result-hidden');
+    leaves.forEach(x=>x.classList.remove('result-hidden'));
+    bokehs.slice(0,4).forEach(x=>x.classList.remove('result-hidden'));
+  }else if(fx==='time'){
+    sparks.slice(0,4).forEach(x=>x.classList.remove('result-hidden'));
+    document.getElementById('resultLantern').classList.remove('result-hidden');
+  }else if(fx==='evening'){
+    petals.slice(0,3).forEach(x=>x.classList.remove('result-hidden'));
+    document.getElementById('resultLantern').classList.remove('result-hidden');
+    document.getElementById('resultShimmer').classList.remove('result-hidden');
+  }else if(fx==='spring'){
+    document.getElementById('resultSun').classList.remove('result-hidden');
+    petals.forEach(x=>x.classList.remove('result-hidden'));
+    bokehs.forEach(x=>x.classList.remove('result-hidden'));
+  }
+}
+
+function openResult(resultKey, updateUrl=true){
+  const c=RESULT_CONFIG[resultKey];
+  if(!c) return;
+  currentResultKey=resultKey;
+
+  const img=document.getElementById('resultMock');
+  img.src=c.img;
+  img.alt=c.title;
+
+  const steam=document.getElementById('resultSteam');
+  Object.assign(steam.style,c.steam);
+
+  applyResultFx(c.fx);
+  document.title=c.title;
+
+  document.getElementById('resultMenu').classList.remove('open');
+  document.querySelectorAll('.result-backdrop').forEach(x=>x.classList.remove('show'));
+
+  if(updateUrl){
+    const u=new URL(location.href);
+    u.searchParams.set('result',c.slug);
+    history.replaceState(null,'',u);
+  }
+  show('result');
+}
+
 function show(id){
   clearTimeout(loadingTimer);
-  document.querySelector('.app').classList.toggle('detail-mode', id.startsWith('detail-'));
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
+
   if(id==='loading'){
     const f=document.querySelector('.loadfill');
     const s=document.getElementById('loadstatus');
     f.style.animation='none'; void f.offsetWidth; f.style.animation='fill 4s linear forwards';
     s.textContent='🌿 Bitkiler seçiliyor...';
-    setTimeout(()=>{ if(document.getElementById('loading').classList.contains('active')) s.textContent='✦ Sana özel denge oluşturuluyor...'; },1300);
-    setTimeout(()=>{ if(document.getElementById('loading').classList.contains('active')) s.textContent='✓ Karışımın hazır!'; },2700);
-    loadingTimer=setTimeout(()=>{ show(calculateResult()); },4000);
+    setTimeout(()=>{if(document.getElementById('loading').classList.contains('active'))s.textContent='✦ Sana özel denge oluşturuluyor...';},1300);
+    setTimeout(()=>{if(document.getElementById('loading').classList.contains('active'))s.textContent='✓ Karışımın hazır!';},2700);
+    loadingTimer=setTimeout(()=>openResult(calculateResult()),4000);
   }
 }
+
 document.getElementById('start').onclick=()=>show('q1');
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+
 document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{
   const q=b.dataset.q;
   document.querySelectorAll('.choice[data-q="'+q+'"]').forEach(x=>x.classList.remove('selected'));
-  b.classList.add('selected'); answers[q]=b.dataset.v;
+  b.classList.add('selected');
+  answers[q]=b.dataset.v;
   document.querySelector('.next[data-for="'+q+'"]').classList.remove('locked');
 });
+
 document.querySelectorAll('.next').forEach(b=>b.onclick=()=>{
-  const q=b.dataset.for; if(!answers[q]) return; show(b.dataset.next);
+  const q=b.dataset.for;
+  if(!answers[q]) return;
+  show(b.dataset.next);
 });
 
+/* Sonuç ekranı işlevleri */
+const resultMenu=document.getElementById('resultMenu');
+document.getElementById('resultMenuBtn').onclick=()=>resultMenu.classList.toggle('open');
 
-const detailMap={'result-energy':'detail-energy','result-winter':'detail-winter','result-light':'detail-light','result-evening':'detail-evening','result-time':'detail-time','result-spring':'detail-spring'};let detailFrom=null;document.querySelectorAll('.result-detail').forEach(b=>{b.onclick=()=>{const target=detailMap[b.dataset.result];if(!target)return;detailFrom=b.dataset.result;show(target);};});document.querySelectorAll('.detail-back').forEach(b=>{b.onclick=()=>{if(detailFrom)show(detailFrom);};});document.querySelectorAll('.detail-share').forEach(b=>{b.onclick=async()=>{if(navigator.share){try{await navigator.share({title:'Cemre Bitkisel Ürünler',url:location.href});}catch(e){}}};});document.querySelectorAll('.detail-whatsapp').forEach(b=>{b.onclick=()=>{const txt=encodeURIComponent('Cemre Bitkisel Ürünler karışımımı incele: '+location.href);window.open('https://wa.me/?text='+txt,'_blank');};});
+function openResultModal(id){
+  resultMenu.classList.remove('open');
+  document.getElementById(id).classList.add('show');
+}
+document.querySelectorAll('[data-result-close]').forEach(b=>{
+  b.onclick=()=>document.getElementById(b.dataset.resultClose).classList.remove('show');
+});
+document.querySelectorAll('.result-backdrop').forEach(x=>{
+  x.addEventListener('click',e=>{if(e.target===x)x.classList.remove('show')});
+});
+
+document.querySelectorAll('[data-result-action]').forEach(b=>{
+  b.onclick=()=>{
+    const a=b.dataset.resultAction;
+    if(a==='home'){
+      resetAnswers();
+      const u=new URL(location.href);u.searchParams.delete('result');history.replaceState(null,'',u);
+      show('home');
+    }else if(a==='retry'){
+      resetAnswers();
+      const u=new URL(location.href);u.searchParams.delete('result');history.replaceState(null,'',u);
+      show('q1');
+    }else if(a==='about'){
+      openResultModal('aboutModal');
+    }
+  };
+});
+
+document.getElementById('resultPrepBtn').onclick=()=>openResultModal('prepModal');
+document.getElementById('resultRetryBtn').onclick=()=>{
+  resetAnswers();
+  const u=new URL(location.href);u.searchParams.delete('result');history.replaceState(null,'',u);
+  show('q1');
+};
+
+document.getElementById('resultShareBtn').onclick=async()=>{
+  const c=RESULT_CONFIG[currentResultKey];
+  if(!c)return;
+  const u=new URL(location.href);
+  u.searchParams.set('result',c.slug);
+  const data={title:c.title,text:c.text,url:u.toString()};
+  try{
+    if(navigator.share) await navigator.share(data);
+    else{
+      await navigator.clipboard.writeText(u.toString());
+      alert('Sonuç bağlantısı kopyalandı.');
+    }
+  }catch(e){}
+};
+
+/* Paylaşılan derin bağlantı doğrudan ilgili sonucu açar */
+const directSlug=new URLSearchParams(location.search).get('result');
+if(directSlug && SLUG_TO_RESULT[directSlug]){
+  openResult(SLUG_TO_RESULT[directSlug],false);
+}
 
 document.querySelectorAll('.screen').forEach(s=>{
   const img=s.querySelector(':scope > img.mock');
   if(img) s.style.setProperty('--screen-bg', `url("${img.getAttribute('src')}")`);
 });
-
-
-/* Zamanın İzinde sade sonuç ekranı işlevleri */
-const menuPop=document.getElementById('resultMenuPop');
-const aboutBox=document.getElementById('resultAbout');
-const toast=document.getElementById('resultToast');
-function ziResetAnswers(){
-  for(const q of ['q1','q2','q3','q4']) answers[q]=null;
-  document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
-  document.querySelectorAll('.next').forEach(x=>x.classList.add('locked'));
-}
-function ziCleanUrl(){ history.replaceState(null,'',location.pathname); }
-function ziHome(){ ziResetAnswers(); ziCleanUrl(); menuPop.classList.remove('open'); show('home'); }
-function ziRetry(){ ziResetAnswers(); ziCleanUrl(); menuPop.classList.remove('open'); show('q1'); }
-function ziToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1800); }
-function ziResultUrl(){
-  const u=new URL(location.href);
-  u.search=''; u.hash='';
-  u.searchParams.set('result','zamanin-izinde');
-  return u.toString();
-}
-async function ziShare(){
-  const url=ziResultUrl();
-  const data={title:'Cemre Karışım Motoru — Zamanın İzinde',text:'Benim Cemre Karışımım: Zamanın İzinde — Zihnini ferahlat, dikkatini toparla.',url};
-  if(navigator.share){
-    try{ await navigator.share(data); return; }catch(e){ if(e && e.name==='AbortError') return; }
-  }
-  try{ await navigator.clipboard.writeText(data.text+' '+url); ziToast('Sonuç bağlantısı kopyalandı'); }
-  catch(e){ prompt('Sonuç bağlantısını kopyala:',url); }
-}
-document.querySelector('.result-menu')?.addEventListener('click',e=>{e.stopPropagation();menuPop.classList.toggle('open');menuPop.setAttribute('aria-hidden',String(!menuPop.classList.contains('open')));});
-document.querySelector('.result-share-main')?.addEventListener('click',ziShare);
-document.querySelector('.result-retry')?.addEventListener('click',ziRetry);
-document.getElementById('menuHome')?.addEventListener('click',ziHome);
-document.getElementById('menuRetry')?.addEventListener('click',ziRetry);
-document.getElementById('menuAbout')?.addEventListener('click',()=>{menuPop.classList.remove('open');aboutBox.classList.add('open');aboutBox.setAttribute('aria-hidden','false');});
-document.getElementById('aboutClose')?.addEventListener('click',()=>{aboutBox.classList.remove('open');aboutBox.setAttribute('aria-hidden','true');});
-aboutBox?.addEventListener('click',e=>{if(e.target===aboutBox){aboutBox.classList.remove('open');aboutBox.setAttribute('aria-hidden','true');}});
-document.addEventListener('click',e=>{if(menuPop.classList.contains('open') && !menuPop.contains(e.target) && !e.target.closest('.result-menu')) menuPop.classList.remove('open');});
-
-/* Paylaşılan sonuç bağlantısı doğrudan aynı sonuç ekranını açar. */
-const ziParams=new URLSearchParams(location.search);
-if(ziParams.get('result')==='zamanin-izinde'){
-  requestAnimationFrame(()=>show('result-time'));
-}else if(ziParams.get('start')==='q1'){
-  requestAnimationFrame(()=>show('q1'));
-}
-
 </script></body></html>
