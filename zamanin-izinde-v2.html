@@ -135,6 +135,64 @@ body{overflow:hidden}
   82%{opacity:.72}
 }
 
+
+/* Akşam Sefası: buhar + mum/fener titreşimi + çiçek yaprağı + su parıltısı */
+.evening-lantern{
+  position:absolute;right:0%;top:45%;width:24%;height:30%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,185,90,.34),rgba(255,120,35,.13) 46%,transparent 72%);
+  mix-blend-mode:screen;pointer-events:none;z-index:9;
+  animation:eveningLantern 3.8s infinite ease-in-out;
+}
+.evening-candle{
+  position:absolute;right:15%;top:49%;width:10%;height:14%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,230,165,.32),rgba(255,150,65,.12) 50%,transparent 74%);
+  mix-blend-mode:screen;pointer-events:none;z-index:10;
+  animation:eveningCandle 2.9s infinite ease-in-out;
+}
+@keyframes eveningLantern{
+  0%,100%{opacity:.44;transform:scale(.98)}
+  18%{opacity:.58}
+  41%{opacity:.49;transform:scale(1.02)}
+  67%{opacity:.63;transform:scale(1.04)}
+  82%{opacity:.52}
+}
+@keyframes eveningCandle{
+  0%,100%{opacity:.36;transform:scale(.97)}
+  28%{opacity:.58;transform:scale(1.03)}
+  52%{opacity:.47}
+  73%{opacity:.64;transform:scale(1.05)}
+}
+
+.petal{
+  position:absolute;width:18px;height:11px;
+  background:linear-gradient(135deg,rgba(245,125,208,.98),rgba(166,68,181,.96));
+  border-radius:80% 20% 80% 20%;
+  box-shadow:0 0 8px rgba(240,130,210,.28);
+  pointer-events:none;z-index:10;opacity:0;
+  animation:petalDrift 8s infinite ease-in-out;
+}
+.p1{left:81%;top:28%;animation-delay:-1.3s}
+.p2{left:72%;top:38%;animation-delay:-4.2s;animation-duration:8.8s}
+.p3{left:88%;top:42%;animation-delay:-6.6s;animation-duration:7.6s}
+@keyframes petalDrift{
+  0%{opacity:0;transform:translate3d(0,-10px,0) rotate(10deg) scale(.85)}
+  16%{opacity:.86}
+  50%{opacity:.74;transform:translate3d(-24px,72px,0) rotate(140deg) scale(1)}
+  82%{opacity:.42}
+  100%{opacity:0;transform:translate3d(12px,165px,0) rotate(290deg) scale(.9)}
+}
+
+.water-shimmer{
+  position:absolute;left:55%;top:26%;width:40%;height:25%;
+  background:linear-gradient(110deg,transparent 0%,rgba(255,210,165,.03) 36%,rgba(255,220,180,.18) 50%,rgba(255,190,150,.05) 64%,transparent 100%);
+  filter:blur(10px);mix-blend-mode:screen;pointer-events:none;z-index:7;
+  animation:waterShimmer 7.5s infinite ease-in-out;
+}
+@keyframes waterShimmer{
+  0%,100%{opacity:.22;transform:translateX(-3%) scaleX(.96)}
+  50%{opacity:.52;transform:translateX(5%) scaleX(1.04)}
+}
+
 .hidden{display:none!important}
 @media (min-width:700px){.app{width:min(100vw,calc(100dvh * 1024 / 1536));margin:0 auto}}
 </style>
@@ -169,6 +227,14 @@ body{overflow:hidden}
 
   <div id="sunGlow" class="sunGlow hidden"></div>
   <div id="sunCore" class="sunCore hidden"></div>
+
+
+  <div id="eveningLantern" class="evening-lantern hidden"></div>
+  <div id="eveningCandle" class="evening-candle hidden"></div>
+  <i class="petal p1 hidden"></i>
+  <i class="petal p2 hidden"></i>
+  <i class="petal p3 hidden"></i>
+  <div id="waterShimmer" class="water-shimmer hidden"></div>
 
   <div id="hafSun" class="haf-sun hidden"></div>
   <i class="haf-leaf hl1 hidden"></i>
@@ -237,6 +303,12 @@ const RESULTS={
     title:'Cemre Karışım Motoru – Hafifleme Zamanı',
     text:'Benim Cemre Karışımım: Hafifleme Zamanı — Dengeli ve ferahlatıcı karakteriyle gün içinde daha hafif hissetmene eşlik eden özel bir karışım.',
     fx:'hafifleme'
+  },
+  'aksam-sefasi':{
+    img:'images/aksam-sefasi.png',
+    title:'Cemre Karışım Motoru – Akşam Sefası',
+    text:'Benim Cemre Karışımım: Akşam Sefası — Günün yorgunluğunu geride bırakmaya eşlik eden, daha sakin ve huzurlu bir akşam için özel bir karışım.',
+    fx:'aksam'
   }
 };
 
@@ -255,6 +327,10 @@ const sparks=[...document.querySelectorAll('.spark')];
 const hafSun=document.getElementById('hafSun');
 const hafLeaves=[...document.querySelectorAll('.haf-leaf')];
 const hafBokehs=[...document.querySelectorAll('.haf-bokeh')];
+const eveningLantern=document.getElementById('eveningLantern');
+const eveningCandle=document.getElementById('eveningCandle');
+const petals=[...document.querySelectorAll('.petal')];
+const waterShimmer=document.getElementById('waterShimmer');
 
 snow.classList.add('hidden');
 sunGlow.classList.add('hidden');
@@ -264,6 +340,10 @@ sparks.forEach(x=>x.classList.add('hidden'));
 hafSun.classList.add('hidden');
 hafLeaves.forEach(x=>x.classList.add('hidden'));
 hafBokehs.forEach(x=>x.classList.add('hidden'));
+eveningLantern.classList.add('hidden');
+eveningCandle.classList.add('hidden');
+petals.forEach(x=>x.classList.add('hidden'));
+waterShimmer.classList.add('hidden');
 
 /* Per-screen animation placement */
 if(current.fx==='zaman'){
@@ -289,6 +369,14 @@ if(current.fx==='hafifleme'){
   hafSun.classList.remove('hidden');
   hafLeaves.forEach(x=>x.classList.remove('hidden'));
   hafBokehs.forEach(x=>x.classList.remove('hidden'));
+}
+if(current.fx==='aksam'){
+  /* Akşam Sefası fincan ağzına hizalı, ince ve yavaş buhar. */
+  steam.style.left='65%'; steam.style.top='49%'; steam.style.width='16%'; steam.style.height='11%';
+  eveningLantern.classList.remove('hidden');
+  eveningCandle.classList.remove('hidden');
+  petals.forEach(x=>x.classList.remove('hidden'));
+  waterShimmer.classList.remove('hidden');
 }
 
 const menu=document.getElementById('menu');
